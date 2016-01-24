@@ -1,11 +1,11 @@
 bin/
   Shell Scripts
 
-brew/
-  Installation setup for homebrew
-
 fonts/
   Open Source fonts
+
+hammerspoon/
+  Hammerspoon configuration
 
 osx/
   Customizations for OS X. 
