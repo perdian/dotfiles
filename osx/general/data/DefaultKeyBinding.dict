@@ -8,4 +8,3 @@
     "^$\UF729" = moveToBeginningOfDocumentAndModifySelection:; // ctrl-shift-home
     "^$\UF72B" = moveToEndOfDocumentAndModifySelection:; // ctrl-shift-end
 }
-

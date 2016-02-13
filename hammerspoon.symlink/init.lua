@@ -7,7 +7,7 @@ end):start()
 -- Include other files in directory
 function importFilesInDirectory(directory)
     for file in hs.fs.dir(directory) do
-        if ("." ~= string.sub(file, 0, 1)) then 
+        if ("." ~= string.sub(file, 0, 1)) then
             local filePath = directory .. "/" .. file;
             if ("directory" == hs.fs.attributes(filePath, "mode")) then
                 importFilesInDirectory(filePath);

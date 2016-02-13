@@ -1,0 +1,14 @@
+cask_args appdir: '/Applications'
+
+tap 'caskroom/cask'
+tap 'homebrew/bundle'
+
+brew 'coreutils'
+brew 'wget'
+brew 'zsh'
+brew 'zsh-completions'
+brew 'git'
+brew 'autojump'
+brew 'ant'
+brew 'maven'
+brew 'ffmpeg'
