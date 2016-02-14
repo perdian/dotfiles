@@ -6,8 +6,8 @@ when switching to a new computer and making sure all the machines that I use
 (at home, in the office, my personal server, etc.) are all configured
 similarly.
 
-As with many projects I'm standing on the shoulers of giant and have reclessly
-copied ideas and configurations from many sources, most prominently
+As with many projects I'm standing on the shoulders of great people and have
+reclessly copied ideas and configurations from many sources, most prominently
 [Zach Holman](https://github.com/holman/dotfiles) and [Ryan Bates](https://github.com/ryanb/dotfiles).
 
 ## Topics
@@ -44,7 +44,11 @@ There are a few special files in the hierarchy.
 
 There are only a few prerequesites that you need to have in place to use the dotfiles:
 
-- Python must be installed on the system you're running the `bootstrap.py`.
+### OS X
+
+The necessary dependencies will be installed automatically by the `bootstrap.py`
+script during the bootstrapping process by making sure Homebrew is installed and
+requesting all necessary resources through Homebrew.
 
 ### Linux
 
