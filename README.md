@@ -49,9 +49,10 @@ There are only a few prerequesites that you need to have in place to use the dot
 ### Linux
 
 On standard Linux distributions the `realpath` command is not available and
-needs to be installed:
+needs to be installed. Other necessary system tools might also be missing to to
+be on the safe side install the following system components:
 
-    sudo apt-get install realpath
+    sudo apt-get install realpath git zsh python
 
 ## Installation
 
