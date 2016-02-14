@@ -44,7 +44,14 @@ There are a few special files in the hierarchy.
 
 There are only a few prerequesites that you need to have in place to use the dotfiles:
 
-- Python must be installed on the system you're running the `bootstrap.py` or `refresh.py` scripts.
+- Python must be installed on the system you're running the `bootstrap.py`.
+
+### Linux
+
+On standard Linux distributions the `realpath` command is not available and
+needs to be installed:
+
+    sudo apt-get install realpath
 
 ## Installation
 
