@@ -34,4 +34,18 @@ then
     # http://lifehacker.com/prevent-photos-on-os-x-from-opening-up-automatically-1754586297
     defaults write com.apple.ImageCapture disableHotPlug -bool true
 
+    # More configurations inspired by Mathias Bynens
+    # https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+
+    # Disable the “Are you sure you want to open this application?” dialog
+    defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+    # Disable the warning before emptying the Trash
+    defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+    # Prevent Photos from opening automatically when devices are plugged in
+    defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+
+
+
 fi
