@@ -8,9 +8,10 @@ then
     mkdir -p ~/Library/KeyBindings
     cp $SOURCE_DIRECTORY/data/DefaultKeyBinding.dict ~/Library/KeyBindings/
 
-    # Set reasonable OS X defaults.
-    #
-    # I stole some of the original ideas from Zach Holman
+    # Show the complet path in the Finder title bar
+    defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+
+    # I stole some of the following original ideas from Zach Holman
     # https://github.com/holman/dotfiles/blob/master/osx/set-defaults.sh
 
     # Disable press-and-hold for keys in favor of key repeat.
@@ -45,7 +46,5 @@ then
 
     # Prevent Photos from opening automatically when devices are plugged in
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-
-
 
 fi
