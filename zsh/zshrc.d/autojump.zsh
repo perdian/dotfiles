@@ -2,7 +2,7 @@
 if which brew >/dev/null; then
     [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 else
-    if [ -e /usr/share/autojump/autojump.sh ] ; then
+    if [ -e /usr/share/autojump/autojump.zsh ] ; then
         . /usr/share/autojump/autojump.zsh
     fi
 fi
