@@ -66,9 +66,9 @@ There are a few special files inside the hierarchy.
 
 - **environments/auto/bin/**: Anything in `bin/` will get added to your `$PATH`
   and will be made available everywhere.
-- **environments/<environment>/topic/\*.zsh**: Any files ending in `.zsh` get
+- **environments/\<environment>/topic/\*.zsh**: Any files ending in `.zsh` get
   loaded into your environment.
-- **environments/<environment>/topic/\*.symlink**: Any files ending in
+- **environments/\<environment>/topic/\*.symlink**: Any files ending in
   `.symlink` will get symlinked into your `$HOME` directory - or a subdirectory
   (see above). This enables you to keep all of your files versioned in your
   dotfiles but still keep those autoloaded files in your home directory. The
