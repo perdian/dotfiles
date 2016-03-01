@@ -42,10 +42,18 @@ if [[ -z "$DOTFILES_HOME" ]] ; then
     export DOTFILES_HOME="$HOME/.dotfiles"
 fi
 if [ -d $DOTFILES_HOME ] ; then
-    export PATH="$PATH:$DOTFILES_HOME/bin"
-    for file in $DOTFILES_HOME/**/*.zsh; do
-        source $file
-    done
+    if [ -e "$HOME/.dotfiles-environments" ] ; then
+        for ENVIRONMENT_NAME in $(cat $HOME/.dotfiles-environments); do
+            for ZSH_FILE in $DOTFILES_HOME/environments/$ENVIRONMENT_NAME/**/*.zsh(N); do
+                source $ZSH_FILE
+            done
+        done
+    else
+        for ZSH_FILE in $DOTFILES_HOME/environments/default/**/*.zsh(N); do
+            source $ZSH_FILE
+        done
+    fi
+    export PATH="$PATH:$DOTFILES_HOME/environments/default/bin"
 else
     echo "WARNING: No dotfiles directory found at: '$DOTFILES_HOME'"
 fi
