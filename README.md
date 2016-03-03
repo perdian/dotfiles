@@ -102,7 +102,7 @@ configuration items;
 
     git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
-    ./bootstrap.py
+    ./environments/bootstrap.py
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
 Everything is configured and tweaked within `~/.dotfiles` (or wherever your
