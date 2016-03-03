@@ -1,4 +1,4 @@
-if [[ -n $SSH_CONNECTION ]] || [[ $PROMPT_ENFORCE_SERVER_NAME == 'true' ]]; then
+if [[ -n $SSH_CONNECTION ]] || [[ $(uname -s) != 'Darwin' ]]; then
     local user_info="%n@%m"
 else
     local user_info="%n"

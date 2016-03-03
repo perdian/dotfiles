@@ -28,10 +28,6 @@ else
     echo "WARNING: oh my zsh not found at: '$ZSH/oh-my-zsh.sh'"
 fi
 
-if [[ -a ~/.localsettings ]] ; then
-    source ~/.localsettings
-fi
-
 if [[ -z "$DOTFILES_HOME" ]] ; then
     ZSHRC_LOCATION=`realpath ~/.zshrc`
     if [[ -e $ZSHRC_LOCATION ]] ; then
