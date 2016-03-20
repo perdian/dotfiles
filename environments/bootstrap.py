@@ -64,7 +64,6 @@ for activeEnvironment in activeEnvironments:
                     # The source file exists and already represents a link to the target
                     # file so there is nothing that we need to do.
                     print "Target '" + str(targetFile) + " already symlinked to '" + str(sourceFileResolved) + "'"
-                    pass
 
                 elif not os.path.exists(targetFileResolved):
 
@@ -79,6 +78,7 @@ for activeEnvironment in activeEnvironments:
                     print "Symlinked '" + str(targetFile) + "' to '" + str(sourceFileResolved) + "'"
 
                 else:
+
                     # The target file already exists and is not identifical with the file
                     # that we would like to place there. So ask the user what to do
                     if globalErrorHandlingMode == None:
