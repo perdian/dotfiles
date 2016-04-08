@@ -29,7 +29,9 @@ else
 fi
 
 if [[ -z "$DOTFILES_HOME" ]] ; then
-    ZSHRC_LOCATION=`realpath ~/.zshrc`
+    if which realpath >/dev/null; then
+        ZSHRC_LOCATION=`realpath ~/.zshrc`
+    fi
     if [[ -e $ZSHRC_LOCATION ]] ; then
         ZSH_HOME=`dirname $ZSHRC_LOCATION`
         CHECK_DOTFILES_HOME=`dirname $ZSH_HOME`

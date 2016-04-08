@@ -1,5 +1,5 @@
 #!/bin/sh
-if [[ ! -d $HOME/.oh-my-zsh ]] ; then
+if [ ! -d $HOME/.oh-my-zsh ] ; then
 
     echo "Starting installation of Oh My ZSH"
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
