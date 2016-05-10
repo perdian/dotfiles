@@ -92,7 +92,7 @@ On standard Linux distributions the `realpath` command is not available and
 needs to be installed. Other necessary system tools might also be missing to to
 be on the safe side install the following system components:
 
-    sudo apt-get install realpath git zsh python
+    sudo apt-get install dialog realpath git zsh python
 
 ## Installation
 
