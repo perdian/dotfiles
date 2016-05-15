@@ -6,7 +6,7 @@ if [ ! -d $HOME/.oh-my-zsh ] ; then
     echo "Completed installation of Oh My ZSH"
 
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
-    if [[ "$TEST_CURRENT_SHELL" != "zsh" ]]; then
+    if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
         if hash chsh >/dev/null 2>&1; then
             chsh -s $(grep /zsh$ /etc/shells | tail -1)
         else
