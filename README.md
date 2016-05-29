@@ -17,13 +17,13 @@ certain configurations only apply to my personal machine (that is running OS X)
 and not my server (that is running Ubuntu).
 
 The concept of *environments* provides an abstraction for this where during the
-bootstrap operation a series of discovery processes is started and only those 
-environments discovered will be made available. Environments can be combined 
-which means that a single installation of the dotfiles can include multiple 
+bootstrap operation a series of discovery processes is started and only those
+environments discovered will be made available. Environments can be combined
+which means that a single installation of the dotfiles can include multiple
 environments.
 
-The `default` environment is special in that it will be included automatically 
-by each and every bootstrap operation and does not have to be defined 
+The `default` environment is special in that it will be included automatically
+by each and every bootstrap operation and does not have to be defined
 explicitely.
 
 Apart from that there are two major other types of environments: `automatic`
@@ -43,15 +43,15 @@ grouped around *topic areas*, where each topic area is represented by its own
 subdirectory inside the environment directory.
 
 Anything with an extension of `.zsh` will get automatically included into your
-zsh shell. Anything with an extension of `.symlink` will get symlinked into a 
-target directory inside the home directory (or the home directory itself). The 
-part between an 'at' character and the `.symlink` extension will determine the 
-exact target directory inside the home directory. If no explicit target 
-directory is given (the extension is just `.symlink`) then the link will be 
-created inside the users home directory (`$HOME`). Otherwise the part between 
-the 'at' character and the `.symlink` extension will be translated into the 
-actual directory inside the home directory, where all at characters will be 
-replaced by a forward slash. So for example the file `private.xml@Application Support@karabiner.symlink` 
+zsh shell. Anything with an extension of `.symlink` will get symlinked into a
+target directory inside the home directory (or the home directory itself). The
+part between an 'at' character and the `.symlink` extension will determine the
+exact target directory inside the home directory. If no explicit target
+directory is given (the extension is just `.symlink`) then the link will be
+created inside the users home directory (`$HOME`). Otherwise the part between
+the 'at' character and the `.symlink` extension will be translated into the
+actual directory inside the home directory, where all at characters will be
+replaced by a forward slash. So for example the file `private.xml@Application Support@karabiner.symlink`
 will be translated to the actual target directory `~/Library/Application Support/karabiner`.
 
 ## What's inside
@@ -94,7 +94,7 @@ On standard Linux distributions the `realpath` command is not available and
 needs to be installed. Other necessary system tools might also be missing to to
 be on the safe side install the following system components:
 
-    sudo apt-get install dialog realpath git zsh python
+    sudo apt-get install dialog realpath git zsh python nano
 
 ## Installation
 
@@ -103,8 +103,7 @@ in your home directory) and call the bootstrap script to initialize the
 configuration items;
 
     git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles
-    ./environments/bootstrap.py
+    ~/.dotfiles/environments/bootstrap.py
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
 Everything is configured and tweaked within `~/.dotfiles` (or wherever your
