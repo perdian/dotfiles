@@ -16,5 +16,5 @@ for file in files:
             "ffmpeg",
             "-i", str(file),
             "-ab", "128k",
-            fileWithoutExtension + ".mp3"
+            fileWithMp3Extension
         ])
