@@ -47,4 +47,16 @@ then
     # Prevent Photos from opening automatically when devices are plugged in
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
+    # Expand save panel by default
+    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+    # Disable automatic spell checking
+    defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+
+    # Others
+
+    # Disable the sound effects on boot
+    sudo nvram SystemAudioVolume=" "
+
 fi

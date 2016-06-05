@@ -12,3 +12,5 @@ brew 'autojump'
 brew 'ant'
 brew 'maven'
 brew 'ffmpeg'
+brew 'tree'
+
