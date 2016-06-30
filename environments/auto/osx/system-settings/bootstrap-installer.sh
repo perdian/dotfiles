@@ -59,4 +59,7 @@ then
     # Disable the sound effects on boot
     sudo nvram SystemAudioVolume=" "
 
+    # Disable local Time Machine snapshots
+    sudo tmutil disablelocal
+
 fi
