@@ -11,13 +11,13 @@ activeEnvironments = [ "default" ];
 for arg in sys.argv[1:]:
     activeEnvironments.append("manual/" + arg);
 if (sys.platform == "darwin"):
-    activeEnvironments.append("auto/osx");
+    activeEnvironments.append("auto/macos");
 elif (sys.platform == "linux" or sys.platform == "linux2"):
     activeEnvironments.append("auto/linux");
 print "Resolved active environments: " + str(activeEnvironments);
 
 # Store the list of environments into the .dotfiles-environments file inside the
-# user home directory
+# users home directory
 environmentConfigurationFileContent = "";
 for activeEnvironment in activeEnvironments:
     environmentConfigurationFileContent += activeEnvironment + "\n";
