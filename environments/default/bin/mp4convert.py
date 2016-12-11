@@ -9,11 +9,11 @@ for file in files:
     if os.path.isfile(file):
 
         fileWithoutExtension = os.path.splitext(file)[0]
-        fileWithMp3Extension = fileWithoutExtension + ".mp4";
+        fileWithMp4Extension = fileWithoutExtension + ".mp4";
         print "Converting " + file + "..."
 
         subprocess.call([
             "ffmpeg",
             "-i", str(file),
-            fileWithMp3Extension
+            fileWithMp4Extension
         ])
