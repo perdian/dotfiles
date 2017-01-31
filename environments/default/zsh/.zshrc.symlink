@@ -49,13 +49,15 @@ if [[ -d $DOTFILES_HOME ]] ; then
             for ZSH_FILE in $DOTFILES_HOME/environments/$ENVIRONMENT_NAME/**/*.zsh(N); do
                 source $ZSH_FILE
             done
+            for BIN_DIRECTORY in $DOTFILES_HOME/environments/$ENVIRONMENT_NAME/**/bin(/N); do
+                export PATH="$PATH:$BIN_DIRECTORY"
+            done
         done
     else
         for ZSH_FILE in $DOTFILES_HOME/environments/default/**/*.zsh(N); do
             source $ZSH_FILE
         done
     fi
-    export PATH="$PATH:$DOTFILES_HOME/environments/default/bin"
 else
     echo "WARNING: No dotfiles directory found at: '$DOTFILES_HOME'"
 fi

@@ -77,7 +77,7 @@ don't use, and build on what you do use.
 
 There are a few special files inside the hierarchy.
 
-- **environments/auto/bin/**: Anything in `bin/` will get added to your `$PATH`
+- **environments/\<environment>/topic/bin/**: Anything in `bin/` will get added to your `$PATH`
   and will be made available everywhere.
 - **environments/\<environment>/topic/\*.zsh**: Any files ending in `.zsh` get
   loaded into your environment.
