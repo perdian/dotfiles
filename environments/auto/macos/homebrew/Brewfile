@@ -16,3 +16,5 @@ brew 'tree'
 brew 'rename'
 brew 'pstree'
 brew 'tmux'
+brew 'guetzli'
+
