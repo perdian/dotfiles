@@ -1,0 +1,1 @@
+rsync -avLOh --ignore-existing --delete --force . /Volumes/WALKMAN
