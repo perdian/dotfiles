@@ -18,4 +18,4 @@ brew 'rename'
 brew 'pstree'
 brew 'tmux'
 brew 'guetzli'
-
+brew 'wifi-password'
