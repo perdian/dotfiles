@@ -73,6 +73,10 @@ Source: http://stackoverflow.com/questions/792563/how-do-i-clone-an-openldap-dat
 
     ldapadd -Wx -D "cn=admin,dc=perdian,dc=de" -H ldap://127.0.0.1 -f ldap-dump.ldif
 
+# Manage LDAP content
+
+Source: http://www.techrepublic.com/article/how-to-populate-an-ldap-server-with-users-and-groups-via-phpldapadmin/
+
 
 # Authenticate SSH via LDAP
 
