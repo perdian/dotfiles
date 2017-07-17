@@ -22,4 +22,5 @@ brew 'tmux'
 brew 'guetzli'
 brew 'wifi-password'
 brew 'pandoc'
+brew 'pwgen'
 
