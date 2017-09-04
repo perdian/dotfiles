@@ -23,4 +23,4 @@ brew 'guetzli'
 brew 'wifi-password'
 brew 'pandoc'
 brew 'pwgen'
-
+brew 'trash'
