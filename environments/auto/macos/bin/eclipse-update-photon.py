@@ -5,7 +5,7 @@ import sys
 
 p2repositoryLocations = [
     "http://download.eclipse.org/eclipse/updates/4.8",
-    "http://download.eclipse.org/releases/oxygen",
+    "http://download.eclipse.org/releases/photon",
     "http://download.eclipse.org/egit/updates",
     "http://jeeeyul.github.io/update/",
     "http://andrei.gmxhome.de/eclipse/",
