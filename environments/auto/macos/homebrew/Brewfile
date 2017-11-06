@@ -5,6 +5,7 @@ tap 'homebrew/bundle'
 
 brew 'coreutils'
 brew 'wget'
+brew 'telnet'
 brew 'zsh'
 brew 'zsh-completions'
 brew 'autojump'
@@ -25,4 +26,3 @@ brew 'pandoc'
 brew 'pwgen'
 brew 'trash'
 brew 'mycli'
-
