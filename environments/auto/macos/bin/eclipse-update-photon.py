@@ -12,7 +12,8 @@ p2repositoryLocations = [
     "http://www.nodeclipse.org/updates/markdown/",
     "http://plantuml.sourceforge.net/updatesitejuno/",
     "http://winterwell.com/software/updatesite/",
-    "https://raw.githubusercontent.com/satyagraha/gfm_viewer/master/p2-composite/"
+    "https://raw.githubusercontent.com/satyagraha/gfm_viewer/master/p2-composite/",
+    "http://dist.springsource.com/release/TOOLS/update/e4.7/"
 ]
 
 p2features = [
