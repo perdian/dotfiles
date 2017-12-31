@@ -128,3 +128,17 @@ the topic is correctly initialized and has all system dependencies fulfilled.
 The `bootstrap.py` as well as all the bootstrap installers should be considered idempotent
 which means they can be executed multiple times and will only add additional configurations
 to the system if they have not been applied yet.
+
+## Coexistence with other local settings
+
+There may be some settings that you want to have on a particular machine only and not
+checked into into the dotfiles project itself (at least I do). But as the `.zshrc` symlink
+is created by the dotfiles installer we need another way to make additional local
+configuration available. To support this setup, a special folder `.zshrc.local` can be
+created inside the users home directory. As with the topic folders, this folder will be
+included in the shell setup processing:
+
+- **~/.zshrc.local/**/bin/**: Anything in `bin/` will get added to your `$PATH` and will
+  be made available everywhere.
+- **~/.zshrc.local/**/*.zsh: Any files ending with `.zsh` will get loaded into your
+  environment.
