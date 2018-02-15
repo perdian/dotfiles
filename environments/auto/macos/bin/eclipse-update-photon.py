@@ -10,7 +10,7 @@ p2repositoryLocations = [
     "http://jeeeyul.github.io/update/",
     "http://andrei.gmxhome.de/eclipse/",
     "http://www.nodeclipse.org/updates/markdown/",
-    "http://plantuml.sourceforge.net/updatesitejuno/",
+    "http://files.idi.ntnu.no/publish/plantuml/repository/",
     "http://winterwell.com/software/updatesite/",
     "https://raw.githubusercontent.com/satyagraha/gfm_viewer/master/p2-composite/",
     "http://dist.springsource.com/release/TOOLS/update/e4.7/"
