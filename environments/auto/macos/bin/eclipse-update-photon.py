@@ -25,6 +25,7 @@ p2features = [
     "org.eclipse.wst.common.fproj" + ".feature.group",
     "org.eclipse.jst.common.fproj.enablement.jdt" + ".feature.group",
     "org.eclipse.jst.enterprise_ui.feature" + ".feature.group",
+    "org.eclipse.jst.weg_ui.feature" + ".feature.group",
     "org.eclipse.wst.jsdt.feature" + ".feature.group",
     "org.eclipse.wst.json_ui.feature" + ".feature.group",
     "org.eclipse.wst.web_ui.feature" + ".feature.group",
