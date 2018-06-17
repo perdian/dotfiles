@@ -101,11 +101,9 @@ additional resources through Homebrew.
 
 ### Linux
 
-On standard Linux distributions the `realpath` command needed by the bootstrap script is
-not available and needs to be installed. Other necessary system tools might also be
-missing, so to be on the safe side make sure to install the following system components:
+Some necessary system tools might be missing, so to be on the safe side make sure to install the following system components:
 
-    sudo apt-get install dialog realpath git zsh python nano
+    sudo apt-get install dialog git zsh python nano
 
 ## Installation
 
