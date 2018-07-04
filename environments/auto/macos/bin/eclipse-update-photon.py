@@ -13,7 +13,7 @@ p2repositoryLocations = [
     "http://files.idi.ntnu.no/publish/plantuml/repository/",
     "http://winterwell.com/software/updatesite/",
     "https://raw.githubusercontent.com/satyagraha/gfm_viewer/master/p2-composite/",
-    "http://dist.springsource.com/release/TOOLS/update/e4.7/"
+    "http://dist.springsource.com/release/TOOLS/update/e4.8/"
 ]
 
 p2features = [
@@ -25,7 +25,7 @@ p2features = [
     "org.eclipse.wst.common.fproj" + ".feature.group",
     "org.eclipse.jst.common.fproj.enablement.jdt" + ".feature.group",
     "org.eclipse.jst.enterprise_ui.feature" + ".feature.group",
-    "org.eclipse.jst.weg_ui.feature" + ".feature.group",
+    "org.eclipse.jst.web_ui.feature" + ".feature.group",
     "org.eclipse.wst.jsdt.feature" + ".feature.group",
     "org.eclipse.wst.json_ui.feature" + ".feature.group",
     "org.eclipse.wst.web_ui.feature" + ".feature.group",
@@ -38,8 +38,16 @@ p2features = [
     "org.eclipse.m2e.wtp.feature" + ".feature.group",
     "org.eclipse.m2e.wtp.jaxrs.feature" + ".feature.group",
     "org.eclipse.m2e.wtp.jpa.feature" + ".feature.group",
+    "org.eclipse.tm.terminal.feature" + ".feature.group",
     "org.sonatype.m2e.mavenarchiver.feature" + ".feature.group",
     "AnyEditTools" + ".feature.group",
+    "org.springframework.ide.eclipse.aop.feature" + ".feature.group",
+    "org.springframework.ide.eclipse.autowire.feature" + ".feature.group",
+    "org.springframework.ide.eclipse.boot.dash.feature" + ".feature.group",
+    "org.springframework.ide.eclipse.boot.feature" + ".feature.group",
+    "org.springframework.ide.eclipse.feature" + ".feature.group",
+    "org.springframework.ide.eclipse.maven.feature" + ".feature.group",
+    "org.springframework.ide.eclipse.webflow.feature" + ".feature.group",
 
     # Direct plugins
     "net.jeeeyul.eclipse.themes.ui",
