@@ -1,7 +1,7 @@
 #!/bin/sh
 if which apt-get >/dev/null; then
 
-    sudo apt-get --yes install dialog git nano zsh coreutils wget autojump software-properties-common python-software-properties realpath
+    sudo apt-get --yes install dialog git vim nano zsh coreutils wget autojump software-properties-common python-software-properties realpath
 
     ALL_APT_GET_REPOSITORIES=$(apt-cache policy)
     if [[ ! "${ALL_APT_GET_REPOSITORIES}" =~ webupd8team/java ]]; then

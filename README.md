@@ -103,7 +103,7 @@ additional resources through Homebrew.
 
 Some necessary system tools might be missing, so to be on the safe side make sure to install the following system components:
 
-    sudo apt-get install dialog git zsh python nano
+    sudo apt-get install dialog git zsh python vim
 
 ## Installation
 
