@@ -10,5 +10,4 @@ alias mc="mvn clean"
 alias mcp="mvn clean package"
 alias mcpst="mvn clean package -Dmaven.test.skip=true"
 
-alias git="git -P"
 alias nano="echo 'You want to use vim! So start using it! :-)'"
