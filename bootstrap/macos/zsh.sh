@@ -1,10 +1,11 @@
 #!/bin/sh
 if [ ! -d $HOME/.oh-my-zsh ] ; then
-
-    echo "Starting installation of Oh My ZSH"
+    echo "Installing Oh My ZSH"
     git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
-    echo "Completed installation of Oh My ZSH"
-
+fi
+if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel9k ] ; then
+    echo "Installing powerlevel9k theme for Oh My ZSH"
+    git clone --depth=1 https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
 fi
 
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')

@@ -89,29 +89,22 @@ Some necessary system tools might be missing, so to be on the safe side make sur
 
 If you decide to use additional environments (see above) the names of these environments can be added as arguments to the install script:
 
-        $ ~/.dotfiles//environments/install.py environmentA environmentB ...
+        $ ~/.dotfiles/environments/install.py environmentA environmentB ...
 
-## Initial system setup
+## Initial system bootstrap
 
-To setup a completely new machine with my default values (or to update an already existing machine) I can simply call install scripts of the respective platforms:
-
-### macOS
+To setup a completely new machine with my default values (or to update an already existing machine) I can simply call the install script:
 
         $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-        $ ~/.dotfiles/install/macos.py
+        $ ~/.dotfiles/bootstrap/install.py
 
 This call will install both the default applications and other settings defined in the `install` directory (per platform) as well as perform the installation of the dotfiles into the current users directory (see above).
-
-### Linux
-
-        $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-        $ ~/.dotfiles/install/linux.py
 
 ### When to use which installation?
 
 The `environments/install.py` scripts installs the dotfiles environment only, without performing any additional changes to the machine (like installing new applications, etc.).
 This should be used when setting up a new user (especially on Linux environments).
 
-The `install/macos.py` and `install/linux.py` scripts do a lot more than that and configure the overall machine (which is why the require root priviledges as well).
+The `bootstrap/install.py` script does a lot more than that and configure the overall machine (which is why the require root priviledges as well).
 This should be used only once as the overall machine should be setup by then.
 New users should only require the dotfiles environment and not the complete installation.
