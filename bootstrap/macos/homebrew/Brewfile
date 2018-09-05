@@ -1,9 +1,6 @@
 cask_args appdir: '/Applications'
 
-tap 'caskroom/cask'
 tap 'homebrew/bundle'
-tap 'homebrew/cask-fonts'
-
 brew 'coreutils'
 brew 'wget'
 brew 'telnet'
@@ -31,6 +28,11 @@ brew 'bat'
 brew 'htop'
 brew 'fd'
 brew 'ncdu'
+
+tap 'caskroom/cask'
+
+# https://github.com/Homebrew/homebrew-cask-fonts
+tap 'homebrew/cask-fonts'
 cask 'font-fira-mono-for-powerline'
 cask 'font-liberation-mono-for-powerline'
 cask 'font-menlo-for-powerline'
