@@ -105,3 +105,17 @@ for activeEnvironment in activeEnvironments:
                         shutil.move(targetFile, backupFile)
                         os.symlink(sourceFile, targetFile)
                         print "Symlinked '" + str(targetFile) + "' to '" + str(sourceFileResolved) + "'"
+
+# Make zsh the default shell
+if os.path.basename(os.environ['SHELL']) != "zsh":
+    if not subprocess.call("type zsh", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
+        print "ZSH cannot be found on this system. I will not change the default shell!"
+    elif not subprocess.call("type chsh", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
+        print "I can't change your shell automatically because this system does not have chsh."
+        print "Please manually change your default shell to zsh!"
+    else:
+        zshLocation = subprocess.check_output(['which', 'zsh']).strip()
+        if subprocess.call(['chsh', '-s', zshLocation]) == 0:
+            print "Default shell changed to zsh (" + str(zshLocation) + "). Restart shell to work with zsh"
+        else:
+            print "Cannot change default shell to zsh (" + str(zshLocation) + ")"
