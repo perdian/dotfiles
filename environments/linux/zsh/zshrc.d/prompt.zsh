@@ -1,9 +1,4 @@
-if [[ -n $SSH_CONNECTION ]] || [[ $(uname -s) != 'Darwin' ]]; then
-    local user_info="%n@%m"
-else
-    local user_info="%n"
-fi
-
+local user_info="%n@%m"
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)%{$fg_bold[green]%}"
 local directory_status="%{$fg[cyan]%}%d"
 local end_status="%{$fg_bold[blue]%}%#"
