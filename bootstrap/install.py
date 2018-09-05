@@ -30,11 +30,12 @@ elif sys.platform == "linux" or sys.platform == "linux2":
     platformDirectoryName = "linux"
 
 print "Scanning " + platformDirectoryName + " script directory"
-for root, dirNames, fileNames in os.walk(os.path.join(installRootDirectory, platformDirectoryName)):
-    for scriptExtension in ('*.py', '*.sh'):
-        for sourceFileName in fnmatch.filter(fileNames + dirNames, scriptExtension):
-            scriptFile = os.path.join(root, sourceFileName)
-            subprocess.call([str(scriptFile)] + sys.argv[1:])
+for directoryName in ("default", platformDirectoryName):
+    for root, dirNames, fileNames in os.walk(os.path.join(installRootDirectory, directoryName)):
+        for scriptExtension in ('*.py', '*.sh'):
+            for sourceFileName in fnmatch.filter(fileNames + dirNames, scriptExtension):
+                scriptFile = os.path.join(root, sourceFileName)
+                subprocess.call([str(scriptFile)] + sys.argv[1:])
 
 # Finally make sure to setup the environment
 dotfilesRootDirectory = os.path.abspath(os.path.join(installRootDirectory, os.pardir))
