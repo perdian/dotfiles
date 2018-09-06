@@ -23,6 +23,9 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 # Always open everything in Finder's list view. This is important.
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
 # Configure Safari
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
