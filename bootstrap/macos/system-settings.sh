@@ -64,3 +64,8 @@ sudo nvram SystemAudioVolume=" "
 
 # Enabling full keyboard access for all controls (e.g. enable Tab in modal dialogs
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Fix Blurry Fonts in MacOS Mojave for Non-Retina Displays
+# http://osxdaily.com/2018/09/26/fix-blurry-thin-fonts-text-macos-mojave/
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
