@@ -64,6 +64,7 @@ if [[ -d $DOTFILES_HOME ]] ; then
         for ZSH_FILE in $DOTFILES_HOME/environments/default/**/*.zsh(N); do
             source $ZSH_FILE
         done
+        export PATH="$PATH:$DOTFILES_HOME/environments/default/bin"
     fi
 else
     echo "WARNING: No dotfiles directory found at: '$DOTFILES_HOME'"
