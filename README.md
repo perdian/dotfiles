@@ -37,7 +37,9 @@ Within the dotfiles project there are currently no manually selectable environme
 
 The individual configuration files and resources inside the environments are grouped around *topic areas*, where each topic area is represented by its own subdirectory below the environment directory.
 
-Anything with an extension of `.symlink`
+Anything with an extension of `.zsh` will get automatically included into your zsh shell.
+
+Anything with an extension of `.symlink` will get symlinked into a target directory inside the users home directory (or the home directory itself). The part between an (optional) 'at' character and the `.symlink` extension will determine the exact target directory below the users home directory. If no explicit target directory is given (the extension is just `.symlink`) then the link will be created inside the users home directory (`$HOME`). Otherwise the part between the 'at' character and the `.symlink` extension will be translated into the actual directory inside the home directory, where all 'at' characters will be replaced by a forward slash. So for example the file `private.xml@Library@Application Support@karabiner.symlink` will be translated to the actual target directory `~/Library/Application Support/karabiner`.
 
 ### Components
 
