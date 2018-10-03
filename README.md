@@ -8,7 +8,7 @@ As with many projects I'm standing on the shoulders of great people and have rec
 
 ## What's inside
 
-My personal collection of configurations and installation scripts - mostly designed to work on macOS  but also on Linux flavors (like Ubuntu which powers my personal webserver).
+My personal collection of configurations mostly designed to work on macOS but also on Linux flavors (like Ubuntu which powers my personal webserver).
 I'm far from suggesting that it works for everybody but it definitely works for me.
 If you find it interesting [fork it](https://github.com/perdian/dotfiles/fork), remove what you don't use, and build on what you do use.
 The project itself is not necessarily designed to be used as is by anyone else but should merely servce as an idea of how *your* personal dotfiles could be structured.
@@ -21,17 +21,15 @@ I do not want *all* dotfiles to be available on *all* environments.
 For example certain configurations only apply to my personal machine (that is running macOS) and not my server (that is running Ubuntu).
 
 The concept of *environments* provides an abstraction for this where during the bootstrap process (when opening a new terminal) a series of discovery processes is started and only those environments discovered will be made available.
-Environments can be combined which means that a single installation of the dotfiles can include items from and for multiple environments.
 
 All environment specific scripts and settings are stored inside the `environments` subfolder.
 Each subfolder within the `environments` subfolder represents a separate set of settings specific to that environment.
 The environment itself is included during the bootstrap process depending on its *activation criteria*:
 
-The `default` environment will be included automatically by each and every bootstrap process and does not have to be defined explicitly.
+The `default` environment will be included automatically.
+The `macos` and `linux` environments will also be included automatically if the startup process discovers that it's running on macOS or Linux.
 
-The `macos` and `linux` environments will also be included automatically if the bootstrap process discovers that it's running on macOS or Linux.
-
-All other environments must be selected manually by adding a line for each environment into the file `.dotfiles-environment` located in the personal home directory.
+All other environments must be selected manually by adding a line for each environment into a file named `.dotfiles-environment` located in the personal home directory.
 
 Within the dotfiles project there are currently no manually selectable environment available as so far everything works fine for me with the automatic environments.
 
@@ -73,10 +71,6 @@ The install script should only be executed once but will check whether the chang
         $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
         $ ~/.dotfiles/environments/install.py
 
-If you decide to use additional environments (see above) the names of these environments can be added as arguments to the install script:
-
-        $ ~/.dotfiles/environments/install.py environmentA environmentB ...
-
 The necessary dependencies will be installed automatically by the install script, making sure Homebrew is installed and downloading all additional resources through Homebrew.
 
 #### Linux
@@ -86,25 +80,3 @@ Some necessary system tools might be missing, so to be on the safe side make sur
         $ sudo apt-get install dialog git zsh python vim
         $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
         $ ~/.dotfiles/environments/install.py
-
-If you decide to use additional environments (see above) the names of these environments can be added as arguments to the install script:
-
-        $ ~/.dotfiles/environments/install.py environmentA environmentB ...
-
-## Initial system bootstrap
-
-To setup a completely new machine with my default values (or to update an already existing machine) I can simply call the install script:
-
-        $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-        $ ~/.dotfiles/bootstrap/install.py
-
-This call will install both the default applications and other settings defined in the `install` directory (per platform) as well as perform the installation of the dotfiles into the current users directory (see above).
-
-### When to use which installation?
-
-The `environments/install.py` scripts installs the dotfiles environment only, without performing any additional changes to the machine (like installing new applications, etc.).
-This should be used when setting up a new user (especially on Linux environments).
-
-The `bootstrap/install.py` script does a lot more than that and configure the overall machine (which is why the require root priviledges as well).
-This should be used only once as the overall machine should be setup by then.
-New users should only require the dotfiles environment and not the complete installation.

@@ -7,19 +7,22 @@ import sys
 import fnmatch
 
 activeEnvironments = [ "default" ];
+manualEnvironments = [];
 if (sys.platform == "darwin"):
     activeEnvironments.append("macos");
 elif (sys.platform == "linux" or sys.platform == "linux2"):
     activeEnvironments.append("linux");
 for arg in sys.argv[1:]:
     activeEnvironments.append(arg);
+    manualEnvironments.append(arg);
 print "Resolved active environments: " + str(activeEnvironments);
+print "Resolved manual environments: " + str(manualEnvironments);
 
 # Store the list of environments into the .dotfiles-environments file inside the
 # users home directory
 environmentConfigurationFileContent = "";
-for activeEnvironment in activeEnvironments:
-    environmentConfigurationFileContent += activeEnvironment + "\n";
+for manualEnvironment in manualEnvironments:
+    environmentConfigurationFileContent += manualEnvironment + "\n";
 environmentConfigurationFileName = os.path.join(os.path.expanduser("~"), ".dotfiles-environments");
 environmentConfigurationFile = open(environmentConfigurationFileName, "w");
 environmentConfigurationFile.write(environmentConfigurationFileContent);
