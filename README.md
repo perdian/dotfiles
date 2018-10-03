@@ -69,7 +69,7 @@ The install script should only be executed once but will check whether the chang
 #### macOS
 
         $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-        $ ~/.dotfiles/environments/install.py
+        $ ~/.dotfiles/install.py
 
 The necessary dependencies will be installed automatically by the install script, making sure Homebrew is installed and downloading all additional resources through Homebrew.
 
@@ -79,4 +79,4 @@ Some necessary system tools might be missing, so to be on the safe side make sur
 
         $ sudo apt-get install dialog git zsh python vim
         $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-        $ ~/.dotfiles/environments/install.py
+        $ ~/.dotfiles/install.py

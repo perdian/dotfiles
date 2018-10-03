@@ -28,7 +28,7 @@ environmentConfigurationFile = open(environmentConfigurationFileName, "w");
 environmentConfigurationFile.write(environmentConfigurationFileContent);
 environmentConfigurationFile.close();
 
-environmentsRootDirectory = os.path.dirname(os.path.abspath(__file__))
+environmentsRootDirectory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "environments");
 print "Installing dotfiles installation from root directory: " + environmentsRootDirectory
 
 # Resolve all the .symlink files (or directories for that matter) and make sure that they are
