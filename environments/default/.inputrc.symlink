@@ -17,7 +17,7 @@ set completion-ignore-case On
 
 # this lets you hit tab to auto-complete a file or
 # directory name ignoring case
-set completion-ignore-case On
+set completion-ignore-case on
 
 # Treat hyphens and underscores as equivalent
 set completion-map-case on
@@ -35,3 +35,11 @@ set mark-symlinked-directories on
 
 # Use Alt/Meta + Delete to delete the preceding word
 "\e[3;3~": kill-word
+
+# Show all autocomplete results at once
+set page-completions off
+
+# Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+set input-meta on
+set output-meta on
+set convert-meta off
