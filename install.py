@@ -18,6 +18,18 @@ for arg in sys.argv[1:]:
 print "Resolved active environments: " + str(activeEnvironments);
 print "Resolved manual environments: " + str(manualEnvironments);
 
+# If we're on macOS we want to make sure that both Homebrew and zsh are installed as these are the
+# two major preconditions that the dotfiles are having
+if (sys.platform == "darwin"):
+    if not subprocess.call("type brew", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
+        print "Installing Homebrew for you"
+        homebrewInstallScript = urllib.urlopen("https://raw.githubusercontent.com/Homebrew/install/master/install")
+        homebrewInstallContent = homebrewInstallScript.read();
+        subprocess.call(["ruby", "-e", homebrewInstallContent])
+    if not subprocess.call("type zsh", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
+        print "Installing zsh for you"
+        subprocess.call(["brew", "install", "zsh"])
+
 # Store the list of environments into the .dotfiles-environments file inside the
 # users home directory
 environmentConfigurationFileContent = "";
