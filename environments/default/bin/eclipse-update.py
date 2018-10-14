@@ -11,7 +11,7 @@ import sys
 p2repositoryLocations = [
     "http://download.eclipse.org/releases/2018-09",
     "http://download.eclipse.org/eclipse/updates/4.9",
-    "http://jeeeyul.github.io/update/",
+    "http://eclipse.jeeeyul.net/update/",
     "http://andrei.gmxhome.de/eclipse/",
     "http://plantuml.sourceforge.net/updatesitejuno/",
     "http://download.springsource.com/release/TOOLS/update/e4.9/"
