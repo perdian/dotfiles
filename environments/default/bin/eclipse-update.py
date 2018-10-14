@@ -13,7 +13,7 @@ p2repositoryLocations = [
     "http://download.eclipse.org/eclipse/updates/4.9",
     "http://eclipse.jeeeyul.net/update/",
     "http://andrei.gmxhome.de/eclipse/",
-    "http://plantuml.sourceforge.net/updatesitejuno/",
+    "http://hallvard.github.io/plantuml/",
     "http://download.springsource.com/release/TOOLS/update/e4.9/"
 ]
 
@@ -31,9 +31,8 @@ p2features = [
     "org.springframework.ide.eclipse.webflow.feature" + ".feature.group",
     "net.jeeeyul.eclipse.themes.feature" + ".feature.group",
     "AnyEditTools" + ".feature.group",
-
-    # Direct plugins
-    "net.sourceforge.plantuml.eclipse",
+    "net.sourceforge.plantuml.feature" + ".feature.group",
+    "net.sourceforge.plantuml.lib.feature" + ".feature.group",
 
 ]
 
