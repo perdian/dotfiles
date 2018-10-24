@@ -52,7 +52,7 @@ But as the `.zshrc` symlink is created by the dotfiles installer I need another 
 To support this setup, a special folder `.zshrc.local` can be created inside the users home directory.
 This is handled as an additional environment (including topic folders) which will be included in the shell setup processing:
 
-- **~/.zshrc.local/bin/\***: Anything in `bin/` will get added to your `$PATH` and will be made available everywhere.
+- **~/.zshrc.local/\*\*/bin/\***: Anything in `bin/` will get added to your `$PATH` and will be made available everywhere.
 - **~/.zshrc.local/\*\*/\*.zsh**: Any files ending with `.zsh` will get loaded into the shell environment.
 
 ### Installation
