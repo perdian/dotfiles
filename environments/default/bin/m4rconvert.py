@@ -9,7 +9,6 @@ for file in files:
     if os.path.isfile(file):
 
         fileWithoutExtension = os.path.splitext(file)[0]
-        fileWithAacExtension = fileWithoutExtension + ".aac";
         fileWithM4rExtension = fileWithoutExtension + ".m4r";
         print "Converting " + file + "..."
 
@@ -17,12 +16,10 @@ for file in files:
             "ffmpeg",
             "-i", str(file),
             "-ac", "1",
-            "-ab", "128000",
+            "-acodec", "aac",
             "-f", "mp4",
+            "-b:a", "96k",
+            "-t", "40",
             "-y",
-            fileWithAacExtension
+            fileWithM4rExtension
         ])
-        subprocess.call([
-            "mv", fileWithAacExtension, fileWithM4rExtension
-        ])
-
