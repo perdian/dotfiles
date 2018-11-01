@@ -1,6 +1,6 @@
 #!/usr/local/bin/zsh
 echo "Updating Homebrew"
-brew update && brew upgrade
+brew update && brew upgrade && brew cleanup
 
 echo "Updating Oh My Zsh"
 upgrade_oh_my_zsh
