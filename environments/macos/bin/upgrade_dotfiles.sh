@@ -3,6 +3,7 @@ echo "Updating Homebrew"
 brew update && brew upgrade && brew cleanup
 
 echo "Updating Oh My Zsh"
+source ~/.oh-my-zsh/oh-my-zsh.sh
 upgrade_oh_my_zsh
 
 DOTFILES_HOME_RAW="$(dirname $0)/../../../"
