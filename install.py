@@ -130,6 +130,8 @@ if os.path.basename(os.environ['SHELL']) != "zsh":
         print "Please manually change your default shell to zsh!"
     else:
         zshLocation = subprocess.check_output(['which', 'zsh']).strip()
+        if subprocess.call(['sudo', 'sh', '-c', 'echo $(which zsh) >> /etc/shells']) == 0:
+            print "Cannot add ZSH to /etc/shells"
         if subprocess.call(['chsh', '-s', zshLocation]) == 0:
             print "Default shell changed to zsh (" + str(zshLocation) + "). Restart shell to work with zsh"
         else:
