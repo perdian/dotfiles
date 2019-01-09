@@ -1,7 +1,5 @@
 alias psa="ps aux"
 
-alias ll="ls -lh"
-
 alias cdp="cd `pwd -P`"
 
 alias mci="mvn clean install"
