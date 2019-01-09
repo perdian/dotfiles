@@ -28,7 +28,7 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man colorize brew osx zsh-syntax-highlighting jira mvn fasd)
+plugins=(git colored-man colorize brew osx zsh-syntax-highlighting mvn fasd common-aliases docker encode64 jsontools urltools)
 
 if [[ -z "$ZSH" ]] ; then
     export ZSH=$HOME/.oh-my-zsh
