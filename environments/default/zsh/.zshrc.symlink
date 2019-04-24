@@ -8,6 +8,9 @@ ZSH_THEME=powerlevel9k/powerlevel9k
 if [[ -d /usr/local/bin ]] ; then
     export PATH="$PATH:/usr/local/bin"
 fi
+if [[ -d /usr/local/sbin ]] ; then
+    export PATH="$PATH:/usr/local/sbin"
+fi
 if [[ -d /usr/sbin ]] ; then
     export PATH="$PATH:/usr/sbin"
 fi
