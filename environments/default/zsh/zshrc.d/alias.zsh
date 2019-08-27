@@ -2,6 +2,9 @@ alias psa="ps aux"
 
 alias cdp="cd `pwd -P`"
 
+alias gpom="git push origin master"
+alias gpoo="git push origin \$(git rev-parse --abbrev-ref HEAD)"
+
 alias mci="mvn clean install"
 alias mcist="mvn clean install -Dmaven.test.skip=true"
 alias mc="mvn clean"
