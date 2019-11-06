@@ -19,3 +19,10 @@ bindkey -s "^[Oo" "/"
 # PgUp and PgDown
 bindkey "^[[5~" history-beginning-search-backward
 bindkey "^[[6~" history-beginning-search-forward
+
+# Delete everything in the current buffer after the last whitespace
+function _move_to_previous_whitespace {
+  BUFFER=$(echo $BUFFER | perl -pe 's/(.*)\s(.+)/\1/')
+}
+zle -N _move_to_previous_whitespace
+bindkey '\C-y' _move_to_previous_whitespace

@@ -1,29 +1,20 @@
-set completion-ignore-case On
+set completion-ignore-case on
+set completion-map-case on
+set mark-symlinked-directories on
+set input-meta on
+set output-meta on
+set convert-meta off
 
-# this makes the "delete" key work rather than
-# just entering a ~
+# make the "delete" key work rather than just entering a ~
 "\e[3~": delete-char
 
-# these allow you to use ctrl+left/right arrow keys
-# to jump the cursor over words
+# make ctrl+left/right arrow keys jump the cursor over words
 "\e[5C": forward-word
 "\e[5D": backward-word
 
-# these allow you to start typing a command and
-# use the up/down arrow to auto complete from
-# commands in your history
+# make up/down complete commands from history
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
-
-# this lets you hit tab to auto-complete a file or
-# directory name ignoring case
-set completion-ignore-case on
-
-# Treat hyphens and underscores as equivalent
-set completion-map-case on
-
-# Immediately add a trailing slash when autocompleting symlinks to directories
-set mark-symlinked-directories on
 
 # mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
 "\e[1;5C": forward-word
@@ -33,13 +24,5 @@ set mark-symlinked-directories on
 "\e\e[C": forward-word
 "\e\e[D": backward-word
 
-# Use Alt/Meta + Delete to delete the preceding word
+# make Alt/Meta + delete delete the preceding word
 "\e[3;3~": kill-word
-
-# Show all autocomplete results at once
-set page-completions off
-
-# Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
-set input-meta on
-set output-meta on
-set convert-meta off
