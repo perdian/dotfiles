@@ -1,5 +1,6 @@
 alias psa="ps aux"
 
+alias cp="cp"
 alias cdp="cd `pwd -P`"
 
 alias gpom="git push origin master"
