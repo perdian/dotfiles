@@ -1,3 +1,5 @@
+ZLE_RPROMPT_INDENT=0
+
 # Config for Powerlevel10k with powerline prompt style with colorful background.
 # Type `p10k configure` to generate your own config based on it.
 #
