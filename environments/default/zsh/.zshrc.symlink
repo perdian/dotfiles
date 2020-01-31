@@ -1,7 +1,7 @@
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
-ZSH_THEME=powerlevel9k/powerlevel9k
+ZSH_THEME=powerlevel10k/powerlevel10k
 
 #!/bin/sh
 
@@ -26,9 +26,9 @@ if [ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] ; then
     echo "Installing ZSH autosuggestions"
     git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 fi
-if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel9k ] ; then
-    echo "Installing powerlevel9k theme for Oh My ZSH"
-    git clone --depth=1 https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
+if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ] ; then
+    echo "Installing powerlevel10k theme for Oh My ZSH"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
