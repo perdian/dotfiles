@@ -1,6 +1,8 @@
 #!/usr/local/bin/zsh
-echo "Upgrading Homebrew"
-brew update && brew upgrade && brew cleanup
+if [[ $(uname -s) == 'Darwin' ]]; then
+    echo "Upgrading Homebrew"
+    brew update && brew upgrade && brew cleanup
+fi
 
 DOTFILES_HOME_RAW="$(dirname $0)/../../../"
 DOTFILES_HOME="$(realpath $DOTFILES_HOME_RAW)"
