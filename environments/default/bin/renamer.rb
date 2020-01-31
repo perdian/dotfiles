@@ -1,5 +1,34 @@
 #!/usr/bin/env ruby
 
+# 1. Create a configuration file that lists all affected files with their original name and their target name:
+#
+# $ renamer.rb create out
+#
+# The file looks like this:
+#
+# a § a
+# b § b
+# c § c
+# d § d
+#
+# 2. Add counter variables on the right to apply the renaming:
+#
+# a § a_$1
+# b § b_$1
+# c § c_$1
+# d § d_$2
+#
+# 3. Apply the configuration
+#
+# $ renamer.rb apply out
+#
+# 4. The files will be renamed to:
+#
+# a -->  a_1
+# b -->  b_2
+# c -->  c_3
+# d -->  d_1
+
 class Rule
   def initialize(value, counter_usages)
     @value = value
@@ -103,4 +132,3 @@ elsif command
 else
   raise "No command specified (use either 'create' or 'apply')"
 end
-
