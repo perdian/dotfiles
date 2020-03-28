@@ -1,0 +1,71 @@
+#!/usr/bin/env zsh
+echo "Adjusting system defaults"
+
+# Show the complet path in the Finder title bar
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+
+# I stole some of the following original ideas from Zach Holman
+# https://github.com/holman/dotfiles/blob/master/osx/set-defaults.sh
+
+# Disable press-and-hold for keys in favor of key repeat.
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Use AirDrop over every interface. srsly this should be a default.
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
+
+# Always open everything in Finder's list view. This is important.
+defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Configure Safari
+defaults write com.apple.Safari ShowFavoritesBar -bool false
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+# Stop Photos from opening when a new SD card, etc. is being plugged in
+# http://lifehacker.com/prevent-photos-on-os-x-from-opening-up-automatically-1754586297
+defaults write com.apple.ImageCapture disableHotPlug -bool true
+
+# More configurations inspired by Mathias Bynens
+# https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+
+# Disable the “Are you sure you want to open this application?” dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+# Disable the warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+# Prevent Photos from opening automatically when devices are plugged in
+defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+
+# Expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+# Disable automatic spell checking
+defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+
+# Others
+
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
+
+# Enabling full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Fix Blurry Fonts in MacOS Mojave for Non-Retina Displays
+# http://osxdaily.com/2018/09/26/fix-blurry-thin-fonts-text-macos-mojave/
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
+
+# Disable smart quotes and smart dashed as they’re annoying when typing code
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false

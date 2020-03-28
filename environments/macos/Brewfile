@@ -1,0 +1,46 @@
+tap 'homebrew/bundle'
+
+brew 'asciidoctor'
+brew 'bat'
+brew 'coreutils'
+brew 'fasd'
+brew 'fd'
+brew 'ffmpeg'
+brew 'ghostscript'
+brew 'git'
+brew 'htop'
+brew 'hub'
+brew 'imagemagick'
+brew 'mas'
+brew 'maven'
+brew 'ncdu'
+brew 'pandoc'
+brew 'pwgen'
+brew 'pstree'
+brew 'rbenv'
+brew 'rsync'
+brew 'ruby'
+brew 'telnet'
+brew 'trash'
+brew 'tree'
+brew 'wifi-password'
+brew 'wget'
+brew 'zsh'
+brew 'zsh-completions'
+
+tap 'homebrew/cask'
+cask 'Ngrok'
+
+# https://github.com/Homebrew/homebrew-cask-fonts
+tap 'homebrew/cask-fonts'
+cask 'font-arial'
+cask 'font-courier-new'
+cask 'font-jetbrainsmono-nerd-font'
+
+# https://github.com/colindean/homebrew-fonts-nonfree
+tap 'colindean/fonts-nonfree'
+cask 'font-microsoft-office'
+
+# https://github.com/AdoptOpenJDK/homebrew-openjdk
+tap 'AdoptOpenJDK/openjdk'
+cask 'adoptopenjdk13'

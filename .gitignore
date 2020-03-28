@@ -4,3 +4,4 @@
 /.pydevproject
 /tmp/
 .*.md.html
+/environments/macos/Brewfile*.lock*

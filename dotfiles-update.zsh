@@ -1,7 +1,13 @@
-#!/usr/local/bin/zsh
+#!/usr/bin/env zsh
 if [[ $(uname -s) == 'Darwin' ]]; then
     echo "Upgrading Homebrew"
-    brew update && brew upgrade && brew cleanup
+    brew update
+    brew bundle --file $(realpath $(dirname $0))/environments/macos/Brewfile
+    brew upgrade && brew cleanup
+fi
+
+if which apt-get >/dev/null; then
+    sudo apt-get --yes install dialog git vim nano zsh coreutils wget autojump software-properties-common
 fi
 
 DOTFILES_HOME="$(realpath $(dirname $0))"

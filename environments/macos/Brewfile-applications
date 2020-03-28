@@ -1,0 +1,47 @@
+tap 'homebrew/bundle'
+brew 'mas'
+
+cask_args appdir: '/Applications'
+
+tap 'homebrew/cask'
+
+# System essentials
+cask '1Password'
+cask 'CotEditor'
+cask 'Dash'
+cask 'Dropbox'
+cask 'Fluor'
+cask 'GrandPerspective'
+cask 'iTerm2'
+cask 'itsycal'
+cask 'Keka'
+cask 'The-Unarchiver'
+cask 'Flux'
+cask 'Contexts'
+
+# Development
+cask 'SQuirreLSQL'
+cask 'OmniGraffle'
+
+# Multimedia
+cask 'AirFlow'
+cask 'Clementine'
+cask 'OBS'
+cask 'VLC'
+
+# Internet
+cask 'Filezilla'
+cask 'Firefox'
+cask 'Google-Chrome'
+cask 'Slack'
+cask 'Skype'
+
+# Productivity
+cask 'Scrivener'
+
+# App Store
+mas "Amphetamine", id: 937984704
+mas "Monosnap", id: 540348655
+mas "PasswordGen", id: 1273492860
+mas "Just Color Picker", id: 886547068
+mas 'WhatsApp', id: 1147396723
