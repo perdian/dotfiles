@@ -4,8 +4,7 @@ if [[ $(uname -s) == 'Darwin' ]]; then
     brew update && brew upgrade && brew cleanup
 fi
 
-DOTFILES_HOME_RAW="$(dirname $0)/../../../"
-DOTFILES_HOME="$(realpath $DOTFILES_HOME_RAW)"
+DOTFILES_HOME="$(realpath $(dirname $0))"
 echo "Upgrading dotfiles repository in $DOTFILES_HOME"
 cd $DOTFILES_HOME && git pull
 
@@ -22,6 +21,4 @@ do
   fi
 done
 
-echo "Applying latest dotfiles configuration"
-$DOTFILES_HOME/install.py $(< ~/.dotfiles-environments)
 source ~/.zshrc

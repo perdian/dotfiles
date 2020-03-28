@@ -1,7 +1,12 @@
 #!/bin/sh
-if [ "$1" = "upgrade" ]; then
-    $(dirname $0)/dotfiles-upgrade.py
+if [ "$1" = "install" ]; then
+    $(dirname $0)/dotfiles-install.py
+elif [ "$1" = "update" ]; then
+    $(dirname $0)/dotfiles-update.sh
 else
-    echo "Invalid parameters: $@"
+    echo "Invalid parameters for dotfiles command: $@"
+    echo "Available parameter(s):"
+    echo "- install"
+    echo "- upgrade"
     exit 1
 fi
