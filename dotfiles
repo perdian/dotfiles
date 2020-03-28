@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = "upgrade" ]; then
+    $(dirname $0)/dotfiles-upgrade.py
+else
+    echo "Invalid parameters: $@"
+    exit 1
+fi

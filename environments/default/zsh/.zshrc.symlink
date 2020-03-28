@@ -1,63 +1,48 @@
+#!/bin/zsh
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 ZSH_THEME=powerlevel10k/powerlevel10k
 
-#!/bin/sh
-
-if [[ -d /usr/local/bin ]] ; then
-    export PATH="$PATH:/usr/local/bin"
-fi
-if [[ -d /usr/local/sbin ]] ; then
-    export PATH="$PATH:/usr/local/sbin"
-fi
-if [[ -d /usr/sbin ]] ; then
-    export PATH="$PATH:/usr/sbin"
-fi
-if [[ -d /sbin ]] ; then
-    export PATH="$PATH:/sbin"
-fi
-
-if [ ! -d $HOME/.oh-my-zsh ] ; then
-    echo "Installing Oh My ZSH"
-    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
-fi
-if [ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] ; then
-    echo "Installing ZSH autosuggestions"
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-fi
-if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ] ; then
-    echo "Installing powerlevel10k theme for Oh My ZSH"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-fi
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize brew osx zsh-autosuggestions mvn fasd common-aliases docker encode64 jsontools urltools)
-
-if [[ -z "$ZSH" ]] ; then
-    export ZSH=$HOME/.oh-my-zsh
-fi
-source $ZSH/oh-my-zsh.sh
+if [[ -d /usr/local/bin ]]; then export PATH="$PATH:/usr/local/bin"; fi
+if [[ -d /usr/local/sbin ]]; then export PATH="$PATH:/usr/local/sbin"; fi
+if [[ -d /usr/sbin ]]; then export PATH="$PATH:/usr/sbin"; fi
+if [[ -d /sbin ]]; then export PATH="$PATH:/sbin"; fi
 
 if [[ -z "$DOTFILES_HOME" ]] ; then
     if which realpath >/dev/null; then
-        ZSHRC_LOCATION=`realpath ~/.zshrc`
+        ZSHRC_LOCATION=$(realpath ~/.zshrc)
     fi
     if [[ -e $ZSHRC_LOCATION ]] ; then
-        ZSH_HOME=`dirname $ZSHRC_LOCATION`
-        CHECK_DOTFILES_HOME=`dirname $ZSH_HOME`
-        if [[ -e $CHECK_DOTFILES_HOME/bootstrap.py ]] ; then
+        CHECK_DOTFILES_HOME=$(dirname $(dirname $(dirname $(dirname $ZSHRC_LOCATION))))
+        if [[ -e $CHECK_DOTFILES_HOME/dotfiles ]] ; then
             export DOTFILES_HOME=$CHECK_DOTFILES_HOME
         fi
     fi
 fi
-if [[ -z "$DOTFILES_HOME" ]] ; then
-    export DOTFILES_HOME="$HOME/.dotfiles"
+if [[ -z "$DOTFILES_HOME" ]]; then export DOTFILES_HOME="$HOME/.dotfiles"; fi
+
+# Make sure our dependencies are available
+if [[ ! -d $HOME/.oh-my-zsh ]]; then
+    echo "Installing Oh My ZSH"
+    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 fi
-if [[ -d $DOTFILES_HOME ]] ; then
+if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
+    echo "Installing ZSH autosuggestions"
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+fi
+if [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
+    echo "Installing powerlevel10k theme for Oh My ZSH"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+fi
+if [[ -z "$ZSH" ]] ; then export ZSH=$HOME/.oh-my-zsh; fi
+
+# Initialize ZSH
+plugins=(git colorize brew osx zsh-autosuggestions mvn fasd common-aliases docker encode64 jsontools urltools)
+source $ZSH/oh-my-zsh.sh
+
+# Initialize everything in the dotfiles
+if [[ -d $DOTFILES_HOME ]]; then
     for ZSH_FILE in $DOTFILES_HOME/environments/default/**/*.zsh(N); do
         source $ZSH_FILE
     done
@@ -68,23 +53,14 @@ if [[ -d $DOTFILES_HOME ]] ; then
         done
         export PATH="$PATH:$DOTFILES_HOME/environments/macos/bin"
     fi
-    if [[ -e "$HOME/.dotfiles-environments" ]] ; then
-        for ENVIRONMENT_NAME in $(cat $HOME/.dotfiles-environments); do
-            for ZSH_FILE in $DOTFILES_HOME/environments/$ENVIRONMENT_NAME/**/*.zsh(N); do
-                source $ZSH_FILE
-            done
-            for BIN_DIRECTORY in $DOTFILES_HOME/environments/$ENVIRONMENT_NAME/**/bin(/N); do
-                export PATH="$PATH:$BIN_DIRECTORY"
-            done
-        done
-    fi
+    alias dotfiles="$DOTFILES_HOME/dotfiles"
 else
     echo "WARNING: No dotfiles directory found at: '$DOTFILES_HOME'"
 fi
 
 # Overwrite all settings with local settings that may be stored in the users
 # home directory which are *not* under version control inside the dotfiles
-if [[ -d ~/.zshrc.local ]] ; then
+if [[ -d ~/.zshrc.local ]]; then
     for ZSH_FILE in ~/.zshrc.local/**/*.zsh(N); do
         source $ZSH_FILE
     done

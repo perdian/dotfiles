@@ -19,8 +19,8 @@ The project itself is not really designed to be used "as is" by anyone else but 
 
 ## Environments
 
-I don't want *all* my dotfiles to be available on *all* my machines.
-For example certain dotfiles only apply to my personal machine while others only apply to my personal server.
+Not *all* dotfiles apply to *all* my machines. 
+Some scripts are only relevant on a macOS machine while others are only relevant on a Linux machine.
 
 To achieve this the dotfiles are groups by *environment*. 
 
@@ -28,11 +28,8 @@ All environment specific scripts and settings are stored inside the `environment
 
 An environment becomes active (and thus all dotfiles of that environment will be included) depending on the following *environment selection criteria*:
 
-- The `default` environment will be selected automatically each and every time.
-- The `macos` and `linux` environments will also be selected automatically if the initialization script discovers that it's running on macOS or Linux.
-- All other environments must be selected manually by adding a line for each environment into a file named `.dotfiles-environment` located in the personal home folder. The initialization script will load this file and determine which environments need to be selected.
-
-*This project currently doesn't provide any manually selectable environments as so far everything works fine for me with the automatic environments.*
+- The `default` environment will be selected each and every time.
+- The `macos` and `linux` environments will be if the initialization script discovers that it's running on macOS or Linux respectively.
 
 ### Topics
 
@@ -45,7 +42,7 @@ There are a few special folders and files inside the hierarchy.
 
 - **environments/ENVIRONMENT_NAME/\*\*/bin/\***: Anything in a `bin/` folder will get added to the `$PATH`.
 - **environments/ENVIRONMENT_NAME/\*\*/\*.zsh**: All files ending with `.zsh` will get loaded into the shell environment.
-- **environments/ENVIRONMENT_NAME/\*\*/\*.symlink**: All files ending in `.symlink` will get symlinked into a target folder below the home folder (or the home folder itself). The part between an (optional) 'at' character and the `.symlink` extension will determine the exact target folder below the users home folder. If no explicit target folder is given (the extension being just `.symlink`) then the link will be created directly inside the users home folder (`$HOME`). Otherwise the part between the 'at' character and the `.symlink` extension will be translated into a folder below the home directory, where all 'at' characters will be replaced by forward slashes. So for example the file `private.xml@Library@Application Support@karabiner.symlink` will be translated to the actual target folder `~/Library/Application Support/karabiner`. This enables me to keep all of my files versioned in the dotfiles but still keep those autoloaded files in my home folder. The symlinks will be created when running the `install.py` script.
+- **environments/ENVIRONMENT_NAME/\*\*/\*.symlink**: All files ending in `.symlink` will get symlinked into a target folder below the home folder (or the home folder itself). The part between an (optional) 'at' character and the `.symlink` extension will determine the exact target folder below the users home folder. If no explicit target folder is given (the extension being just `.symlink`) then the link will be created directly inside the users home folder (`$HOME`). Otherwise the part between the 'at' character and the `.symlink` extension will be translated into a folder below the home directory, where all 'at' characters will be replaced by forward slashes. So for example the file `private.xml@Library@Application Support@karabiner.symlink` will be translated to the actual target folder `~/Library/Application Support/karabiner`. This enables me to keep all of my files versioned in the dotfiles but still keep those autoloaded files in my home folder. The symlinks will be created when running the `install` script.
 
 ### Coexistence with other local settings
 
@@ -59,18 +56,16 @@ This is handled as an additional environment (including topic folders) which wil
 
 ### Installation
 
-Checkout the repository to any location on your local system (e.g. the `.dotfiles` in your home folder) and call the install script `install.py`.
+Checkout the repository to any location on your local system (e.g. the `.dotfiles` in your home folder) and call the dotfiles script (`dotfiles upgrade`) which will setup all the necessary resources.
 
-This will symlink the appropriate files in `.dotfiles` to your home folder.
+Initially this will symlink the appropriate files in the `.dotfiles` folder to your home folder.
 Everything will be configured and tweaked within `~/.dotfiles` (or wherever your choose to checkout the repository into).
-
-The install script should only be executed once but will check whether the changes it wants to make are already active. It will skip certain installation steps if necessary.
 
 #### macOS
 
 ```shell
 $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-$ ~/.dotfiles/install.py
+$ ~/.dotfiles/dotfiles upgrade
 ```
 
 The necessary dependencies will be installed automatically by the install script, making sure [Homebrew](https://brew.sh/index) is installed and downloading all additional resources through Homebrew.
@@ -82,7 +77,7 @@ Some necessary system tools might be missing, so to be on the safe side make sur
 ```shell
 $ sudo apt-get install dialog git zsh python vim
 $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-$ ~/.dotfiles/install.py
+$ ~/.dotfiles/dotfiles upgrade
 ```
 
 ## Design decisions
