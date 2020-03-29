@@ -38,7 +38,7 @@ fi
 if [[ -z "$ZSH" ]] ; then export ZSH=$HOME/.oh-my-zsh; fi
 
 # Initialize ZSH
-plugins=(git colorize brew osx zsh-autosuggestions mvn fasd common-aliases docker encode64 jsontools urltools)
+plugins=(git colorize brew osx zsh-autosuggestions mvn fasd common-aliases docker encode64 jsontools urltools bundler gem sudo)
 source $ZSH/oh-my-zsh.sh
 
 # Initialize everything in the dotfiles
