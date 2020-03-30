@@ -17,6 +17,12 @@ cd $DOTFILES_HOME && git pull
 echo "Upgrading Antigen"
 if [[ $(uname -s) == 'Darwin' ]]; then
   source $(brew --prefix)/share/antigen/antigen.zsh
+else
+    if [[ ! -f ~/.antigen.zsh ]]; then
+      echo "Downloading Antigen"
+      curl -L git.io/antigen > ~/antigen.zsh
+    fi
+    source  ~/antigen.zsh
 fi
 antigen update
 
