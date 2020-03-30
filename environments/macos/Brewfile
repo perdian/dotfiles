@@ -1,5 +1,6 @@
 tap 'homebrew/bundle'
 
+brew 'antigen'
 brew 'asciidoctor'
 brew 'awscli'
 brew 'bat'

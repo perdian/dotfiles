@@ -19,6 +19,8 @@ bindkey -s "^[Oo" "/"
 # PgUp and PgDown
 bindkey "^[[5~" history-beginning-search-backward
 bindkey "^[[6~" history-beginning-search-forward
+bindkey "^[[H"  beginning-of-line
+bindkey "^[[F"  end-of-line
 
 # Delete everything in the current buffer after the last whitespace
 function _move_to_previous_whitespace {

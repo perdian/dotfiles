@@ -5,3 +5,4 @@
 /tmp/
 .*.md.html
 /environments/macos/Brewfile*.lock*
+antigen.*.zwc

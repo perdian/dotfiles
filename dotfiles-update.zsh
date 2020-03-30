@@ -14,17 +14,10 @@ DOTFILES_HOME="$(realpath $(dirname $0))"
 echo "Upgrading dotfiles repository in $DOTFILES_HOME"
 cd $DOTFILES_HOME && git pull
 
-echo "Upgrading Oh My Zsh"
-source ~/.oh-my-zsh/oh-my-zsh.sh
-upgrade_oh_my_zsh
-
-echo "Upgrading Oh My Zsh resources"
-for custom_directory in ~/.oh-my-zsh/custom/*/*
-do
-  if [ -d "${custom_directory}/.git" ]; then
-    echo "Upgrading Oh My Zsh custom entry at: ${custom_directory}"
-    cd ${custom_directory}/ && git pull
-  fi
-done
+echo "Upgrading Antigen"
+if [[ $(uname -s) == 'Darwin' ]]; then
+  source $(brew --prefix)/share/antigen/antigen.zsh
+fi
+antigen update
 
 source ~/.zshrc

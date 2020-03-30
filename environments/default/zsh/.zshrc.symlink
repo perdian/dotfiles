@@ -1,8 +1,6 @@
 #!/bin/zsh
 HYPHEN_INSENSITIVE="true"
-DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
-ZSH_THEME=powerlevel10k/powerlevel10k
 
 if [[ -d /usr/local/bin ]]; then export PATH="$PATH:/usr/local/bin"; fi
 if [[ -d /usr/local/sbin ]]; then export PATH="$PATH:/usr/local/sbin"; fi
@@ -21,25 +19,6 @@ if [[ -z "$DOTFILES_HOME" ]] ; then
     fi
 fi
 if [[ -z "$DOTFILES_HOME" ]]; then export DOTFILES_HOME="$HOME/.dotfiles"; fi
-
-# Make sure our dependencies are available
-if [[ ! -d $HOME/.oh-my-zsh ]]; then
-    echo "Installing Oh My ZSH"
-    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
-fi
-if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
-    echo "Installing ZSH autosuggestions"
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-fi
-if [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
-    echo "Installing powerlevel10k theme for Oh My ZSH"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
-fi
-if [[ -z "$ZSH" ]] ; then export ZSH=$HOME/.oh-my-zsh; fi
-
-# Initialize ZSH
-plugins=(git colorize brew osx zsh-autosuggestions mvn fasd common-aliases docker encode64 jsontools urltools bundler gem sudo)
-source $ZSH/oh-my-zsh.sh
 
 # Initialize everything in the dotfiles
 if [[ -d $DOTFILES_HOME ]]; then
