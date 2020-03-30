@@ -11,7 +11,6 @@ fi
 antigen use oh-my-zsh
 
 if [[ $(uname -s) == 'Darwin' ]]; then
-  antigen bundle brew
   antigen bundle osx
 fi
 
