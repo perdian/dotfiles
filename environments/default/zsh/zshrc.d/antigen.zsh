@@ -30,5 +30,8 @@ antigen bundle sudo
 antigen bundle urltools
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
+antigen bundle Aloxaf/fzf-tab
+antigen bundle Tarrasch/zsh-bd
+antigen bundle wfxr/forgit
 antigen theme romkatv/powerlevel10k
 antigen apply
