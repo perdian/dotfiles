@@ -69,3 +69,6 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Disable "Last login" message when opening a new shell
+touch ~/.hushlogin
