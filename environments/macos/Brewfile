@@ -41,6 +41,7 @@ tap 'homebrew/cask-fonts'
 cask 'font-arial'
 cask 'font-courier-new'
 cask 'font-jetbrainsmono-nerd-font'
+cask 'font-firacode-nerd-font'
 
 # https://github.com/colindean/homebrew-fonts-nonfree
 tap 'colindean/fonts-nonfree'
