@@ -1,74 +1,95 @@
 #!/usr/bin/env zsh
 echo "Adjusting system defaults"
 
-# Show the complet path in the Finder title bar
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+# Sources and inspiration for settings:
+# - https://marketmix.com/de/mac-osx-umfassende-liste-der-terminal-defaults-commands/ (German)
+# - https://github.com/holman/dotfiles/blob/master/osx/set-defaults.sh
+# - https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
-# I stole some of the following original ideas from Zach Holman
-# https://github.com/holman/dotfiles/blob/master/osx/set-defaults.sh
+# -----------------------------------------------------------------------------
+# macOS
+# -----------------------------------------------------------------------------
 
-# Disable press-and-hold for keys in favor of key repeat.
-defaults write -g ApplePressAndHoldEnabled -bool false
+# Font smoothing (see https://colinstodd.com/posts/tech/fix-macos-catalina-fonts-after-upgrade.html)
+defaults -currentHost write -globalDomain CGFontRenderingFontSmoothingDisabled -bool FALSE
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
 
-# Use AirDrop over every interface. srsly this should be a default.
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
+# Expand save panel by default (see https://www.defaults-write.com/expand-save-panel-default/)
+defaults write -globalDomain NSNavPanelExpandedStateForSaveMode -bool TRUE
+defaults write -globalDomain NSNavPanelExpandedStateForSaveMode2 -bool TRUE
 
-# Always open everything in Finder's list view. This is important.
-defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+# Disable smart quotes and smart dashed as they’re annoying when typing code
+defaults write -globalDomain NSAutomaticQuoteSubstitutionEnabled -bool FALSE
+defaults write -globalDomain NSAutomaticDashSubstitutionEnabled -bool FALSE
 
-# Disable the warning when changing a file extension
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool FALSE
 
-# Configure Safari
-defaults write com.apple.Safari ShowFavoritesBar -bool false
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+# Disable press-and-hold for keys in favor of key repeat
+defaults write -globalDomain ApplePressAndHoldEnabled -bool FALSE
 
-# Stop Photos from opening when a new SD card, etc. is being plugged in
-# http://lifehacker.com/prevent-photos-on-os-x-from-opening-up-automatically-1754586297
-defaults write com.apple.ImageCapture disableHotPlug -bool true
+# Enabling full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+defaults write -globalDomain AppleKeyboardUIMode -int 3
 
-# More configurations inspired by Mathias Bynens
-# https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# Stop Photos from opening when a new SD card, etc. is being plugged in (see http://lifehacker.com/prevent-photos-on-os-x-from-opening-up-automatically-1754586297)
+defaults write com.apple.ImageCapture disableHotPlug -bool TRUE
+
+# Use AirDrop over every interface
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool TRUE
 
 # Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+defaults write com.apple.LaunchServices LSQuarantine -bool FALSE
 
-# Disable the warning before emptying the Trash
-defaults write com.apple.finder WarnOnEmptyTrash -bool false
-
-# Prevent Photos from opening automatically when devices are plugged in
-defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-
-# Expand save panel by default
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-
-# Disable automatic spell checking
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
-
-# Others
+# Don't create .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
-# Enabling full keyboard access for all controls (e.g. enable Tab in modal dialogs)
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Fix Blurry Fonts in MacOS Mojave for Non-Retina Displays
-# http://osxdaily.com/2018/09/26/fix-blurry-thin-fonts-text-macos-mojave/
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
-defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
-
-# Disable smart quotes and smart dashed as they’re annoying when typing code
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# -----------------------------------------------------------------------------
+# Terminal
+# -----------------------------------------------------------------------------
 
 # Disable "Last login" message when opening a new shell
 touch ~/.hushlogin
+
+
+# -----------------------------------------------------------------------------
+# Finder
+# -----------------------------------------------------------------------------
+
+# Show the complete path in the Finder title bar
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE
+
+# Show folders first
+defaults write com.apple.finder _FXSortFoldersFirst -bool TRUE
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool FALSE
+
+# Always open everything in list view (see https://www.defaults-write.com/change-default-view-style-in-os-x-finder/)
+defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+
+# Disable the warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool FALSE
+
+
+# -----------------------------------------------------------------------------
+# Safari
+# -----------------------------------------------------------------------------
+
+defaults write com.apple.Safari ShowFavoritesBar -bool FALSE
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool TRUE
+defaults write com.apple.Safari IncludeDevelopMenu -bool TRUE
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool TRUE
+defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool TRUE
+defaults write -globalDomain WebKitDeveloperExtras -bool TRUE
+
+
+# -----------------------------------------------------------------------------
+# Other applications
+# -----------------------------------------------------------------------------
+
+# Disable automatic spell checking
+defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
