@@ -23,7 +23,7 @@ defaults write -globalDomain NSAutomaticQuoteSubstitutionEnabled -bool FALSE
 defaults write -globalDomain NSAutomaticDashSubstitutionEnabled -bool FALSE
 
 # Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool FALSE
+defaults write -globalDomain NSAutomaticSpellingCorrectionEnabled -bool FALSE
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write -globalDomain ApplePressAndHoldEnabled -bool FALSE
