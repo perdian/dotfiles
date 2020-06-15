@@ -25,7 +25,6 @@ antigen bundle git
 antigen bundle git-extras
 antigen bundle git-flow
 antigen bundle jsontools
-antigen bundle sudo
 antigen bundle urltools
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
