@@ -107,7 +107,7 @@ for active_environment in active_environments:
                         print "Symlinked '" + str(target_file) + "' to '" + str(source_file_resolved) + "'"
 
 # Make zsh the default shell
-if os.path.basename(os.environ['SHELL']) != "zsh":
+if 'SHELL' not in os.environ or os.path.basename(os.environ['SHELL']) != "zsh":
     if not subprocess.call("type zsh", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
         print "ZSH cannot be found on this system. I will not change the default shell!"
     elif not subprocess.call("type chsh", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
