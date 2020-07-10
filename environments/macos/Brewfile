@@ -14,6 +14,7 @@ brew 'htop'
 brew 'httpie' # https://httpie.org/
 brew 'hub'
 brew 'imagemagick'
+brew 'jid' # https://github.com/fiatjaf/jiq
 brew 'jq'
 brew 'mas'
 brew 'maven'
