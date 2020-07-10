@@ -21,6 +21,7 @@ brew 'pandoc'
 brew 'pwgen'
 brew 'pstree'
 brew 'rbenv'
+brew 'rg' # https://blog.burntsushi.net/ripgrep/
 brew 'rsync'
 brew 'ruby'
 brew 'telnet'
