@@ -23,6 +23,7 @@ brew 'ncdu'
 brew 'pandoc'
 brew 'pwgen'
 brew 'pstree'
+brew 'pup' # https://github.com/ericchiang/pup
 brew 'rbenv'
 brew 'rg' # https://blog.burntsushi.net/ripgrep/
 brew 'rsync'
