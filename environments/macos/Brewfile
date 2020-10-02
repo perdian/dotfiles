@@ -57,4 +57,4 @@ cask 'font-microsoft-office'
 
 # https://github.com/AdoptOpenJDK/homebrew-openjdk
 tap 'AdoptOpenJDK/openjdk'
-cask 'adoptopenjdk13'
+cask 'adoptopenjdk15'
