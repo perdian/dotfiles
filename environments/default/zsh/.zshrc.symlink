@@ -10,11 +10,9 @@ if [[ -d /sbin ]]; then export PATH="$PATH:/sbin"; fi
 if [[ -z "$DOTFILES_HOME" ]] ; then
     if which realpath >/dev/null; then
         ZSHRC_LOCATION=$(realpath ~/.zshrc)
-    fi
-    if [[ -e $ZSHRC_LOCATION ]] ; then
-        CHECK_DOTFILES_HOME=$(dirname $(dirname $(dirname $(dirname $ZSHRC_LOCATION))))
-        if [[ -e $CHECK_DOTFILES_HOME/dotfiles ]] ; then
-            export DOTFILES_HOME=$CHECK_DOTFILES_HOME
+        if [[ -e $ZSHRC_LOCATION ]] ; then
+            ZSHRC_DIRECTORY=$(dirname "$ZSHRC_LOCATION")
+            DOTFILES_HOME=$(realpath "$ZSHRC_DIRECTORY/../../../")
         fi
     fi
 fi
