@@ -18,3 +18,5 @@ alias ls="ls -G"
 
 alias k="kubectl"
 alias km="kubectl --context minikube"
+
+alias ytv="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
