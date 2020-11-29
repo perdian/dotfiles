@@ -22,6 +22,7 @@ brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
 brew 'mas'
 brew 'maven'
 brew 'ncdu'
+brew 'ocrmypdf'
 brew 'pandoc'
 brew 'pwgen'
 brew 'pstree'
@@ -32,6 +33,7 @@ brew 'rsync'
 brew 'ruby'
 brew 'telnet'
 brew 'terraform'
+brew 'tesseract-lang' # Allow German for OCRmyPDF
 brew 'tldr' # https://tldr.sh/
 brew 'trash'
 brew 'tree'
