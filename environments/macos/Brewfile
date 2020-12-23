@@ -8,20 +8,14 @@ brew 'coreutils'
 brew 'direnv'
 brew 'dog'
 brew 'fasd'
-brew 'fd'
 brew 'ffmpeg'
-brew 'ghostscript'
 brew 'git'
-brew 'htop'
 brew 'httpie' # https://httpie.org/
-brew 'hub'
 brew 'imagemagick'
 brew 'jid' # https://github.com/fiatjaf/jiq
 brew 'jq'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
-brew 'mas'
 brew 'maven'
-brew 'ncdu'
 brew 'ocrmypdf'
 brew 'pandoc'
 brew 'pwgen'
@@ -44,15 +38,13 @@ brew 'zsh'
 brew 'zsh-completions'
 
 tap 'homebrew/cask'
-cask 'Ngrok'
+cask 'ngrok'
 
 # https://github.com/Homebrew/homebrew-cask-fonts
 tap 'homebrew/cask-fonts'
 cask 'font-arial'
 cask 'font-courier-new'
 cask 'font-jetbrainsmono-nerd-font'
-cask 'font-fira-sans'
-cask 'font-firamono-nerd-font'
 cask 'font-firacode-nerd-font'
 
 # https://github.com/colindean/homebrew-fonts-nonfree

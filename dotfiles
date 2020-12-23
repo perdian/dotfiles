@@ -5,14 +5,11 @@ elif [ "$1" = "update" ]; then
     $(dirname $0)/dotfiles-update.zsh
 elif [ "$1" = "macos" ]; then
     $(dirname $0)/dotfiles-macos.zsh
-elif [ "$1" = "macos-applications" ]; then
-    brew bundle --file $(realpath $(dirname $0))/environments/macos/Brewfile-applications
 else
     echo "Invalid parameters for dotfiles command: $@"
     echo "Available parameter(s):"
     echo "- install"
     echo "- update"
     echo "- macos"
-    echo "- macos-applications"
     exit 1
 fi
