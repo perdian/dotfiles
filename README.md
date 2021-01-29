@@ -4,7 +4,7 @@ In the good old days I managed all my personal configurations and scripts manual
 Then I got tired of setting up the same things over and over when switching to a new or different computer.
 Keeping my personal machine, my working machine, my personal server as identical as possible became quite cumbersome.
 
-So there came the time when I wanted to automate the whole stuff as much as possible. 
+So there came the time when I wanted to automate the whole stuff as much as possible.
 This dotfiles project is the result (or let's call it work in progress) of me wanting to have all my stuff both versioned and easy to access at any time from any location.
 
 As with many projects I'm standing on the shoulders of great people and have recklessly copied ideas and configurations from many sources, most prominently [Zach Holman](https://github.com/holman/dotfiles) and [Ryan Bates](https://github.com/ryanb/dotfiles).
@@ -13,18 +13,18 @@ As with many projects I'm standing on the shoulders of great people and have rec
 
 My personal collection of shell scripts, configuration files and other resources also known as *dofiles*.
 
-They're first are foremost designed to work on macOS, as that's my primary operating system both on my personal machine and on my working machine. Second class support is given to Linux as that's what my personal servers are running on. 
+They're first are foremost designed to work on macOS, as that's my primary operating system both on my personal machine and on my working machine. Second class support is given to Linux as that's what my personal servers are running on.
 
 The project itself is not really designed to be used "as is" by anyone else but could serve as an idea of how *your* personal dotfiles could be structured. I'm far from suggesting that my stuff works for everybody but if you find it interesting [fork it](https://github.com/perdian/dotfiles/fork), remove what you don't use, and build on what you *do* want to use.
 
 ## Environments
 
-Not *all* dotfiles apply to *all* my machines. 
+Not *all* dotfiles apply to *all* my machines.
 Some scripts are only relevant on a macOS machine while others are only relevant on a Linux machine.
 
-To achieve this the dotfiles are groups by *environment*. 
+To achieve this the dotfiles are groups by *environment*.
 
-All environment specific scripts and settings are stored inside the `environments` folder. Each subfolder within the `environments` folder represents a separate set of dotfiles specific to that environment. 
+All environment specific scripts and settings are stored inside the `environments` folder. Each subfolder within the `environments` folder represents a separate set of dotfiles specific to that environment.
 
 An environment becomes active (and thus all dotfiles of that environment will be included) depending on the following *environment selection criteria*:
 
@@ -33,7 +33,7 @@ An environment becomes active (and thus all dotfiles of that environment will be
 
 ### Topics
 
-The individual configuration files, resources and scripts inside each environment are grouped around *topic areas*. 
+The individual configuration files, resources and scripts inside each environment are grouped around *topic areas*.
 Each topic area is represented by its own subfolder within the folder of the relevant environment.
 
 ### Components
@@ -75,9 +75,8 @@ The necessary dependencies will be installed automatically by the install script
 Some necessary system tools might be missing, so to be on the safe side make sure to install the following system components before calling the install script:
 
 ```shell
-$ sudo apt-get install dialog git zsh python vim
-$ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-$ ~/.dotfiles/dotfiles install
+$ sudo apt-get install dialog curl git zsh python3 vim
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/perdian/dotfiles/master/install.sh)"
 ```
 
 ## Design decisions
@@ -87,6 +86,6 @@ $ ~/.dotfiles/dotfiles install
 The `install.py` script itself (as well as some other scripts inside the dotfiles) is written in Python.
 The main reason for choosing Python was that I didn't want to use bash scripting (for me it's cumbersome, complicated and simply doesn't feel good) and was looking for a language that was available on the target platforms without an extensive manual installation.
 
-As an additional "bonus" Python is something that I usually don't use professionally so from time to time it gives me a chance to see development concepts from another language. 
+As an additional "bonus" Python is something that I usually don't use professionally so from time to time it gives me a chance to see development concepts from another language.
 
 There are other languages used as well (and yes, even bash scripts) since in the end things should simply work without placing *too* much emphasis on religiously using only one language.
