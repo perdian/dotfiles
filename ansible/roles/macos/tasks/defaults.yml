@@ -6,6 +6,10 @@
 - shell: defaults write -globalDomain NSNavPanelExpandedStateForSaveMode -bool TRUE
 - shell: defaults write -globalDomain NSNavPanelExpandedStateForSaveMode2 -bool TRUE
 
+# Expand print panel by default
+- shell: defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool TRUE
+- shell: defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool TRUE
+
 # Disable smart quotes and smart dashed as they’re annoying when typing code
 - shell: defaults write -globalDomain NSAutomaticQuoteSubstitutionEnabled -bool FALSE
 - shell: defaults write -globalDomain NSAutomaticDashSubstitutionEnabled -bool FALSE
@@ -18,6 +22,7 @@
 
 # Always show the crollbars
 - shell: defaults write -globalDomain AppleShowScrollBars -string Always
+# Possible values: `WhenScrolling`, `Automatic` and `Always`
 
 # Enabling full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 - shell: defaults write -globalDomain AppleKeyboardUIMode -int 3
