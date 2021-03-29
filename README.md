@@ -81,7 +81,7 @@ $ sudo -v && ansible-playbook -v --inventory ~/.dotfiles/ansible/inventory.yml ~
 Some necessary system tools might be missing, so to be on the safe side make sure to install the following system components before calling the install script:
 
 ```shell
-$ sudo apt-get install dialog curl git zsh python3 vim fzf 
+$ sudo apt-get install dialog curl git zsh python3 vim fzf
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/perdian/dotfiles/master/install.sh)"
 ```
 
