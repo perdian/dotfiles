@@ -56,7 +56,7 @@ This is handled as an additional environment (including topic folders) which wil
 
 ### Installation
 
-Checkout the repository to any location on your local system (e.g. the `.dotfiles` in your home folder) and call the dotfiles script (`dotfiles install`) which will setup all the necessary resources.
+Checkout the repository to any location on your local system (e.g. the `.dotfiles` in your home folder) and call the dotfiles script (`dotfiles-install.py`) which will setup all the necessary resources.
 
 Initially this will symlink the appropriate files in the `.dotfiles` folder to your home folder.
 Everything will be configured and tweaked within `~/.dotfiles` (or wherever your choose to checkout the repository into).
@@ -65,17 +65,23 @@ Everything will be configured and tweaked within `~/.dotfiles` (or wherever your
 
 ```shell
 $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-$ ~/.dotfiles/dotfiles install
+$ ~/.dotfiles/dotfiles-install.py
 ```
 
 The necessary dependencies will be installed automatically by the install script, making sure [Homebrew](https://brew.sh/index) is installed and downloading all additional resources through Homebrew.
+
+To apply the default macOS settings and preferences execute the following command:
+
+```shell
+$ sudo -v && ansible-playbook -v --inventory ~/.dotfiles/ansible/inventory.yml ~/.dotfiles/ansible/playbook.yml
+```
 
 #### Linux
 
 Some necessary system tools might be missing, so to be on the safe side make sure to install the following system components before calling the install script:
 
 ```shell
-$ sudo apt-get install dialog curl git zsh python3 vim fzf 
+$ sudo apt-get install dialog curl git zsh python3 vim fzf
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/perdian/dotfiles/master/install.sh)"
 ```
 
