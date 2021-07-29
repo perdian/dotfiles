@@ -5,6 +5,7 @@ brew 'asciidoctor'
 brew 'ansible'
 brew 'awscli'
 brew 'bat'
+brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
 brew 'direnv'
 brew 'dog'
@@ -22,15 +23,11 @@ brew 'ocrmypdf'
 brew 'pandoc'
 brew 'pwgen'
 brew 'pstree'
-brew 'pup' # https://github.com/ericchiang/pup
 brew 'rbenv'
-brew 'rg' # https://blog.burntsushi.net/ripgrep/
 brew 'rsync'
 brew 'ruby'
 brew 'telnet'
-brew 'terraform'
 brew 'tesseract-lang' # Allow German for OCRmyPDF
-brew 'tldr' # https://tldr.sh/
 brew 'trash'
 brew 'tree'
 brew 'wifi-password'
@@ -56,4 +53,4 @@ cask 'font-microsoft-office'
 
 # https://github.com/AdoptOpenJDK/homebrew-openjdk
 tap 'AdoptOpenJDK/openjdk'
-cask 'adoptopenjdk15'
+cask 'adoptopenjdk'
