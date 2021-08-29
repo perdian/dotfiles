@@ -18,6 +18,7 @@ brew 'imagemagick'
 brew 'jid' # https://github.com/fiatjaf/jiq
 brew 'jq'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
+brew 'libdvdcss'
 brew 'maven'
 brew 'ocrmypdf'
 brew 'pandoc'
