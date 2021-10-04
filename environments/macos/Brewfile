@@ -28,6 +28,7 @@ brew 'rbenv'
 brew 'rsync'
 brew 'ruby'
 brew 'telnet'
+brew 'temurin'
 brew 'tesseract-lang' # Allow German for OCRmyPDF
 brew 'trash'
 brew 'tree'
@@ -51,7 +52,3 @@ cask 'font-firacode-nerd-font'
 # https://github.com/colindean/homebrew-fonts-nonfree
 tap 'colindean/fonts-nonfree'
 cask 'font-microsoft-office'
-
-# https://github.com/AdoptOpenJDK/homebrew-openjdk
-tap 'AdoptOpenJDK/openjdk'
-cask 'adoptopenjdk'
