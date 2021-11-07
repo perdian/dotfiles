@@ -1,4 +1,4 @@
-fgb() {
+fgc() {
   local branches branch
   branches=$(git --no-pager branch -vv) &&
   branch=$(echo "$branches" | fzf +m --tac --query="$@") &&
