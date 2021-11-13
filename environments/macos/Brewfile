@@ -9,6 +9,7 @@ brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
 brew 'direnv'
 brew 'dog'
+brew 'exiftool'
 brew 'fasd'
 brew 'ffmpeg'
 brew 'fluxctl'
