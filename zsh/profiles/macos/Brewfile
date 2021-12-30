@@ -3,7 +3,6 @@ tap 'homebrew/bundle'
 brew 'antigen'
 brew 'asciidoctor'
 brew 'ansible'
-brew 'awscli'
 brew 'bat'
 brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
@@ -21,6 +20,7 @@ brew 'jq'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
 brew 'libdvdcss'
 brew 'maven'
+brew 'nano'
 brew 'ocrmypdf'
 brew 'pandoc'
 brew 'pwgen'
@@ -29,7 +29,6 @@ brew 'rbenv'
 brew 'rsync'
 brew 'ruby'
 brew 'telnet'
-brew 'temurin'
 brew 'tesseract-lang' # Allow German for OCRmyPDF
 brew 'trash'
 brew 'tree'
@@ -42,6 +41,7 @@ brew 'zsh-completions'
 
 tap 'homebrew/cask'
 cask 'ngrok'
+cask 'temurin'
 
 # https://github.com/Homebrew/homebrew-cask-fonts
 tap 'homebrew/cask-fonts'

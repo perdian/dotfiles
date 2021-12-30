@@ -4,5 +4,5 @@
 /.pydevproject
 /tmp/
 .*.md.html
-/environments/macos/Brewfile*.lock*
+Brewfile*.lock*
 antigen.*.zwc
