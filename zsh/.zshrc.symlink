@@ -9,7 +9,7 @@ if [[ -z "${DOTFILES_HOME}" ]]; then
         ZSHRC_LOCATION=$(realpath ~/.zshrc)
         if [[ -e ${ZSHRC_LOCATION} ]]; then
             ZSHRC_DIRECTORY=$(dirname "${ZSHRC_LOCATION}")
-            DOTFILES_HOME=$(realpath "${ZSHRC_DIRECTORY}/..")
+            export DOTFILES_HOME=$(realpath "${ZSHRC_DIRECTORY}/..")
         fi
     fi
 fi

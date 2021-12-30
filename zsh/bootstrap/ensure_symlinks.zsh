@@ -21,7 +21,7 @@ for DOTFILES_PROFILE in "${DOTFILES_PROFILES[@]}"; do
         fi
         echo "\033[1;30mCreating new dotfiles symlink at '${SYMLINK_FILE}' pointing to '${TARGET_FILE}'\e[0m"
         mkdir -p "$(dirname ${SYMLINK_FILE})"
-        ln -s "${TARGET_FILE}" "${SYMLINK_FILE}"
+        ln -s -f "${TARGET_FILE}" "${SYMLINK_FILE}"
       fi
 
     done
