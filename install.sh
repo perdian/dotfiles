@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Cloning dotfiles repository from GitHub"
 git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
 
