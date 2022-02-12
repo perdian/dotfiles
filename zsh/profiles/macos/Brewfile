@@ -35,9 +35,12 @@ brew 'tree'
 brew 'wifi-password'
 brew 'wget'
 brew 'yank'
-brew 'youtube-dl'
 brew 'zsh'
 brew 'zsh-completions'
+
+# https://github.com/yt-dlp/yt-dlp
+tap 'yt-dlp/taps'
+brew 'yt-dlp'
 
 tap 'homebrew/cask'
 cask 'ngrok'

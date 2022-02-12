@@ -15,4 +15,4 @@ alias ls="ls -G"
 
 alias k="kubectl"
 
-alias ytv="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
+alias ytv="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
