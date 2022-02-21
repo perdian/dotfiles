@@ -15,6 +15,7 @@ brew 'fluxctl'
 brew 'git'
 brew 'httpie' # https://httpie.org/
 brew 'imagemagick'
+brew 'ipcalc'
 brew 'jid' # https://github.com/fiatjaf/jiq
 brew 'jq'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
