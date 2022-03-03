@@ -1,7 +1,6 @@
 tap 'homebrew/bundle'
 
 brew 'antigen'
-brew 'asciidoctor'
 brew 'ansible'
 brew 'bat'
 brew 'broot' # https://github.com/Canop/broot
@@ -31,7 +30,6 @@ brew 'rsync'
 brew 'ruby'
 brew 'telnet'
 brew 'tesseract-lang' # Allow German for OCRmyPDF
-brew 'trash'
 brew 'tree'
 brew 'wifi-password'
 brew 'wget'
