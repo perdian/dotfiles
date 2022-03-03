@@ -1,5 +1,0 @@
----
-- name: Setup macOS
-  hosts: mac_local
-  roles:
-    - macos

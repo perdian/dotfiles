@@ -70,7 +70,7 @@ The necessary dependencies will be installed automatically when opening a new ZS
 To apply the default macOS settings and preferences execute the following command:
 
 ```shell
-$ sudo -v && ansible-playbook -v --inventory ~/.dotfiles/ansible/inventory.yml ~/.dotfiles/ansible/playbook.yml
+$ ~/.dotfiles/setup/macos
 ```
 
 #### Linux
