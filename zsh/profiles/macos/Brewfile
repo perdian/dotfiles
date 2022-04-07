@@ -1,7 +1,6 @@
 tap 'homebrew/bundle'
 
 brew 'antigen'
-brew 'ansible'
 brew 'bat'
 brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
