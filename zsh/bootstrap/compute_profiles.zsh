@@ -2,3 +2,4 @@
 # steps correctly
 DOTFILES_PROFILES=("default")
 if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+="macos"; else DOTFILES_PROFILES+=$(uname | tr '[:upper:]' '[:lower:]') fi
+if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+="macos_$(arch)"; fi
