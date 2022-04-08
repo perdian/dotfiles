@@ -2,6 +2,9 @@
 HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
 
+# If we're on Apple Silicon macOS then Homebrew's "bin" directory isn't on the default
+# path. However we need a couple of commands (e.g. "realpath") early in the script,
+# so we need to make sure in the beginning that what Homebrew offers us is accessible.
 if [[ $(uname) == "Darwin" ]]; then
 	if [[ -f /opt/homebrew/bin/brew ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -9,7 +12,8 @@ if [[ $(uname) == "Darwin" ]]; then
 fi
 
 # Make sure that the DOTFILES_HOME environment variable is available to all subsequent
-# operations and scripts so that we have a clear root from which to load all dotfiles related content
+# operations and scripts so that we have a clear root from which to load all dotfiles 
+# related content
 if [[ -z "${DOTFILES_HOME}" ]]; then
     if which realpath >/dev/null; then
         ZSHRC_LOCATION=$(realpath ~/.zshrc)
@@ -21,7 +25,8 @@ if [[ -z "${DOTFILES_HOME}" ]]; then
 fi
 if [[ -z "${DOTFILES_HOME}" ]]; then export DOTFILES_HOME="${HOME}/.dotfiles"; fi
 
-# For better readability, the bootstrap operations have been extracted into separate files within the "bootstrap" folder
+# For better readability, the bootstrap operations have been extracted into separate 
+# files within the "bootstrap" folder
 source ${DOTFILES_HOME}/zsh/bootstrap/enhance_path.zsh
 source ${DOTFILES_HOME}/zsh/bootstrap/compute_profiles.zsh
 source ${DOTFILES_HOME}/zsh/bootstrap/ensure_symlinks.zsh
