@@ -4,6 +4,7 @@
 for DOTFILES_PROFILE in "${DOTFILES_PROFILES[@]}"; do
   if [[ -n "${DOTFILES_PROFILE}" ]]; then
     for TARGET_FILE in ${DOTFILES_HOME}/zsh/profiles/${DOTFILES_PROFILE}/**/*.symlink(.DN); do
+
       TARGET_FILE_NAME=$(basename ${TARGET_FILE})
       SYMLINK_FILE_NAME=$(echo ${TARGET_FILE_NAME%".symlink"} | tr '@' '/')
       SYMLINK_FILE="$(realpath ${HOME})/${SYMLINK_FILE_NAME}"
