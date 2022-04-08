@@ -7,7 +7,7 @@ cd ${DOTFILES_HOME} && git pull
 if [[ $(uname -s) == 'Darwin' ]]; then
   echo "Upgrading Homebrew"
   brew update
-  brew bundle --file ${DOTFILES_HOME}/bundles/macos/Brewfile
+  brew bundle -v --file ${DOTFILES_HOME}/bundles/macos/Brewfile
   brew upgrade && brew cleanup
 fi
 
