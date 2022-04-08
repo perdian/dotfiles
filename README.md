@@ -60,6 +60,15 @@ Checkout the repository to any location on your local system (e.g. the `.dotfile
 
 #### macOS
 
+##### Prepare a fresh macOS installation
+
+```shell
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+$ brew install coreutils git direnv antigen
+``` 
+
+##### Install dotfiles
+
 ```shell
 $ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
 $ ln -s -f ~/.dotfiles/zsh/.zshrc.symlink ~/.zshrc
