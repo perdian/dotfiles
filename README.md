@@ -64,8 +64,8 @@ Checkout the repository to any location on your local system (e.g. the `.dotfile
 
 ```shell
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-$ brew install coreutils git direnv antigen
-``` 
+$ brew install coreutils git direnv antigen curl
+```
 
 ##### Install dotfiles
 
