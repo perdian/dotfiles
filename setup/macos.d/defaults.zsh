@@ -40,6 +40,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool FALSE
 # Don't create .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
 
+
 # -----------------------------------------------------------------------------
 # Finder
 # -----------------------------------------------------------------------------
@@ -70,6 +71,7 @@ defaults write com.apple.Safari IncludeDevelopMenu -bool TRUE
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool TRUE
 defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool TRUE
 defaults write -globalDomain WebKitDeveloperExtras -bool TRUE
+
 
 # -----------------------------------------------------------------------------
 # Other applications
