@@ -1,9 +1,9 @@
 if [[ $(uname -s) == 'Darwin' ]]; then
-  source $(brew --prefix)/share/antigen/antigen.zsh
+    source $(brew --prefix)/share/antigen/antigen.zsh
 else
     if [[ ! -f ~/.antigen.zsh ]]; then
-      echo "Downloading Antigen"
-      curl -L git.io/antigen > ~/.antigen.zsh
+        echo "Downloading Antigen"
+        curl -L git.io/antigen > ~/.antigen.zsh
     fi
     source  ~/.antigen.zsh
 fi
@@ -11,7 +11,7 @@ fi
 antigen use oh-my-zsh
 
 if [[ $(uname -s) == 'Darwin' ]]; then
-  antigen bundle macos
+    antigen bundle macos
 fi
 
 antigen bundle bundler
