@@ -1,8 +1,8 @@
 tap 'homebrew/bundle'
 
-brew 'antigen'
-brew 'bat'
-brew 'bottom'
+brew 'antigen' # https://antigen.sharats.me
+brew 'bat' # https://github.com/sharkdp/bat
+brew 'bottom' # https://clementtsang.github.io/bottom/nightly/
 brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
 brew 'croc' # https://github.com/schollz/croc
