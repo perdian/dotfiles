@@ -60,18 +60,27 @@ Checkout the repository to any location on your local system (e.g. the `.dotfile
 
 #### macOS
 
-##### Prepare a fresh macOS installation
+The preparations for macOS differ slightly as Homebrew is installed in different directories on Intel Macs and Apple Silicon Macs.
+
+##### Prepare a fresh macOS installation (Apple Silicon)
 
 ```shell
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-$ brew install coreutils git direnv antigen curl
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/opt/homebrew/bin/brew install coreutils git direnv antigen curl fzf
+```
+
+##### Prepare a fresh macOS installation (Intel)
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/usr/local/bin/brew install coreutils git direnv antigen curl
 ```
 
 ##### Install dotfiles
 
 ```shell
-$ git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-$ ln -s -f ~/.dotfiles/zsh/.zshrc.symlink ~/.zshrc
+git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
+ln -s -f ~/.dotfiles/zsh/.zshrc.symlink ~/.zshrc
 ```
 
 The necessary dependencies will be installed automatically when opening a new ZSH shell.
@@ -79,7 +88,13 @@ The necessary dependencies will be installed automatically when opening a new ZS
 To apply the default macOS settings and preferences execute the following command:
 
 ```shell
-$ ~/.dotfiles/setup/macos
+~/.dotfiles/setup/macos
+```
+
+To update the Homebrew bundles (and install additional bundles) after the installation execute the following command:
+
+```shell
+dotfiles_upgrade
 ```
 
 #### Linux
@@ -87,6 +102,6 @@ $ ~/.dotfiles/setup/macos
 Some necessary system tools might be missing, so to be on the safe side make sure to install the following system components before calling the install script:
 
 ```shell
-$ sudo apt -y install dialog curl git zsh python3 vim fzf nano direnv
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/perdian/dotfiles/master/install.sh)"
+sudo apt -y install dialog curl git zsh python3 vim fzf nano direnv
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/perdian/dotfiles/master/install.sh)"
 ```
