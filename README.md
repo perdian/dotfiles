@@ -13,9 +13,9 @@ As with many projects I'm standing on the shoulders of great people and have rec
 
 My personal collection of shell scripts, configuration files and other resources also known as *dofiles*.
 
-They're first are foremost designed to work on macOS, as that's my primary operating system both on my personal machine and on my working machine. Second class support is given to Linux as that's what my personal servers are running on.
+They're first and foremost designed to work on macOS, as that's my primary operating system both on my personal machine and my working machine. Second class support is given to Linux as that's what my personal server is running on.
 
-The project itself is not really designed to be used "as is" by anyone else but could serve as an idea of how *your* personal dotfiles could be structured. I'm far from suggesting that my stuff works for everybody but if you find it interesting [fork it](https://github.com/perdian/dotfiles/fork), remove what you don't use, and build on what you *do* want to use.
+The project itself is not really designed to be used "as is" by anyone else but can serve as an idea of how *your* personal dotfiles could be structured. I'm far from suggesting that my stuff works for everybody but if you find it interesting [fork it](https://github.com/perdian/dotfiles/fork), remove what you don't use, and build on what you *do* want to use.
 
 ## Profiles
 
@@ -26,15 +26,12 @@ To achieve this the dotfiles are grouped by *profile*.
 
 All profile specific scripts and settings are stored inside the `zsh/profiles` folder. Each subfolder within the `zsh/profiles` folder represents a separate set of dotfiles specific to that profile.
 
-A profile becomes active (and thus all dotfiles of that profile will be included) depending on the following *profile selection criteria*:
+A profile becomes active (and thus all dotfiles of that profile will be included) depending on the following *profile activation criteria*:
 
-- The `default` profile will be selected each and every time.
-- The `macos` and `linux` profiles will be selected if the `.zshrc` initialization script discovers that it's running on macOS or Linux respectively.
-
-### Topics
-
-The individual configuration files, resources and scripts inside each profile are grouped around *topic areas*.
-Each topic area is represented by its own subfolder within the folder of the relevant pofile.
+- The `default` profile will always be activated.
+- The `macos` profile will be activated if the `.zshrc` initialization script discovers that it's running on macOS.
+    - The `macos_arm64` and `macos_i386` profiles will be activated depending on the macOS architecture.
+- The `linux` profile will be activated if the `.zshrc` initialization script discovers that it's running on Linux.
 
 ### Components
 
