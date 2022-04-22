@@ -1,8 +1,9 @@
-.DS_Store
-.project
-.idea
+/.idea
+/.project
 /.pydevproject
 /tmp/
-.*.md.html
-Brewfile*.lock*
+/*.iml
+/.*.md.html
+.DS_Store
 antigen.*.zwc
+Brewfile*.lock*
