@@ -21,7 +21,7 @@ defaults write -globalDomain NSAutomaticSpellingCorrectionEnabled -bool FALSE
 # Disable press-and-hold for keys in favor of key repeat
 defaults write -globalDomain ApplePressAndHoldEnabled -bool FALSE
 
-# Always show the crollbars
+# Always show the scrollbars
 defaults write -globalDomain AppleShowScrollBars -string Always
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
