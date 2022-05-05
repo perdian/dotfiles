@@ -40,6 +40,11 @@ defaults write com.apple.LaunchServices LSQuarantine -bool FALSE
 # Don't create .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
 
+# Disable shadows in screenshots
+defaults write com.apple.screencapture "disable-shadow" -bool TRUE
+
+# Write screenshots to ~/Downloads
+defaults write com.apple.screencapture "location" -string "~/Downloads"
 
 # -----------------------------------------------------------------------------
 # Finder
