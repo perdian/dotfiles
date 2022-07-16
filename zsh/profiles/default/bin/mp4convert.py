@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import glob
 import os
 import subprocess
@@ -10,7 +10,7 @@ for file in files:
 
         fileWithoutExtension = os.path.splitext(file)[0]
         fileWithMp4Extension = fileWithoutExtension + ".mp4";
-        print "Converting " + file + "..."
+        print("Converting " + file + "...")
 
         subprocess.call([
             "ffmpeg",
