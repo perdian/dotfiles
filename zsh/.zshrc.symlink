@@ -8,11 +8,11 @@ COMPLETION_WAITING_DOTS="true"
 if [[ $(uname) == "Darwin" ]]; then
 	if [[ -f /opt/homebrew/bin/brew ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi 
+    fi
 fi
 
 # Make sure that the DOTFILES_HOME environment variable is available to all subsequent
-# operations and scripts so that we have a clear root from which to load all dotfiles 
+# operations and scripts so that we have a clear root from which to load all dotfiles
 # related content
 if [[ -z "${DOTFILES_HOME}" ]]; then
     if which realpath >/dev/null; then
@@ -25,7 +25,7 @@ if [[ -z "${DOTFILES_HOME}" ]]; then
 fi
 if [[ -z "${DOTFILES_HOME}" ]]; then export DOTFILES_HOME="${HOME}/.dotfiles"; fi
 
-# For better readability, the bootstrap operations have been extracted into separate 
+# For better readability, the bootstrap operations have been extracted into separate
 # files within the "bootstrap" folder
 source ${DOTFILES_HOME}/zsh/bootstrap/enhance_path.zsh
 source ${DOTFILES_HOME}/zsh/bootstrap/compute_profiles.zsh
@@ -33,3 +33,4 @@ source ${DOTFILES_HOME}/zsh/bootstrap/ensure_symlinks.zsh
 source ${DOTFILES_HOME}/zsh/bootstrap/initialize_dotfiles.zsh
 source ${DOTFILES_HOME}/zsh/bootstrap/initialize_local_overrides.zsh
 source ${DOTFILES_HOME}/zsh/bootstrap/install_upgrade_script.zsh
+
