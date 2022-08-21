@@ -5,9 +5,7 @@ brew 'bat' # https://github.com/sharkdp/bat
 brew 'bottom' # https://clementtsang.github.io/bottom/nightly/
 brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
-brew 'croc' # https://github.com/schollz/croc
 brew 'direnv'
-brew 'dust'
 brew 'dog'
 brew 'exiftool'
 brew 'fasd'
