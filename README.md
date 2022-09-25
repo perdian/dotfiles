@@ -100,5 +100,7 @@ Some necessary system tools might be missing, so to be on the safe side make sur
 
 ```shell
 sudo apt -y install dialog curl git zsh python3 vim fzf nano direnv
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/perdian/dotfiles/master/install.sh)"
+git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
+ln -s -f ~/.dotfiles/zsh/.zshrc.symlink ~/.zshrc
+sudo chsh -s /bin/zsh
 ```
