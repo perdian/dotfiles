@@ -12,6 +12,7 @@ brew 'fasd'
 brew 'ffmpeg'
 brew 'fluxctl'
 brew 'git'
+brew 'gitui' # https://github.com/extrawurst/gitui
 brew 'httpie' # https://httpie.org/
 brew 'imagemagick'
 brew 'ipcalc'
