@@ -1,7 +1,0 @@
-include /usr/local/share/nano/*.nanorc
-
-set autoindent
-set constantshow
-set indicator
-set tabsize 2
-set tabstospaces
