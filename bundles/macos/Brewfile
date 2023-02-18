@@ -14,6 +14,7 @@ brew 'fluxctl'
 brew 'git'
 brew 'gitui' # https://github.com/extrawurst/gitui
 brew 'httpie' # https://httpie.org/
+brew 'htop' # https://htop.dev
 brew 'imagemagick'
 brew 'ipcalc'
 brew 'jid' # https://github.com/fiatjaf/jiq
