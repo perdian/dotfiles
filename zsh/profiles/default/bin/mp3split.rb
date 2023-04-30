@@ -2,31 +2,33 @@
 
 # Split an audio file into multiple MP3 files, defined in a separate file, build up like this:
 #
-# (0:00:00) 01. Polijarny Inlet
-# (0:00:39) 02. Hymn To Red October (Main Title)
-#
-# The first element is the offset from which the new file starts
-# The second element is the name of the target file
+# Example
+# mp3split.rb -pattern "(?<index>\d+)\s*\.+\s*(?<title>.*)\s+(?<offset>.+)" -source source.mp3 -definitions tracks.txt
 
-source_file = File.expand_path(ARGV[0])
-raise "Cannot find source file at: #{File.expand_path(ARGV[0])}" unless File.exist?(source_file)
+def extract_command_line_argument(argument_name, default_value: nil)
+  argument_name_index = ARGV.find_index(argument_name)
+  argument_value = ARGV[argument_name_index + 1] if argument_name_index && argument_name_index < (ARGV.length - 1)
+  if (argument_value)
+    argument_value
+  elsif default_value
+    default_value
+  else
+    raise "Cannot find argument '#{argument_name}'" if argument_name_index.nil? || argument_name_index < 0
+    raise "Cannot find argument value for '#{argument_name}'"
+  end
+end
 
-definitions_file = File.expand_path(ARGV[1])
-raise "Cannot load definitions from file: #{File.expand_path(ARGV[1])}" unless File.exist?(definitions_file)
-puts "Loading target item definitions from: #{File.expand_path(ARGV[1])}"
-
-definitions = []
-File.readlines(definitions_file).each do |line|
-  unless line.start_with?("#")
-    line_matcher = /[\(\[]*?(\d+:\d+:\d+)[\)\]\W]*(.*)/.match(line.strip)
-    if line_matcher
-      target_offset_matcher = /(\d+):(\d+):(\d+)/.match(line_matcher[1])
-      target_offset = target_offset_matcher
-      target_offset_seconds = target_offset_matcher[3].to_i + (target_offset_matcher[2].to_i * 60) + (target_offset_matcher[1].to_i * 60 * 60)
-      target_filename = line_matcher[2]
-      definitions.push(offset: target_offset_seconds, title: line_matcher[2])
+def quoted(value)
+  output = "\""
+  value.each_char do |c|
+    if c =~ /[\"]/
+      output << '\\"'
+    else
+      output << c
     end
   end
+  output << "\""
+  output
 end
 
 def sanitize_file_name(file_name)
@@ -45,48 +47,73 @@ def sanitize_file_name(file_name)
   output
 end
 
-def quoted(value)
-  output = "\""
-  value.each_char do |c|
-    if c =~ /[\"]/
-      output << '\\"'
+def parse_time_value_to_seconds(time_value)
+  result_seconds = 0
+  time_items = time_value.split(':')
+  time_items.reverse.each_with_index do |time_item, index|
+    if (index > 0)
+      result_seconds = result_seconds + (time_item.to_i * (60 ** index))
     else
-      output << c
+      result_seconds = result_seconds + time_item.to_i
     end
   end
-  output << "\""
-  output
+  result_seconds
 end
 
-(0...definitions.length).each do |i|
+def create_definitions(definitions_file, definitions_pattern)
+  definitions = []
+  File.open(definitions_file).each_with_index do |definitions_line, index|
+    if (definitions_line.strip.length > 0 && !definitions_line.start_with?("#"))
+      definition_matcher = definitions_line&.strip&.match(definitions_pattern)
+      raise "Cannot match line '#{definitions_line.strip}' against '#{definition_pattern}'" unless definition_matcher
 
-  this_offset = definitions[i][:offset]
-  this_offset_string = Time.at(this_offset).utc.strftime("%H:%M:%S")
-  next_offset = definitions[i+1][:offset] if definitions[i+1]
-  next_offset_string = Time.at(next_offset).utc.strftime("%H:%M:%S") if next_offset
-  duration_seconds = next_offset - this_offset if next_offset
-  duration_string = Time.at(duration_seconds).utc.strftime("%H:%M:%S") if duration_seconds
-  original_title = definitions[i][:title]
-  target_title = original_title
-  target_filename = target_title
-  target_title_index_matcher = /(\d+)\.\s+(.*)/.match(original_title)
-  if target_title_index_matcher
-    target_index = target_title_index_matcher[1].to_i
-    target_title = target_title_index_matcher[2]
-    target_filename = "#{target_index.to_s.rjust(2, "0")} #{target_title}"
+      definition = {}
+      definition[:title] = definition_matcher[:title].strip
+      definition[:index] = definition_matcher[:index]&.to_i || index + 1
+      definition[:offset_seconds] = definition_matcher[:offset_seconds].to_i if definition_matcher.names.include?("offset_seconds")
+      definition[:offset_seconds] = parse_time_value_to_seconds(definition_matcher[:offset]) if definition_matcher.names.include?("offset")
+      definition[:length_seconds] = definition_matcher[:length_seconds].to_i if definition_matcher.names.include?("length_seconds")
+      definition[:length_seconds] = parse_time_value_to_seconds(definition_matcher[:length]) if definition_matcher.names.include?("length")
+      definitions << definition
+
+    end
   end
+  definitions
+end
+
+
+dry_run_only = ARGV.include?('--dry-run')
+
+source_file = extract_command_line_argument("-source")
+
+definitions_file = extract_command_line_argument("-definitions")
+definitions_pattern = Regexp.new(extract_command_line_argument("-pattern"))
+definitions = create_definitions(definitions_file, definitions_pattern)
+
+rolling_offset = 0
+
+definitions.each_with_index do |definition, definition_index|
+
+  start_offset_seconds = definition[:offset_seconds] || rolling_offset
+
+  end_offset_seconds = (start_offset_seconds + definition[:length_seconds]) if start_offset_seconds && definition[:length_seconds]
+  end_offset_seconds = definitions[definition_index + 1][:offset_seconds] if end_offset_seconds.nil? && definition_index < (definitions.length - 1)
+  rolling_offset = end_offset_seconds
+
+  target_filename = ""
+  target_filename << (definition_index + 1).to_s.rjust(definitions.length.to_s.length, "0") << " "
+  target_filename << definition[:title] << ".mp3"
 
   ffmpeg_string = "ffmpeg"
-  ffmpeg_string << " -i #{source_file}"
-  ffmpeg_string << " -ss #{this_offset_string}"
-  ffmpeg_string << " -t #{duration_string}" if duration_string
-  ffmpeg_string << " -metadata title=#{quoted(target_title)}"
-  ffmpeg_string << " -metadata track=\"#{target_index}/#{definitions.length}\"" if target_index
+  ffmpeg_string << " -i \"#{source_file}\""
   ffmpeg_string << " -ab 160k"
-  ffmpeg_string << " #{quoted(sanitize_file_name(target_filename) + '.mp3')}"
-  puts "Processing: \"#{target_filename}\" from #{this_offset_string} with duration #{duration_string}"
-  puts ">> #{ffmpeg_string}"
+  ffmpeg_string << " -metadata title=#{quoted(definition[:title])}"
+  ffmpeg_string << " -metadata track=\"#{definition_index + 1}/#{definitions.length}\""
+  ffmpeg_string << " -ss #{start_offset_seconds}" if start_offset_seconds
+  ffmpeg_string << " -to #{end_offset_seconds}" if end_offset_seconds
+  ffmpeg_string << " #{quoted(sanitize_file_name(target_filename))}"
 
-  system(ffmpeg_string)
+  puts ffmpeg_string
+  system(ffmpeg_string) unless dry_run_only
 
 end
