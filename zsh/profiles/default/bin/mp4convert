@@ -1,6 +1,8 @@
 #!/bin/zsh
 set -e
 
+CREATION_DATE_ENV="${CREATION_DATE}"
+
 for OLD_FILE in "$@"; do
 
   OLD_FILE_EXTENSION="${OLD_FILE##*.}"
@@ -13,6 +15,7 @@ for OLD_FILE in "$@"; do
   if [[ "${TITLE}" != "" ]]; then
     FFMPEG_COMPUTED_OPTIONS="-metadata title=\"${TITLE}\""
   fi
+
   if [[ "${VIDEO_TAG}" == "" ]]; then
     if [[ ${VIDEO_CODEC:-libx265} == "libx265" ]]; then
       # X.265 with the standard tag "hev1" doesn't play video on an iPad, so we explicitly set the -tag:v value to "hvc1".
@@ -30,11 +33,12 @@ for OLD_FILE in "$@"; do
     ${FFMPEG_OPTIONS} \
     "${NEW_FILE}"
 
+  CREATION_DATE="${CREATION_DATE_ENV}"
   if [[ "${CREATION_DATE}" == "" ]]; then
     # Check if the original file has creation_time set and if so we'll use that.
     # Otherwise we'll use the last modified timestamp of the original file
     CREATION_DATE=$(ffprobe "${OLD_FILE}" -show_entries format_tags=creation_time -of compact=p=0:nk=1 -v 0 || echo "")
-    if [[ "${CREATION_DATE}" == "" ]]; then
+    if [[ "${CREATION_DATE}" == "" || ${CREATION_DATE} == "1970-01-01T00:00:00.000000Z" ]]; then
       CREATION_DATE=$(date -r "${OLD_FILE}" +"%Y-%m-%dT%H:%M:%S")
     fi
   fi
