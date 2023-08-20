@@ -6,11 +6,8 @@ CREATION_DATE_ENV="${CREATION_DATE}"
 for OLD_FILE in "$@"; do
 
   OLD_FILE_EXTENSION="${OLD_FILE##*.}"
-  NEW_FILE_BASENAME="$(basename ${OLD_FILE%.*})"
-  NEW_FILE="${NEW_FILE_BASENAME}.mp4"
-  if [[ "${(L)OLD_FILE_EXTENSION}" == "mp4" ]]; then
-    NEW_FILE="${NEW_FILE_BASENAME} CONVERTED.mp4"
-  fi
+  OLD_FILE_BASENAME="$(basename ${OLD_FILE%.*})"
+  CONVERSION_FILE="${OLD_FILE_BASENAME} 🟡 CONVERSION.mp4"
 
   if [[ "${TITLE}" != "" ]]; then
     FFMPEG_COMPUTED_OPTIONS="-metadata title=\"${TITLE}\""
@@ -25,13 +22,13 @@ for OLD_FILE in "$@"; do
     fi
   fi
 
-  ffmpeg \
+  ffmpeg -y \
     -i "${OLD_FILE}" \
     -c:v ${VIDEO_CODEC:-libx265} -tag:v ${VIDEO_TAG} ${VIDEO_OPTIONS} \
     -movflags +faststart+use_metadata_tags \
     ${FFMPEG_COMPUTED_OPTIONS} \
     ${FFMPEG_OPTIONS} \
-    "${NEW_FILE}"
+    "${CONVERSION_FILE}"
 
   CREATION_DATE="${CREATION_DATE_ENV}"
   if [[ "${CREATION_DATE}" == "file" ]]; then
@@ -43,6 +40,29 @@ for OLD_FILE in "$@"; do
   if [[ "${CREATION_DATE}" == "" || ${CREATION_DATE} == "1970-01-01T00:00:00.000000Z" ]]; then
     CREATION_DATE=$(date -r "${OLD_FILE}" +"%Y-%m-%dT%H:%M:%S")
   fi
-  touch -d "${CREATION_DATE}" "${NEW_FILE}"
+  touch -d "${CREATION_DATE}" "${CONVERSION_FILE}"
+
+  NEW_FILE="${OLD_FILE_BASENAME}.mp4"
+
+  if [[ -f "${NEW_FILE}" ]]; then
+    ARCHIVE_FILE_CODEC=$(ffprobe "${NEW_FILE}" -select_streams v:0 -show_entries stream=codec_name -of compact=p=0:nk=1 -v 0 | head -n1 || echo "unknown")
+    for COUNTER in {0..20}; do
+      ARCHIVE_FILE_BASENAME="${OLD_FILE_BASENAME} 🔴 OLD [${ARCHIVE_FILE_CODEC:-unknown}]"
+      if [[ "$COUNTER" -gt "0" ]]; then
+        ARCHIVE_FILE_BASENAME="${ARCHIVE_FILE_BASENAME} (${COUNTER})"
+      fi
+      ARCHIVE_FILE="${ARCHIVE_FILE_BASENAME}.mp4"
+      if [[ ! -f "${ARCHIVE_FILE}" ]]; then
+        mv "${NEW_FILE}" "${ARCHIVE_FILE}"
+        break
+      fi
+    done
+  fi
+
+  if [[ -f "${NEW_FILE}" ]]; then
+    fail "Cannot move temporary conversion file as target file already exists at: $(realpath ${NEW_FILE})"
+  else
+    mv "${CONVERSION_FILE}" "${NEW_FILE}"
+  fi
 
 done
