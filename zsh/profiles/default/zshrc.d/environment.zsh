@@ -1,7 +1,7 @@
-if [[ -f /usr/local/bin/nano ]]; then
-    export EDITOR=/usr/local/bin/nano
+if [[ -f /opt/homebrew/bin/nano ]]; then
+    export EDITOR=/opt/homebrew/bin/nano
 elif [[ -f /usr/bin/nano ]]; then
     export EDITOR=/usr/bin/nano
-else
+elif [[ -f /usr/bin/vim ]]; then
     export EDITOR=/usr/bin/vim
 fi

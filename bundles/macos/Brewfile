@@ -53,7 +53,7 @@ cask 'temurin'
 tap 'homebrew/cask-fonts'
 cask 'font-arial'
 cask 'font-courier-new'
-cask 'font-jetbrainsmono-nerd-font'
+cask 'font-jetbrains-mono-nerd-font'
 cask 'font-firacode-nerd-font'
 
 # https://github.com/colindean/homebrew-fonts-nonfree
