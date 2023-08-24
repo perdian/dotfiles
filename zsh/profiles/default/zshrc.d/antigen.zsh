@@ -17,7 +17,6 @@ fi
 antigen bundle bundler
 antigen bundle colorize
 antigen bundle common-aliases
-antigen bundle docker
 antigen bundle encode64
 antigen bundle fasd
 antigen bundle gem
@@ -28,8 +27,11 @@ antigen bundle jsontools
 antigen bundle urltools
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle Aloxaf/fzf-tab
 antigen bundle Tarrasch/zsh-bd
 antigen bundle wfxr/forgit
+
 antigen theme romkatv/powerlevel10k
+
 antigen apply
