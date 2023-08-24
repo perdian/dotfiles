@@ -22,9 +22,10 @@ bindkey "^[[6~" history-beginning-search-forward
 bindkey "^[[H"  beginning-of-line
 bindkey "^[[F"  end-of-line
 
-# Delete everything in the current buffer after the last whitespace
-function _move_to_previous_whitespace {
-  BUFFER=$(echo $BUFFER | perl -pe 's/(.*)\s(.+)/\1/')
-}
-zle -N _move_to_previous_whitespace
-bindkey '\C-y' _move_to_previous_whitespace
+# Option+Left / Option+Right = Prev/Next word
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+
+# Command+Left / Command+Right = Start/End of line
+bindkey "^[[D"  beginning-of-line
+bindkey "^[[C"  end-of-line

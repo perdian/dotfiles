@@ -18,7 +18,6 @@ antigen bundle bundler
 antigen bundle colored-man-pages
 antigen bundle colorize
 antigen bundle common-aliases
-antigen bundle dirhistory
 antigen bundle encode64
 antigen bundle fasd
 antigen bundle gem
