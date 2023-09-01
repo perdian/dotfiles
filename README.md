@@ -37,7 +37,8 @@ A profile becomes active (and thus all dotfiles of that profile will be included
 
 There are a few special folders and files inside the hierarchy.
 
-- **zsh/profiles/PROFILE_NAME/bin/**: The `bin/` folder of a profile will be added to the `$PATH`.
+- **zsh/profiles/PROFILE_NAME/bin/**: The `bin/` folder of a profile will be appended to the `$PATH`.
+- **zsh/profiles/PROFILE_NAME/fbin/**: The `fbin/` folder of a profile will be prepended to the `fpath`.
 - **zsh/profiles/PROFILE_NAME/\*\*/\*.zsh**: All files ending with `.zsh` will get loaded into the shell environment.
 - **zsh/profiles/PROFILE_NAME/\*\*/\*.symlink**: All files ending in `.symlink` will get symlinked into a target folder below the home folder (or the home folder itself). The part between an (optional) 'at' character and the `.symlink` extension will determine the exact target folder below the users home folder. If no explicit target folder is given (the extension being just `.symlink`) then the link will be created directly inside the users home folder (`$HOME`). Otherwise the part between the 'at' character and the `.symlink` extension will be translated into a folder below the home directory, where all 'at' characters will be replaced by forward slashes. So for example the file `private.xml@Library@Application Support@karabiner.symlink` will be translated to the actual target folder `~/Library/Application Support/karabiner`. This enables me to keep all of my files versioned in the dotfiles but still keep those autoloaded files in my home folder. The symlinks will be created when running the `install` script.
 
