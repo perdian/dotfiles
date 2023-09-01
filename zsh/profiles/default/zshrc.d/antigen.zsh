@@ -19,11 +19,9 @@ antigen bundle colored-man-pages
 antigen bundle colorize
 antigen bundle common-aliases
 antigen bundle encode64
-antigen bundle fasd
 antigen bundle gem
 antigen bundle git
-antigen bundle git-extras
-antigen bundle git-flow
+antigen bundle gitfast
 antigen bundle jsontools
 antigen bundle urltools
 antigen bundle zsh-users/zsh-autosuggestions

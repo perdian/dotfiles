@@ -12,7 +12,7 @@ if [[ $(uname -s) == 'Darwin' ]]; then
 fi
 
 if which apt-get >/dev/null; then
-  sudo apt-get --yes install dialog git vim nano zsh coreutils wget autojump software-properties-common
+  sudo apt-get --yes install dialog git vim nano zsh coreutils wget software-properties-common
 fi
 
 echo "Upgrading Antigen"
