@@ -22,6 +22,7 @@ brew 'jq'
 brew 'k3d'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
 brew 'libdvdcss'
+brew 'lsd' # https://github.com/lsd-rs/lsd
 brew 'maven'
 brew 'nano'
 brew 'ocrmypdf'
