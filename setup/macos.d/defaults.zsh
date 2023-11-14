@@ -46,6 +46,9 @@ defaults write com.apple.screencapture "disable-shadow" -bool TRUE
 # Write screenshots to ~/Downloads
 defaults write com.apple.screencapture "location" -string "~/Downloads"
 
+# Restore small cursor
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO
+
 # -----------------------------------------------------------------------------
 # Finder
 # -----------------------------------------------------------------------------
