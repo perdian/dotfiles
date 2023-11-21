@@ -3,7 +3,7 @@ if [[ $(uname -s) == 'Darwin' ]]; then
 else
     if [[ ! -f ~/.antigen.zsh ]]; then
         echo "Downloading Antigen"
-        curl -L git.io/antigen > ~/.antigen.zsh
+        curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh > ~/.antigen.zsh
     fi
     source  ~/.antigen.zsh
 fi
