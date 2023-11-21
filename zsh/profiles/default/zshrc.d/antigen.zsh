@@ -12,6 +12,7 @@ antigen use oh-my-zsh
 
 if [[ $(uname -s) == 'Darwin' ]]; then
     antigen bundle macos
+    antigen bundle Aloxaf/fzf-tab
 fi
 
 antigen bundle bundler
@@ -27,7 +28,6 @@ antigen bundle urltools
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle Aloxaf/fzf-tab
 antigen bundle Tarrasch/zsh-bd
 antigen bundle wfxr/forgit
 
