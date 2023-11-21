@@ -19,9 +19,12 @@ bindkey -s "^[Oo" "/"
 # PgUp and PgDown
 bindkey "^[[5~" history-beginning-search-backward
 bindkey "^[[6~" history-beginning-search-forward
-bindkey "^[[H"  beginning-of-line
-bindkey "^[[F"  end-of-line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 # Option+Left / Option+Right = Prev/Next word
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
+
+# Delete character
+bindkey "^[[3~" delete-char
