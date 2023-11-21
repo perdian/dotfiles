@@ -1,11 +1,11 @@
 if [[ $(uname -s) == 'Darwin' ]]; then
     source $(brew --prefix)/share/antigen/antigen.zsh
 else
-    if [[ ! -f ~/.antigen.zsh ]]; then
+    if [[ ! -f ~/antigen.zsh ]]; then
         echo "Downloading Antigen"
-        curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh > ~/.antigen.zsh
+        curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh > ~/antigen.zsh
     fi
-    source  ~/.antigen.zsh
+    source  ~/antigen.zsh
 fi
 
 antigen use oh-my-zsh
