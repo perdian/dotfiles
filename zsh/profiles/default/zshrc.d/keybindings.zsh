@@ -25,7 +25,3 @@ bindkey "^[[F"  end-of-line
 # Option+Left / Option+Right = Prev/Next word
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
-
-# Command+Left / Command+Right = Start/End of line
-bindkey "^[[D"  beginning-of-line
-bindkey "^[[C"  end-of-line
