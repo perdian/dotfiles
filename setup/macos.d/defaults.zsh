@@ -1,7 +1,7 @@
 echo "Applying system defaults"
 
 # Font smoothing (see https://colinstodd.com/posts/tech/fix-macos-catalina-fonts-after-upgrade.html)
-defaults -currentHost write -globalDomain AppleFontSmoothing -int 1
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 0
 
 # Expand save panel by default (see https://www.defaults-write.com/expand-save-panel-default/)
 defaults write -globalDomain NSNavPanelExpandedStateForSaveMode -bool TRUE
