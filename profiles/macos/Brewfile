@@ -1,28 +1,25 @@
 tap 'homebrew/bundle'
 
+brew 'age'
 brew 'antigen' # https://antigen.sharats.me
 brew 'bat' # https://github.com/sharkdp/bat
-brew 'bottom' # https://clementtsang.github.io/bottom/nightly/
 brew 'broot' # https://github.com/Canop/broot
 brew 'coreutils'
 brew 'direnv'
 brew 'dog'
 brew 'exiftool'
 brew 'ffmpeg'
-brew 'fluxctl'
 brew 'git'
 brew 'gitui' # https://github.com/extrawurst/gitui
 brew 'httpie' # https://httpie.org/
 brew 'htop' # https://htop.dev
 brew 'imagemagick'
 brew 'ipcalc'
-brew 'jid' # https://github.com/fiatjaf/jiq
 brew 'jless'
 brew 'jq'
 brew 'k3d'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
 brew 'libdvdcss'
-brew 'lsd' # https://github.com/lsd-rs/lsd
 brew 'maven'
 brew 'nano'
 brew 'ocrmypdf'
