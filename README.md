@@ -15,16 +15,16 @@ My personal collection of shell scripts, configuration files and other resources
 
 They're first and foremost designed to work on macOS, as that's my primary operating system both on my personal machine and my working machine. Second class support is given to Linux as that's what my personal server is running on.
 
-The project itself is not really designed to be used "as is" by anyone else but can serve as an idea of how *your* personal dotfiles could be structured. I'm far from suggesting that my stuff works for everybody but if you find it interesting [fork it](https://github.com/perdian/dotfiles/fork), remove what you don't use, and build on what you *do* want to use.
+The project itself is not really designed to be used "as is" by anyone else but may serve as an idea of how *your* personal dotfiles could be structured. I'm far from suggesting that my stuff works for everybody - but if you do find it interesting [fork it](https://github.com/perdian/dotfiles/fork), remove what you don't use, and build on what you *do* want to use.
 
 ## Profiles
 
 Not *all* dotfiles apply to *all* my machines.
 Some scripts are only relevant on a macOS machine while others are only relevant on a Linux machine.
 
-To achieve this the dotfiles are grouped by *profile*.
+To achieve this the dotfiles are grouped into *profiles*.
 
-All profile specific scripts and settings are stored inside the `zsh/profiles` folder. Each subfolder within the `zsh/profiles` folder represents a separate set of dotfiles specific to that profile.
+All profile specific scripts and settings are stored inside the `profiles` folder. Each subfolder within the `profiles` folder represents a separate set of dotfiles specific to that profile.
 
 A profile becomes active (and thus all dotfiles of that profile will be included) depending on the following *profile activation criteria*:
 
@@ -33,28 +33,21 @@ A profile becomes active (and thus all dotfiles of that profile will be included
     - The `macos_arm64` and `macos_i386` profiles will be activated depending on the macOS architecture.
 - The `linux` profile will be activated if the `.zshrc` initialization script discovers that it's running on Linux.
 
+An additional profile will be activated residing a `~/.zshrc.local.d`.
+This directory behaves exactly like any other profile directory, but it has been deliberately chosen to *not* be residing inside the folder structure of this dotfiles project so that additional configurations and settings for specific machines can be added outside the version control scope of this dotfiles project.
+
 ### Components
 
 There are a few special folders and files inside the hierarchy.
 
-- **zsh/profiles/PROFILE_NAME/bin/**: The `bin/` folder of a profile will be appended to the `$PATH`.
-- **zsh/profiles/PROFILE_NAME/fbin/**: The `fbin/` folder of a profile will be prepended to the `fpath`.
-- **zsh/profiles/PROFILE_NAME/\*\*/\*.zsh**: All files ending with `.zsh` will get loaded into the shell environment.
-- **zsh/profiles/PROFILE_NAME/\*\*/\*.symlink**: All files ending in `.symlink` will get symlinked into a target folder below the home folder (or the home folder itself). The part between an (optional) 'at' character and the `.symlink` extension will determine the exact target folder below the users home folder. If no explicit target folder is given (the extension being just `.symlink`) then the link will be created directly inside the users home folder (`$HOME`). Otherwise the part between the 'at' character and the `.symlink` extension will be translated into a folder below the home directory, where all 'at' characters will be replaced by forward slashes. So for example the file `private.xml@Library@Application Support@karabiner.symlink` will be translated to the actual target folder `~/Library/Application Support/karabiner`. This enables me to keep all of my files versioned in the dotfiles but still keep those autoloaded files in my home folder. The symlinks will be created when running the `install` script.
-
-### Coexistence with other local settings
-
-There are some settings that I want to have on a particular machine only which are not checked in into the dotfiles project itself.
-The `.zshrc` symlink however is created by the dotfiles installer I need another way to make additional local configurations available.
-To support this setup, a special folder `.zshrc.local` can be created inside the users home folder.
-This is handled as an additional profile (including topic folders) which will be selected automatically following the rules already laid out in the components section:
-
-- **~/.zshrc.local/bin/**: The `bin/` folder will be added to the `$PATH`.
-- **~/.zshrc.local/\*\*/\*.zsh**: All files ending with `.zsh` will get loaded into the shell environment.
+- **profiles/PROFILE_NAME/bin/**: The `bin/` folder of a profile will be appended to the `$PATH`.
+- **profiles/PROFILE_NAME/fbin/**: The `fbin/` folder of a profile will be prepended to the `fpath`.
+- **profiles/PROFILE_NAME/zshrc.d/\*\*/\*.zsh**: All files ending with `.zsh` will get loaded into the shell environment.
+- **profiles/PROFILE_NAME/home/**: All files within the `home` directory will get symlinked into their corresponding files below the current users home directory (`~`). So for example the file `~/.dotfiles/profiles/PROFILE_NAME/home/Library/Application Support/karabiner` will be translated to the actual target folder `~/Library/Application Support/karabiner`. The symlinks will be created/updated each time a new ZSH shell is opened.
 
 ### Installation
 
-Checkout the repository to any location on your local system (e.g. the `.dotfiles` in your home folder) and link the `zsh/zshrc.symlink` file to your local `.zshrc` file. Opening a new ZSH shell will initialize everything.
+Checkout the repository to any location on your local system (e.g. the `.dotfiles` in your home folder) and link the `.zshrc` file to your local `.zshrc` file. Opening a new ZSH shell will initialize everything.
 
 #### macOS
 
@@ -78,16 +71,10 @@ The preparations for macOS differ slightly as Homebrew is installed in different
 
 ```shell
 git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-ln -s -f ~/.dotfiles/zsh/.zshrc.symlink ~/.zshrc
+ln -s -f ~/.dotfiles/.zshrc ~/.zshrc
 ```
 
 The necessary dependencies will be installed automatically when opening a new ZSH shell.
-
-To apply the default macOS settings and preferences execute the following command:
-
-```shell
-~/.dotfiles/setup/macos
-```
 
 To update the Homebrew bundles (and install additional bundles) after the installation execute the following command:
 
@@ -102,6 +89,6 @@ Some necessary system tools might be missing, so to be on the safe side make sur
 ```shell
 sudo apt -y install dialog curl git zsh python3 vim fzf nano direnv
 git clone https://github.com/perdian/dotfiles.git ~/.dotfiles
-ln -s -f ~/.dotfiles/zsh/.zshrc.symlink ~/.zshrc
+ln -s -f ~/.dotfiles/.zshrc ~/.zshrc
 sudo chsh -s /bin/zsh
 ```

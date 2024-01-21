@@ -1,0 +1,60 @@
+tap 'homebrew/bundle'
+
+brew 'antigen' # https://antigen.sharats.me
+brew 'bat' # https://github.com/sharkdp/bat
+brew 'bottom' # https://clementtsang.github.io/bottom/nightly/
+brew 'broot' # https://github.com/Canop/broot
+brew 'coreutils'
+brew 'direnv'
+brew 'dog'
+brew 'exiftool'
+brew 'ffmpeg'
+brew 'fluxctl'
+brew 'git'
+brew 'gitui' # https://github.com/extrawurst/gitui
+brew 'httpie' # https://httpie.org/
+brew 'htop' # https://htop.dev
+brew 'imagemagick'
+brew 'ipcalc'
+brew 'jid' # https://github.com/fiatjaf/jiq
+brew 'jless'
+brew 'jq'
+brew 'k3d'
+brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
+brew 'libdvdcss'
+brew 'lsd' # https://github.com/lsd-rs/lsd
+brew 'maven'
+brew 'nano'
+brew 'ocrmypdf'
+brew 'pandoc'
+brew 'pwgen'
+brew 'pstree'
+brew 'rbenv'
+brew 'rsync'
+brew 'ruby'
+brew 'telnet'
+brew 'tesseract-lang' # Allow German for OCRmyPDF
+brew 'tree'
+brew 'wifi-password'
+brew 'wget'
+brew 'yank'
+brew 'zoxide'
+brew 'zsh'
+brew 'zsh-completions'
+
+# https://github.com/yt-dlp/yt-dlp
+tap 'yt-dlp/taps'
+brew 'yt-dlp'
+
+cask 'ngrok'
+cask 'temurin'
+
+# https://github.com/Homebrew/homebrew-cask-fonts
+tap 'homebrew/cask-fonts'
+cask 'font-arial'
+cask 'font-courier-new'
+cask 'font-jetbrains-mono-nerd-font'
+
+# https://github.com/colindean/homebrew-fonts-nonfree
+tap 'colindean/fonts-nonfree'
+cask 'font-microsoft-office'
