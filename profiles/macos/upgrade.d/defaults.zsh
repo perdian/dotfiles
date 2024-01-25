@@ -1,4 +1,5 @@
 echo "Applying system defaults"
+echo "(Make sure the terminal app where you execute this script has full disk access)"
 
 # Font smoothing (see https://colinstodd.com/posts/tech/fix-macos-catalina-fonts-after-upgrade.html)
 defaults -currentHost write -globalDomain AppleFontSmoothing -int 0
@@ -67,6 +68,13 @@ defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool FALSE
+
+# -----------------------------------------------------------------------------
+# Apple Mail
+# -----------------------------------------------------------------------------
+
+# Don't show attachments inline when composing a new message
+defaults write com.apple.mail DisableInlineAttachmentViewing -boolean yes
 
 # -----------------------------------------------------------------------------
 # Other applications
