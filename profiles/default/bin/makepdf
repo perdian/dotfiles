@@ -1,0 +1,68 @@
+#!/bin/zsh
+set -e
+
+INPUT_FILE="$1"
+if [[ ! -f ${INPUT_FILE} ]]; then
+  echo "\e[91mCannot find input file at: ${INPUT_FILE}\e[0m"
+  exit 1
+fi
+INPUT_FILE_EXTENSION="$(echo ${INPUT_FILE##*.} | tr '[:upper:]' '[:lower:]')"
+
+OUTPUT_FILE="$2"
+if [[ "${OUTPUT_FILE}" == "" ]]; then
+  OUTPUT_FILE_NAME="$(basename ${INPUT_FILE:r}).pdf"
+  OUTPUT_FILE="$(realpath .)/${OUTPUT_FILE_NAME}"
+fi
+
+PDF_QUALITY="${3:-ebook}"
+
+echo "Converting to PDF"
+echo "\e[92m- Input file:  \e[1m$(basename ${INPUT_FILE})\e[0m"
+echo "\e[92m- Output file: \e[1m$(basename ${OUTPUT_FILE})\e[0m"
+echo "\e[92m- PDF quality: \e[1m${PDF_QUALITY}\e[0m"
+
+INTERMEDIARY_FILE="${INPUT_FILE}"
+INTERMEDIARY_FILE_DELETE="false"
+if [[ ${INPUT_FILE_EXTENSION} != "pdf" ]]; then
+
+  INTERMEDIARY_DIRECTORY="$(mktemp -d)"
+
+  echo "Converting ${INPUT_FILE_EXTENSION} into pdf..."
+  /Applications/LibreOffice.app/Contents/MacOS/soffice \
+    --headless \
+    --convert-to pdf \
+    --outdir ${INTERMEDIARY_DIRECTORY} \
+    "${INPUT_FILE}"
+
+  INTERMEDIARY_FILE="${INTERMEDIARY_DIRECTORY}/$(basename ${INPUT_FILE:r}).pdf"
+  INTERMEDIARY_FILE_DELETE="true"
+
+fi
+
+echo "Compressing PDF $(basename ${INTERMEDIARY_FILE}) using quality ${PDF_QUALITY}"
+COMPRESSION_INPUT_FILE="$(realpath ${INTERMEDIARY_FILE})"
+COMPRESSION_OUTPUT_FILE="${OUTPUT_FILE}"
+COMPRESSION_RENAME="false"
+if [[ "${COMPRESSION_INPUT_FILE}" == "${COMPRESSION_OUTPUT_FILE}" ]]; then
+  COMPRESSION_RENAME="true"
+  COMPRESSION_OUTPUT_FILE="${OUTPUT_FILE:r} 🟢 CONVERTED-${PDF_QUALITY}.${OUTPUT_FILE##*.}"
+fi
+gs \
+  -sDEVICE=pdfwrite \
+  -dNOPAUSE \
+  -dQUIET \
+  -dBATCH \
+  -dPDFSETTINGS="/${PDF_QUALITY}" \
+  -dCompatibilityLevel=1.4 \
+  -sOutputFile="${COMPRESSION_OUTPUT_FILE}" \
+  "${COMPRESSION_INPUT_FILE}"
+
+if [[ "${COMPRESSION_RENAME}" == "true" ]]; then
+  mv "${COMPRESSION_INPUT_FILE}" "${COMPRESSION_INPUT_FILE:r} 🟢 ORIGINAL.${COMPRESSION_INPUT_FILE##*.}"
+  mv "${COMPRESSION_OUTPUT_FILE}" "${OUTPUT_FILE}"
+fi
+
+# Cleanup
+if [[ ${INTERMEDIARY_FILE_DELETE} == "true" ]]; then
+  rm -f "${INTERMEDIARY_FILE}"
+fi
