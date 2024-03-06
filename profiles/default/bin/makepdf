@@ -25,6 +25,11 @@ INTERMEDIARY_FILE="${INPUT_FILE}"
 INTERMEDIARY_FILE_DELETE="false"
 if [[ ${INPUT_FILE_EXTENSION} != "pdf" ]]; then
 
+  if [[ ! -e /Applications/LibreOffice.app/Contents/MacOS/soffice ]]; then
+    echo "\e[91mLibreOffice is not installed!\e[0m"
+    exit 1
+  fi
+
   INTERMEDIARY_DIRECTORY="$(mktemp -d)"
 
   echo "Converting ${INPUT_FILE_EXTENSION} into pdf..."
@@ -63,6 +68,5 @@ if [[ "${COMPRESSION_RENAME}" == "true" ]]; then
 fi
 
 # Cleanup
-if [[ ${INTERMEDIARY_FILE_DELETE} == "true" ]]; then
-  rm -f "${INTERMEDIARY_FILE}"
-fi
+[[ ${INTERMEDIARY_FILE_DELETE} == "true" ]] && rm -f "${INTERMEDIARY_FILE}"
+[[ ${INTERMEDIARY_DIRECTORY} != "" ]] && rmdir "${INTERMEDIARY_DIRECTORY}"
