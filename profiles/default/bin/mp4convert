@@ -26,6 +26,18 @@ for PARAMETER in "$@"; do
     CONVERSION_VIDEO_CODEC="libx264"
     CONVERSION_VIDEO_TAG="avc1"
     CONVERSION_VIDEO_CRF="23"
+  elif [[ "${PARAMETER}" == "-mp3" ]]; then
+    CONVERSION_EXTENSION="mp3"
+    CONVERSION_VIDEO_CODEC=""
+    CONVERSION_VIDEO_TAG=""
+    CONVERSION_VIDEO_CRF=""
+  elif [[ "${PARAMETER}" == "-m4r" ]]; then
+    CONVERSION_EXTENSION="m4r"
+    CONVERSION_FORMAT="mp4"
+    CONVERSION_AUDIO_CODEC="aac"
+    CONVERSION_VIDEO_CODEC=""
+    CONVERSION_VIDEO_TAG=""
+    CONVERSION_VIDEO_CRF=""
   elif [[ "${PARAMETER}" =~ "🔴" ]] || [[ "${PARAMETER}" =~ "🟡" ]] || [[ "${PARAMETER}" =~ "🟢" ]]; then
     IGNORED_FILES+=(PARAMETER)
   elif [[ "${PARAMETER}" == "-mark" ]]; then
@@ -52,6 +64,8 @@ echo "\e[92m- Target video tag:   \e[1m${CONVERSION_VIDEO_TAG}\e[0m"
 echo ""
 
 CONVERSION_OPTIONS=()
+if [[ "${CONVERSION_FORMAT}" != "" ]]; then CONVERSION_OPTIONS+=("-f" ${CONVERSION_FORMAT}); fi
+if [[ "${CONVERSION_AUDIO_CODEC}" != "" ]]; then CONVERSION_OPTIONS+=("-c:a" ${CONVERSION_AUDIO_CODEC}); fi
 if [[ "${CONVERSION_VIDEO_CODEC}" != "" ]]; then CONVERSION_OPTIONS+=("-c:v" ${CONVERSION_VIDEO_CODEC}); fi
 if [[ "${CONVERSION_VIDEO_TAG}" != "" ]]; then CONVERSION_OPTIONS+=("-tag:v" ${CONVERSION_VIDEO_TAG}); fi
 if [[ "${CONVERSION_VIDEO_CRF}" != "" ]]; then CONVERSION_OPTIONS+=("-crf" ${CONVERSION_VIDEO_CRF}); fi
