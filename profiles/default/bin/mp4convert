@@ -2,7 +2,7 @@
 set -e
 
 CONVERSION_EXTENSION="mp4"
-CONVERSION_VIDEO_CODEC="libx265"
+CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
 CONVERSION_VIDEO_TAG="hvc1"
 CONVERSION_VIDEO_CRF="23"
 TARGET_FILE_POSTFIX=""
@@ -13,18 +13,18 @@ IGNORED_FILES=()
 for PARAMETER in "$@"; do
   if [[ "${PARAMETER}" == "-m4v" ]]; then
     CONVERSION_EXTENSION="m4v"
-    CONVERSION_VIDEO_CODEC="libx264"
+    CONVERSION_VIDEO_CODEC="h264_videotoolbox" # libx264 with hardware encoding support
     CONVERSION_VIDEO_TAG=""
     CONVERSION_VIDEO_CRF=""
   elif [[ "${PARAMETER}" == "-x264" ]]; then
     CONVERSION_EXTENSION="mp4"
-    CONVERSION_VIDEO_CODEC="libx264"
+    CONVERSION_VIDEO_CODEC="h264_videotoolbox" # libx264 with hardware encoding support
     CONVERSION_VIDEO_TAG="avc1"
     CONVERSION_VIDEO_CRF="23"
   elif [[ "${PARAMETER}" == "-x265" ]]; then
     CONVERSION_EXTENSION="mp4"
-    CONVERSION_VIDEO_CODEC="libx264"
-    CONVERSION_VIDEO_TAG="avc1"
+    CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
+    CONVERSION_VIDEO_TAG="hvc1"
     CONVERSION_VIDEO_CRF="23"
   elif [[ "${PARAMETER}" == "-mp3" ]]; then
     CONVERSION_EXTENSION="mp3"
