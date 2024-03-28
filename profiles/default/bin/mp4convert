@@ -4,7 +4,8 @@ set -e
 CONVERSION_EXTENSION="mp4"
 CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
 CONVERSION_VIDEO_TAG="hvc1"
-CONVERSION_VIDEO_CRF="23"
+CONVERSION_VIDEO_CRF="28"
+CONVERSION_OPTIONS=()
 TARGET_FILE_POSTFIX=""
 SOURCE_FILE_RENAME="true"
 
@@ -20,7 +21,7 @@ for PARAMETER in "$@"; do
     CONVERSION_EXTENSION="mp4"
     CONVERSION_VIDEO_CODEC="h264_videotoolbox" # libx264 with hardware encoding support
     CONVERSION_VIDEO_TAG="avc1"
-    CONVERSION_VIDEO_CRF="23"
+    CONVERSION_VIDEO_CRF="28"
   elif [[ "${PARAMETER}" == "-x265" ]]; then
     CONVERSION_EXTENSION="mp4"
     CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
@@ -47,6 +48,8 @@ for PARAMETER in "$@"; do
     CONVERSION_VIDEO_CRF=""
   elif [[ "${PARAMETER}" == "-rename" ]]; then
     SOURCE_FILE_RENAME="true"
+  elif [[ "${PARAMETER}" == "-720p" ]]; then
+    CONVERSION_OPTIONS+=("-vf" "scale=-1:720")
   else
     SOURCE_FILES+=(${PARAMETER})
   fi
@@ -63,7 +66,6 @@ echo "\e[92m- Target video codec: \e[1m${CONVERSION_VIDEO_CODEC}\e[0m"
 echo "\e[92m- Target video tag:   \e[1m${CONVERSION_VIDEO_TAG}\e[0m"
 echo ""
 
-CONVERSION_OPTIONS=()
 if [[ "${CONVERSION_FORMAT}" != "" ]]; then CONVERSION_OPTIONS+=("-f" ${CONVERSION_FORMAT}); fi
 if [[ "${CONVERSION_AUDIO_CODEC}" != "" ]]; then CONVERSION_OPTIONS+=("-c:a" ${CONVERSION_AUDIO_CODEC}); fi
 if [[ "${CONVERSION_VIDEO_CODEC}" != "" ]]; then CONVERSION_OPTIONS+=("-c:v" ${CONVERSION_VIDEO_CODEC}); fi
