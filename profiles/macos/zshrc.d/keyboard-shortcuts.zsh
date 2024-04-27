@@ -1,9 +1,9 @@
-
 # Symlinking the `~/Library/KeyBindings/DefaultKeyBinding.dict` file doesn't work 🤬
 # Took me hours to find out why this wasn't working but here we are.
 #
-# So to make sure the `DefaultKeyBinding` can still be versionable we check each and every
-# time whether the current version is identical to the version in the repository.
+# So to make sure the `DefaultKeyBinding.dict` can still be versionable we check each
+# and every time whether the current version is identical to the version in the
+# repository.
 
 DEFAULT_KEY_BINDING_FILE="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 DEFAULT_KEY_BINDING_FILE_CONTENT=$(cat <<EOF

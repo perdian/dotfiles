@@ -22,7 +22,6 @@ antigen bundle common-aliases
 antigen bundle encode64
 antigen bundle gem
 antigen bundle git
-antigen bundle gitfast
 antigen bundle jsontools
 antigen bundle urltools
 antigen bundle zsh-users/zsh-autosuggestions

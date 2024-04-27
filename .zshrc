@@ -36,6 +36,7 @@ if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+=("macos" "macos_$(arch)")
 
 # Make sure all relevant directories are added to the `FPATH`
 type brew &>/dev/null && FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+autoload -Uz compinit && compinit
 
 # Make sure that all the symlinks expected to be in place are actually be in place.
 # This ensures that if the dotfiles repository has been updated and introduced new
