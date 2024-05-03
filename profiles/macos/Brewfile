@@ -22,6 +22,7 @@ brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
 brew 'libdvdcss'
 brew 'maven'
 brew 'nano'
+brew 'nnn' # https://github.com/jarun/nnn
 brew 'ocrmypdf'
 brew 'pandoc'
 brew 'pwgen'
