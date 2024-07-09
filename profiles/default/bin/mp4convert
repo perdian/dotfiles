@@ -26,7 +26,7 @@ for PARAMETER in "$@"; do
     CONVERSION_EXTENSION="mp4"
     CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
     CONVERSION_VIDEO_TAG="hvc1"
-    CONVERSION_VIDEO_CRF="23"
+    CONVERSION_VIDEO_CRF="28"
   elif [[ "${PARAMETER}" == "-mp3" ]]; then
     CONVERSION_EXTENSION="mp3"
     CONVERSION_VIDEO_CODEC=""
@@ -48,6 +48,8 @@ for PARAMETER in "$@"; do
     CONVERSION_VIDEO_CRF=""
   elif [[ "${PARAMETER}" == "-rename" ]]; then
     SOURCE_FILE_RENAME="true"
+  elif [[ "${PARAMETER}" == "-v" ]]; then
+    VERBOSE="true"
   elif [[ "${PARAMETER}" == "-720p" ]]; then
     CONVERSION_OPTIONS+=("-vf" "scale=-1:720")
   else
@@ -84,6 +86,14 @@ for SOURCE_FILE in ${SOURCE_FILES}; do
     ${CONVERSION_OPTIONS[*]} \
     "${CONVERSION_FILE}"
 
+  if [[ "${VERBOSE}" == "true" ]]; then
+    echo ffmpeg -y \
+      -i ${SOURCE_FILE} \
+      -movflags +faststart+use_metadata_tags \
+      ${CONVERSION_OPTIONS[*]} \
+      "${CONVERSION_FILE}"
+  fi
+
   if [[ "${SOURCE_CREATION_DATE}" == "" ]]; then SOURCE_CREATION_DATE=$(ffprobe "${SOURCE_FILE}" -show_entries format_tags=creation_time -of compact=p=0:nk=1 -v 0); fi
   if [[ "${SOURCE_CREATION_DATE}" == "" ]]; then SOURCE_CREATION_DATE=$(date -r "${SOURCE_FILE}" +"%Y-%m-%dT%H:%M:%S"); fi
   if [[ "${SOURCE_CREATION_DATE}" != "" ]]; then
@@ -93,12 +103,13 @@ for SOURCE_FILE in ${SOURCE_FILES}; do
   TARGET_FILE="${SOURCE_FILE_BASENAME}${TARGET_FILE_POSTFIX}.${CONVERSION_EXTENSION}"
   if [[ "${SOURCE_FILE_RENAME}" == "true" ]]; then
     ARCHIVE_FILE_CODEC=$(ffprobe "${SOURCE_FILE}" -select_streams v:0 -show_entries stream=codec_name -of compact=p=0:nk=1 -v 0 | head -n1 || echo "unknown")
+    ARCHIVE_DIRECTORY="$(dirname "${SOURCE_FILE}")"
     for COUNTER in {0..20}; do
       ARCHIVE_FILE_BASENAME="${SOURCE_FILE_BASENAME} 🔴 OLD [${ARCHIVE_FILE_CODEC:-unknown}]"
       if [[ "$COUNTER" -gt "0" ]]; then
         ARCHIVE_FILE_BASENAME="${ARCHIVE_FILE_BASENAME} (${COUNTER})"
       fi
-      ARCHIVE_FILE="${ARCHIVE_FILE_BASENAME}.${SOURCE_FILE_EXTENSION}"
+      ARCHIVE_FILE="${ARCHIVE_DIRECTORY}/${ARCHIVE_FILE_BASENAME}.${SOURCE_FILE_EXTENSION}"
       if [[ ! -f "${ARCHIVE_FILE}" ]]; then
         mv "${SOURCE_FILE}" "${ARCHIVE_FILE}"
         break
