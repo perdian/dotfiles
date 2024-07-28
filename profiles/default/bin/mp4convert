@@ -1,121 +1,100 @@
 #!/bin/zsh
 set -e
 
-CONVERSION_EXTENSION="mp4"
-CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
-CONVERSION_VIDEO_TAG="hvc1"
-CONVERSION_VIDEO_CRF="28"
-CONVERSION_OPTIONS=()
-TARGET_FILE_POSTFIX=""
-SOURCE_FILE_RENAME="true"
+declare -A ffmpeg_options
+ffmpeg_options[-c:v]="hevc_videotoolbox"
+ffmpeg_options[-tag:v]="hvc1"
+ffmpeg_options[-crf]="28"
+ffmpeg_options[-movflags]="+faststart+use_metadata_tags"
+ffmpeg_options[-metadata:s]="handler_name=''"
 
-SOURCE_FILES=()
-IGNORED_FILES=()
-for PARAMETER in "$@"; do
-  if [[ "${PARAMETER}" == "-m4v" ]]; then
-    CONVERSION_EXTENSION="m4v"
-    CONVERSION_VIDEO_CODEC="h264_videotoolbox" # libx264 with hardware encoding support
-    CONVERSION_VIDEO_TAG=""
-    CONVERSION_VIDEO_CRF=""
-  elif [[ "${PARAMETER}" == "-x264" ]]; then
-    CONVERSION_EXTENSION="mp4"
-    CONVERSION_VIDEO_CODEC="h264_videotoolbox" # libx264 with hardware encoding support
-    CONVERSION_VIDEO_TAG="avc1"
-    CONVERSION_VIDEO_CRF="28"
-  elif [[ "${PARAMETER}" == "-x265" ]]; then
-    CONVERSION_EXTENSION="mp4"
-    CONVERSION_VIDEO_CODEC="hevc_videotoolbox" # libx265 with hardware encoding support
-    CONVERSION_VIDEO_TAG="hvc1"
-    CONVERSION_VIDEO_CRF="28"
-  elif [[ "${PARAMETER}" == "-mp3" ]]; then
-    CONVERSION_EXTENSION="mp3"
-    CONVERSION_VIDEO_CODEC=""
-    CONVERSION_VIDEO_TAG=""
-    CONVERSION_VIDEO_CRF=""
-  elif [[ "${PARAMETER}" == "-m4r" ]]; then
-    CONVERSION_EXTENSION="m4r"
-    CONVERSION_FORMAT="mp4"
-    CONVERSION_AUDIO_CODEC="aac"
-    CONVERSION_VIDEO_CODEC=""
-    CONVERSION_VIDEO_TAG=""
-    CONVERSION_VIDEO_CRF=""
-  elif [[ "${PARAMETER}" =~ "🔴" ]] || [[ "${PARAMETER}" =~ "🟡" ]] || [[ "${PARAMETER}" =~ "🟢" ]]; then
-    IGNORED_FILES+=(PARAMETER)
-  elif [[ "${PARAMETER}" == "-mark" ]]; then
-    TARGET_FILE_POSTFIX=" 🟢 CONVERTED"
-    SOURCE_FILE_RENAME="false"
-  elif [[ "${PARAMETER}" == "-nocrf" ]]; then
-    CONVERSION_VIDEO_CRF=""
-  elif [[ "${PARAMETER}" == "-rename" ]]; then
-    SOURCE_FILE_RENAME="true"
-  elif [[ "${PARAMETER}" == "-v" ]]; then
-    VERBOSE="true"
-  elif [[ "${PARAMETER}" == "-720p" ]]; then
-    CONVERSION_OPTIONS+=("-vf" "scale=-1:720")
-  else
-    SOURCE_FILES+=(${PARAMETER})
-  fi
+declare target_file_extension="mp4"
+declare target_file_postfix=""
+declare source_files=()
+declare source_file_rename="true"
+declare ignored_files=()
+
+for parameter in "$@"; do
+  case "${parameter}" in
+    (-m4v)
+      target_file_extension="m4v"
+      ffmpeg_options[-c:v]="h264_videotoolbox"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-x264)
+      ffmpeg_options[-c:v]="h264_videotoolbox"
+      ffmpeg_options[-tag:v]="avc1"
+      ffmpeg_options[-crf]="28"
+      ;;
+    (-x265|-hevc)
+      ffmpeg_options[-c:v]="hevc_videotoolbox"
+      ffmpeg_options[-tag:v]="hvc1"
+      ffmpeg_options[-crf]="28"
+      ;;
+    (-mp3)
+      target_file_extension="mp3"
+      unset "ffmpeg_options[-c:v]"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-m4r)
+      target_file_extension="m4r"
+      ffmpeg_options[-f]="mp4"
+      ffmpeg_options[-c:a]="aac"
+      unset "ffmpeg_options[-c:v]"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-720p)
+      ffmpeg_options[-vf]="scale=-2:720"
+      ;;
+    (*🔴*|*🟡*|*🟢*)
+      ignored_files+=(${parameter})
+      ;;
+    (-mark)
+      target_file_postfix=" 🟢 CONVERTED"
+      source_file_rename="false"
+      ;;
+    (*)
+      source_files+=(${parameter})
+      ;;
+  esac
 done
 
-if [[ ${#SOURCE_FILES} -le 0 ]]; then
-  echo "\e[91mNo source files found to convert!\e[0m \e[90m(${#IGNORED_FILES} files are ignored)\e[0m"
+if [[ ${#source_files} -le 0 ]]; then
+  echo "\e[91mNo source files found to convert!\e[0m \e[90m(Ignoring ${#ignored_files} file(s))\e[0m"
   exit 1;
 fi
 
-echo "Converting \e[1m${#SOURCE_FILES} files\e[0m \e[90m(${#IGNORED_FILES} files are ignored)\e[0m"
-echo "\e[92m- Target extension:   \e[1m${CONVERSION_EXTENSION}\e[0m"
-echo "\e[92m- Target video codec: \e[1m${CONVERSION_VIDEO_CODEC}\e[0m"
-echo "\e[92m- Target video tag:   \e[1m${CONVERSION_VIDEO_TAG}\e[0m"
+echo "Converting \e[1m${#source_files} file(s)\e[0m \e[90m(Ignoring ${#ignored_files} files)\e[0m"
+echo "\e[92m- Target extension:   \e[1m${target_file_extension}\e[0m"
+echo "\e[92m- Target video codec: \e[1m${ffmpeg_options[-c:v]}\e[0m"
+echo "\e[92m- Target video tag:   \e[1m${ffmpeg_options[-tag:v]}\e[0m"
 echo ""
 
-if [[ "${CONVERSION_FORMAT}" != "" ]]; then CONVERSION_OPTIONS+=("-f" ${CONVERSION_FORMAT}); fi
-if [[ "${CONVERSION_AUDIO_CODEC}" != "" ]]; then CONVERSION_OPTIONS+=("-c:a" ${CONVERSION_AUDIO_CODEC}); fi
-if [[ "${CONVERSION_VIDEO_CODEC}" != "" ]]; then CONVERSION_OPTIONS+=("-c:v" ${CONVERSION_VIDEO_CODEC}); fi
-if [[ "${CONVERSION_VIDEO_TAG}" != "" ]]; then CONVERSION_OPTIONS+=("-tag:v" ${CONVERSION_VIDEO_TAG}); fi
-if [[ "${CONVERSION_VIDEO_CRF}" != "" ]]; then CONVERSION_OPTIONS+=("-crf" ${CONVERSION_VIDEO_CRF}); fi
+for source_file in ${source_files}; do
 
-for SOURCE_FILE in ${SOURCE_FILES}; do
+  source_file_extension="${source_file##*.}"
+  source_file_basename="$(basename ${source_file%.*})"
+  conversion_file="${source_file_basename} 🟡 CONVERSION.${target_file_extension}"
 
-  SOURCE_FILE_EXTENSION="${SOURCE_FILE##*.}"
-  SOURCE_FILE_BASENAME="$(basename ${SOURCE_FILE%.*})"
-  CONVERSION_FILE="${SOURCE_FILE_BASENAME} 🟡 CONVERSION.${CONVERSION_EXTENSION}"
+  ffmpeg -y -i "${source_file}" ${(kv)ffmpeg_options} "${conversion_file}"
 
-  ffmpeg -y \
-    -i ${SOURCE_FILE} \
-    -movflags +faststart+use_metadata_tags \
-    ${CONVERSION_OPTIONS[*]} \
-    "${CONVERSION_FILE}"
+  if [[ "${source_creation_date}" == "" ]]; then source_creation_date=$(ffprobe "${source_file}" -show_entries format_tags=creation_time -of compact=p=0:nk=1 -v 0); fi
+  if [[ "${source_creation_date}" == "" ]]; then source_creation_date=$(date -r "${source_file}" +"%Y-%m-%dT%H:%M:%S"); fi
+  if [[ "${source_creation_date}" != "" ]]; then touch -d "${source_creation_date}" "${conversion_file}"; fi
 
-  if [[ "${VERBOSE}" == "true" ]]; then
-    echo ffmpeg -y \
-      -i ${SOURCE_FILE} \
-      -movflags +faststart+use_metadata_tags \
-      ${CONVERSION_OPTIONS[*]} \
-      "${CONVERSION_FILE}"
+  target_file="${source_file_basename}${target_file_postfix}.${target_file_extension}"
+  if [[ "${source_file_rename}" == "true" ]]; then
+    source_file_codec="$(ffprobe "${source_file}" -select_streams v:0 -show_entries stream=codec_name -of compact=p=0:nk=1 -v 0 | head -n1 || echo "unknown")"
+    archive_directory="$(dirname "${source_file}")"
+    archive_file_name="${source_file_basename} 🔴 OLD [${source_file_codec:-unknown}].${source_file_extension}"
+    archive_file="${archive_directory}/${archive_file_name}"
+    if [[ ! -f "${archive_file}" ]]; then
+      mv "${source_file}" "${archive_file}"
+    fi
   fi
-
-  if [[ "${SOURCE_CREATION_DATE}" == "" ]]; then SOURCE_CREATION_DATE=$(ffprobe "${SOURCE_FILE}" -show_entries format_tags=creation_time -of compact=p=0:nk=1 -v 0); fi
-  if [[ "${SOURCE_CREATION_DATE}" == "" ]]; then SOURCE_CREATION_DATE=$(date -r "${SOURCE_FILE}" +"%Y-%m-%dT%H:%M:%S"); fi
-  if [[ "${SOURCE_CREATION_DATE}" != "" ]]; then
-    touch -d "${SOURCE_CREATION_DATE}" "${CONVERSION_FILE}"
-  fi
-
-  TARGET_FILE="${SOURCE_FILE_BASENAME}${TARGET_FILE_POSTFIX}.${CONVERSION_EXTENSION}"
-  if [[ "${SOURCE_FILE_RENAME}" == "true" ]]; then
-    ARCHIVE_FILE_CODEC=$(ffprobe "${SOURCE_FILE}" -select_streams v:0 -show_entries stream=codec_name -of compact=p=0:nk=1 -v 0 | head -n1 || echo "unknown")
-    ARCHIVE_DIRECTORY="$(dirname "${SOURCE_FILE}")"
-    for COUNTER in {0..20}; do
-      ARCHIVE_FILE_BASENAME="${SOURCE_FILE_BASENAME} 🔴 OLD [${ARCHIVE_FILE_CODEC:-unknown}]"
-      if [[ "$COUNTER" -gt "0" ]]; then
-        ARCHIVE_FILE_BASENAME="${ARCHIVE_FILE_BASENAME} (${COUNTER})"
-      fi
-      ARCHIVE_FILE="${ARCHIVE_DIRECTORY}/${ARCHIVE_FILE_BASENAME}.${SOURCE_FILE_EXTENSION}"
-      if [[ ! -f "${ARCHIVE_FILE}" ]]; then
-        mv "${SOURCE_FILE}" "${ARCHIVE_FILE}"
-        break
-      fi
-    done
-  fi
-  mv "${CONVERSION_FILE}" "${TARGET_FILE}"
+  mv "${conversion_file}" "${target_file}"
 
 done
