@@ -4,6 +4,7 @@ set mark-symlinked-directories on
 set input-meta on
 set output-meta on
 set convert-meta off
+set enable-bracketed-paste off
 
 # make the "delete" key work rather than just entering a ~
 "\e[3~": delete-char
