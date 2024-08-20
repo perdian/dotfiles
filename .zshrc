@@ -74,7 +74,7 @@ done
 unset DOTFILES_PROFILE
 
 # Loop through all the profile directories and activate the profile
-DOTFILES_PROFILE_DIRECTORIES=("${DOTFILES_PROFILES[@]/#/${DOTFILES_HOME}/profiles/}" "$(realpath ~/.zshrc.local.d &> /dev/null)")
+DOTFILES_PROFILE_DIRECTORIES=("${DOTFILES_PROFILES[@]/#/${DOTFILES_HOME}/profiles/}" "$(realpath ~/.zshrc.local.d 2> /dev/null)")
 for DOTFILES_PROFILE_DIRECTORY in "${DOTFILES_PROFILE_DIRECTORIES[@]}"; do
 
   # A `bin` directory inside the profile gets added to the `PATH`
