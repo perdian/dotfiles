@@ -1,5 +1,8 @@
 alias psa="ps aux"
 
+alias gbc="git checkout \$(git branch | fzf)"
+alias gbd="git branch -D \$(git branch | fzf)"
+alias gbn="git checkout -b"
 alias gpoo="git push origin \$(git rev-parse --abbrev-ref HEAD)"
 
 alias mci="mvn clean install"
