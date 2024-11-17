@@ -4,17 +4,15 @@ brew 'age'
 brew 'antigen' # https://antigen.sharats.me
 brew 'bat' # https://github.com/sharkdp/bat
 brew 'coreutils'
+brew 'ctop' #https://github.com/bcicen/ctop
 brew 'direnv'
 brew 'dog'
-brew 'exiftool'
 brew 'ffmpeg'
 brew 'git'
 brew 'gitui' # https://github.com/extrawurst/gitui
-brew 'httpie' # https://httpie.org/
 brew 'htop' # https://htop.dev
 brew 'imagemagick'
 brew 'ipcalc'
-brew 'jless'
 brew 'jq'
 brew 'k3d'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
@@ -22,7 +20,6 @@ brew 'libdvdcss'
 brew 'maven'
 brew 'nano'
 brew 'nginx'
-brew 'nnn' # https://github.com/jarun/nnn
 brew 'ocrmypdf'
 brew 'pandoc'
 brew 'passenger'
@@ -36,22 +33,18 @@ brew 'tesseract-lang' # Allow German for OCRmyPDF
 brew 'tree'
 brew 'wifi-password'
 brew 'wget'
-brew 'yank'
 brew 'zoxide'
 brew 'zsh'
 brew 'zsh-completions'
 
-# https://github.com/yt-dlp/yt-dlp
-tap 'yt-dlp/taps'
-brew 'yt-dlp'
-
+cask 'font-arial'
+cask 'font-courier-new'
 cask 'ngrok'
 cask 'temurin'
 
-# https://github.com/Homebrew/homebrew-cask-fonts
-tap 'homebrew/cask-fonts'
-cask 'font-arial'
-cask 'font-courier-new'
+# https://github.com/yt-dlp/yt-dlp
+tap 'yt-dlp/taps'
+brew 'yt-dlp'
 
 # https://github.com/colindean/homebrew-fonts-nonfree
 tap 'colindean/fonts-nonfree'
