@@ -2,7 +2,7 @@
 set -e
 
 declare -A ffmpeg_options
-ffmpeg_options[-c:v]="hevc_videotoolbox"
+ffmpeg_options[-c:v]="libx265"
 ffmpeg_options[-tag:v]="hvc1"
 ffmpeg_options[-crf]="28"
 ffmpeg_options[-movflags]="+faststart+use_metadata_tags"
@@ -17,17 +17,17 @@ for parameter in "$@"; do
   case "${parameter}" in
     (-m4v)
       target_file_extension="m4v"
-      ffmpeg_options[-c:v]="h264_videotoolbox"
+      ffmpeg_options[-c:v]="libx264"
       unset "ffmpeg_options[-tag:v]"
       unset "ffmpeg_options[-crf]"
       ;;
     (-x264)
-      ffmpeg_options[-c:v]="h264_videotoolbox"
+      ffmpeg_options[-c:v]="libx264"
       ffmpeg_options[-tag:v]="avc1"
       ffmpeg_options[-crf]="28"
       ;;
     (-x265|-hevc)
-      ffmpeg_options[-c:v]="hevc_videotoolbox"
+      ffmpeg_options[-c:v]="libx265"
       ffmpeg_options[-tag:v]="hvc1"
       ffmpeg_options[-crf]="28"
       ;;
@@ -50,6 +50,12 @@ for parameter in "$@"; do
       ;;
     (-720p)
       ffmpeg_options[-vf]="scale=-2:720"
+      ;;
+    (-360p)
+      ffmpeg_options[-vf]="scale=-2:360"
+      ;;
+    (-hq)
+      ffmpeg_options[-crf]="21"
       ;;
     (*🔴*|*🟡*|*🟢*)
       ignored_files+=(${parameter})
