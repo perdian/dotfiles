@@ -31,6 +31,11 @@ for parameter in "$@"; do
       ffmpeg_options[-tag:v]="hvc1"
       ffmpeg_options[-crf]="28"
       ;;
+    (-x265native|-hevcnative)
+      ffmpeg_options[-c:v]="hevc_videotoolbox"
+      ffmpeg_options[-tag:v]="hvc1"
+      unset "ffmpeg_options[-crf]"
+      ;;
     (-mp3)
       target_file_extension="mp3"
       unset "ffmpeg_options[-c:v]"
