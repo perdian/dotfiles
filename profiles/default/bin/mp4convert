@@ -31,16 +31,27 @@ for parameter in "$@"; do
       ffmpeg_options[-tag:v]="hvc1"
       ffmpeg_options[-crf]="28"
       ;;
-    (-x265native|-hevcnative)
+    (-x265native|-hevcnative|-native)
       ffmpeg_options[-c:v]="hevc_videotoolbox"
       ffmpeg_options[-tag:v]="hvc1"
       unset "ffmpeg_options[-crf]"
       ;;
     (-mp3)
       target_file_extension="mp3"
+      source_file_rename="false"
       unset "ffmpeg_options[-c:v]"
       unset "ffmpeg_options[-tag:v]"
       unset "ffmpeg_options[-crf]"
+      ;;
+    (-wav)
+      target_file_extension="wav"
+      source_file_rename="false"
+      unset "ffmpeg_options[-c:v]"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ffmpeg_options[-acodec]="pcm_s16le"
+      ffmpeg_options[-ac]="1"
+      ffmpeg_options[-ar]="16000"
       ;;
     (-m4r)
       target_file_extension="m4r"
@@ -51,13 +62,13 @@ for parameter in "$@"; do
       unset "ffmpeg_options[-crf]"
       ;;
     (-1080p)
-      ffmpeg_options[-vf]="scale=-2:1080"
+      ffmpeg_options[-vf]="scale=-2:'min(1080,ih)'"
       ;;
     (-720p)
-      ffmpeg_options[-vf]="scale=-2:720"
+      ffmpeg_options[-vf]="scale=-2:'min(720,ih)'"
       ;;
     (-360p)
-      ffmpeg_options[-vf]="scale=-2:360"
+      ffmpeg_options[-vf]="scale=-2:'min(360,ih)'"
       ;;
     (-hq)
       ffmpeg_options[-crf]="21"
