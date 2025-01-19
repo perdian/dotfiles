@@ -8,6 +8,7 @@ brew 'ctop' #https://github.com/bcicen/ctop
 brew 'direnv'
 brew 'dog'
 brew 'ffmpeg'
+brew 'fswatch' # https://github.com/emcrisostomo/fswatch
 brew 'git'
 brew 'gitui' # https://github.com/extrawurst/gitui
 brew 'htop' # https://htop.dev
@@ -31,6 +32,7 @@ brew 'ruby'
 brew 'telnet'
 brew 'tesseract-lang' # Allow German for OCRmyPDF
 brew 'tree'
+brew 'whisper-cpp'
 brew 'wifi-password'
 brew 'wget'
 brew 'zoxide'
