@@ -6,7 +6,6 @@ brew 'bat' # https://github.com/sharkdp/bat
 brew 'coreutils'
 brew 'ctop' #https://github.com/bcicen/ctop
 brew 'direnv'
-brew 'dog'
 brew 'ffmpeg'
 brew 'fswatch' # https://github.com/emcrisostomo/fswatch
 brew 'git'
