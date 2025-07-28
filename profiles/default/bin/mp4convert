@@ -115,7 +115,7 @@ for source_file in ${source_files}; do
     archive_directory="$(dirname "${source_file}")"
     archive_file_name="${source_file_basename} 🔴 OLD [${source_file_codec:-unknown}].${source_file_extension}"
     archive_file="${archive_directory}/${archive_file_name}"
-    if [[ ! -f "${archive_file}" ]]; then
+    if [[ ! -f "${archive_file}" && "$(dirname "${source_file}")" == "$(dirname "${conversion_file}")" ]]; then
       mv "${source_file}" "${archive_file}"
     fi
   fi
