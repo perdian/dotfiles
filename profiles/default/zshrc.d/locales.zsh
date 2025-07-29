@@ -1,2 +1,2 @@
-LANG="en_US.UTF8"
-LC_ALL="en_US.UTF8"
+#LANG="en_US.UTF8"
+#LC_ALL="en_US.UTF8"
