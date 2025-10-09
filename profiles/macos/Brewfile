@@ -4,12 +4,10 @@ brew 'age'
 brew 'antigen' # https://antigen.sharats.me
 brew 'bat' # https://github.com/sharkdp/bat
 brew 'coreutils'
-brew 'ctop' #https://github.com/bcicen/ctop
 brew 'direnv'
 brew 'ffmpeg'
 brew 'fswatch' # https://github.com/emcrisostomo/fswatch
 brew 'git'
-brew 'gitui' # https://github.com/extrawurst/gitui
 brew 'htop' # https://htop.dev
 brew 'imagemagick'
 brew 'ipcalc'
@@ -42,6 +40,10 @@ cask 'font-arial'
 cask 'font-courier-new'
 cask 'ngrok'
 cask 'temurin'
+
+# https://github.com/ksdme/ut
+tap 'ksdme/tap'
+brew 'ut'
 
 # https://github.com/yt-dlp/yt-dlp
 tap 'yt-dlp/taps'
