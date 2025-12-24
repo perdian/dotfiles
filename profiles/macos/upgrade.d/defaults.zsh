@@ -81,3 +81,4 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -boolean yes
 # -----------------------------------------------------------------------------
 
 defaults write -globalDomain WebKitDeveloperExtras -bool TRUE
+defaults write com.parallels.Parallels\ Desktop ProductPromo.ForcePromoOff -bool TRUE
