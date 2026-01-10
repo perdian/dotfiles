@@ -1,7 +1,7 @@
 tap 'homebrew/bundle'
 
 brew 'age'
-brew 'antigen' # https://antigen.sharats.me
+brew 'antidote' # https://antidote.sh
 brew 'bat' # https://github.com/sharkdp/bat
 brew 'coreutils'
 brew 'direnv'

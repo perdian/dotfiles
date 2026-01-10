@@ -1,2 +1,6 @@
-# https://github.com/junegunn/fzf/issues/1866
-[[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+if [[ ! -d "${DOTFILES_DATA}/fzf/" ]]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git "${DOTFILES_DATA}/fzf/"
+  ${DOTFILES_DATA}/fzf/install --bin --key-bindings --completion --no-update-rc --no-zsh --no-bash
+  PATH="${DOTFILES_DATA}/fzf/bin:$PATH"
+fi
+source <(${DOTFILES_DATA}/fzf/bin/fzf --zsh)

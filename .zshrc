@@ -21,12 +21,17 @@ if [[ -z "${DOTFILES_HOME}" ]]; then
     fi
   fi
 fi
-if [[ -z "${DOTFILES_HOME}" ]]; then export DOTFILES_HOME="${HOME}/.dotfiles"; fi
+[[ -z "${DOTFILES_HOME}" ]] && DOTFILES_HOME="${HOME}/.dotfiles"
+
+# Make sure that the `DOTFILES_DATA` environment variable is available to all subsequent
+# operations and scripts so that we have an existing location where to store additional
+# resources needed by the dotfiles
+[[ -z "${DOTFILES_DATA}" ]] && export DOTFILES_DATA="${HOME}/.dotfiles-data"
 
 # Depending on the type of system we're operating on we need to activate different
 # profiles so that certain settings only apply to the systems they're relevant for
 DOTFILES_PROFILES=("default")
-if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+=("macos" "macos_$(arch)"); else DOTFILES_PROFILES+=$(uname | tr '[:upper:]' '[:lower:]'); fi
+if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+=("macos"); else DOTFILES_PROFILES+=$(uname | tr '[:upper:]' '[:lower:]'); fi
 
 # Make sure all relevant directories are added to the `PATH`
 [[ -d /usr/local/bin ]] && export PATH="$PATH:/usr/local/bin"
@@ -35,7 +40,9 @@ if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+=("macos" "macos_$(arch)")
 [[ -d /sbin ]] && export PATH="$PATH:/sbin"
 
 # Make sure all relevant directories are added to the `FPATH`
-type brew &>/dev/null && FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+[[ -f /opt/homebrew/bin/brew ]] && FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+# Enable auto completion
 autoload -Uz compinit && compinit
 
 # Make sure that all the symlinks expected to be in place are actually be in place.
@@ -74,7 +81,7 @@ done
 unset DOTFILES_PROFILE
 
 # Loop through all the profile directories and activate the profile
-DOTFILES_PROFILE_DIRECTORIES=("${DOTFILES_PROFILES[@]/#/${DOTFILES_HOME}/profiles/}" "$(realpath ~/.zshrc.local.d 2> /dev/null)")
+DOTFILES_PROFILE_DIRECTORIES=("${DOTFILES_PROFILES[@]/#/${DOTFILES_HOME}/profiles/}" "$(realpath ~/.dotfiles-local-profile 2> /dev/null)")
 for DOTFILES_PROFILE_DIRECTORY in "${DOTFILES_PROFILE_DIRECTORIES[@]}"; do
 
   # A `bin` directory inside the profile gets added to the `PATH`
@@ -84,29 +91,26 @@ for DOTFILES_PROFILE_DIRECTORY in "${DOTFILES_PROFILE_DIRECTORIES[@]}"; do
   [[ -d "${DOTFILES_PROFILE_DIRECTORY}/fbin" ]] && fpath=("${DOTFILES_PROFILE_DIRECTORY}/fbin" $fpath)
 
   # Source all the files within the profile (and its subfolders) ending in `.zsh`
-  for ZSH_FILE in ${DOTFILES_PROFILE_DIRECTORY}/zshrc.d/**/*.zsh(N); do
+   for ZSH_FILE in ${DOTFILES_PROFILE_DIRECTORY}/zshrc.d/**/*.zsh(N); do
     source ${ZSH_FILE}
   done
 
 done
 unset DOTFILES_PROFILE_DIRECTORY
 
-export dotfiles_info() {
-  echo "DOTFILES_HOME:      ${DOTFILES_HOME}"
-  echo "DOTFILES_PROFILES:  ${DOTFILES_PROFILES[@]}"
+export function dotfiles_info() {
+  echo "DOTFILES_HOME:                ${DOTFILES_HOME}"
+  echo "DOTFILES_DATA:                ${DOTFILES_DATA}"
+  echo "DOTFILES_PROFILES:            ${DOTFILES_PROFILES}"
+  echo "DOTFILES_PROFILE_DIRECTORIES: ${DOTFILES_PROFILE_DIRECTORIES}"
 }
 
-export dotfiles_upgrade() {
-
+export function dotfiles_upgrade() {
   echo "Upgrading dotfiles at: ${DOTFILES_HOME}"
   git -C "${DOTFILES_HOME}" pull
-
   for DOTFILES_PROFILE_DIRECTORY in "${DOTFILES_PROFILE_DIRECTORIES[@]}"; do
     for UPGRADE_FILE in ${DOTFILES_PROFILE_DIRECTORY}/upgrade.d/**/*.zsh(N); do
       source ${UPGRADE_FILE}
     done
-    unset UPGRADE_FILE
   done
-  unset DOTFILES_PROFILE_DIRECTORY
-
 }

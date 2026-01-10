@@ -5,5 +5,5 @@
 /*.iml
 /.*.md.html
 .DS_Store
-antigen.*.zwc
+*.zwc
 Brewfile*.lock*
