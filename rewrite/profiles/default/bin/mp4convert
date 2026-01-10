@@ -1,0 +1,124 @@
+#!/bin/zsh
+set -e
+
+declare -A ffmpeg_options
+ffmpeg_options[-c:v]="libx265"
+ffmpeg_options[-tag:v]="hvc1"
+ffmpeg_options[-crf]="28"
+ffmpeg_options[-movflags]="+faststart+use_metadata_tags"
+
+declare target_file_extension="mp4"
+declare target_file_postfix=""
+declare source_files=()
+declare source_file_rename="true"
+declare ignored_files=()
+
+for parameter in "$@"; do
+  case "${parameter}" in
+    (-m4v)
+      target_file_extension="m4v"
+      ffmpeg_options[-c:v]="libx264"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-x264)
+      ffmpeg_options[-c:v]="libx264"
+      ffmpeg_options[-tag:v]="avc1"
+      ffmpeg_options[-crf]="28"
+      ;;
+    (-x265|-hevc)
+      ffmpeg_options[-c:v]="libx265"
+      ffmpeg_options[-tag:v]="hvc1"
+      ffmpeg_options[-crf]="28"
+      ;;
+    (-x265native|-hevcnative|-native)
+      ffmpeg_options[-c:v]="hevc_videotoolbox"
+      ffmpeg_options[-tag:v]="hvc1"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-mp3)
+      target_file_extension="mp3"
+      source_file_rename="false"
+      unset "ffmpeg_options[-c:v]"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-wav)
+      target_file_extension="wav"
+      source_file_rename="false"
+      unset "ffmpeg_options[-c:v]"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ffmpeg_options[-acodec]="pcm_s16le"
+      ffmpeg_options[-ac]="1"
+      ffmpeg_options[-ar]="16000"
+      ;;
+    (-m4r)
+      target_file_extension="m4r"
+      ffmpeg_options[-f]="mp4"
+      ffmpeg_options[-c:a]="aac"
+      unset "ffmpeg_options[-c:v]"
+      unset "ffmpeg_options[-tag:v]"
+      unset "ffmpeg_options[-crf]"
+      ;;
+    (-1080p)
+      ffmpeg_options[-vf]="scale=-2:'min(1080,ih)'"
+      ;;
+    (-720p)
+      ffmpeg_options[-vf]="scale=-2:'min(720,ih)'"
+      ;;
+    (-360p)
+      ffmpeg_options[-vf]="scale=-2:'min(360,ih)'"
+      ;;
+    (-hq)
+      ffmpeg_options[-crf]="21"
+      ;;
+    (*🔴*|*🟡*|*🟢*)
+      ignored_files+=(${parameter})
+      ;;
+    (-mark)
+      target_file_postfix=" 🟢 CONVERTED"
+      source_file_rename="false"
+      ;;
+    (*)
+      source_files+=(${parameter})
+      ;;
+  esac
+done
+
+if [[ ${#source_files} -le 0 ]]; then
+  echo "\e[91mNo source files found to convert!\e[0m \e[90m(Ignoring ${#ignored_files} file(s))\e[0m"
+  exit 1;
+fi
+
+echo "Converting \e[1m${#source_files} file(s)\e[0m \e[90m(Ignoring ${#ignored_files} files)\e[0m"
+echo "\e[92m- Target extension:   \e[1m${target_file_extension}\e[0m"
+echo "\e[92m- Target video codec: \e[1m${ffmpeg_options[-c:v]}\e[0m"
+echo "\e[92m- Target video tag:   \e[1m${ffmpeg_options[-tag:v]}\e[0m"
+echo ""
+
+for source_file in ${source_files}; do
+
+  source_file_extension="${source_file##*.}"
+  source_file_basename="$(basename ${source_file%.*})"
+  conversion_file="${source_file_basename} 🟡 CONVERSION.${target_file_extension}"
+
+  ffmpeg -y -i "${source_file}" ${(kv)ffmpeg_options} "${conversion_file}"
+
+  if [[ "${source_creation_date}" == "" ]]; then source_creation_date=$(ffprobe "${source_file}" -show_entries format_tags=creation_time -of compact=p=0:nk=1 -v 0); fi
+  if [[ "${source_creation_date}" == "" ]]; then source_creation_date=$(date -r "${source_file}" +"%Y-%m-%dT%H:%M:%S"); fi
+  if [[ "${source_creation_date}" != "" ]]; then touch -d "${source_creation_date}" "${conversion_file}"; fi
+
+  target_file="${source_file_basename}${target_file_postfix}.${target_file_extension}"
+  if [[ "${source_file_rename}" == "true" ]]; then
+    source_file_codec="$(ffprobe "${source_file}" -select_streams v:0 -show_entries stream=codec_name -of compact=p=0:nk=1 -v 0 | head -n1 || echo "unknown")"
+    archive_directory="$(dirname "${source_file}")"
+    archive_file_name="${source_file_basename} 🔴 OLD [${source_file_codec:-unknown}].${source_file_extension}"
+    archive_file="${archive_directory}/${archive_file_name}"
+    if [[ ! -f "${archive_file}" && "$(dirname "${source_file}")" == "$(dirname "${conversion_file}")" ]]; then
+      mv "${source_file}" "${archive_file}"
+    fi
+  fi
+  mv "${conversion_file}" "${target_file}"
+
+done

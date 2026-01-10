@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+# Installs the dotfiles environment based on using ZSH as the main shell.
+# Any currently existing configuration files for ZSH settings will be completely
+# overwritten by the new ones defined in the dotfiles repository.
+ZSH_FILE_NAMES=(.zshenv .zshrc)
+
+echo "Installing/updating dotfiles (by symlinking ${#ZSH_FILE_NAMES[@]} ZSH configuration files)"
+for ZSH_FILE_NAME in "${ZSH_FILE_NAMES[@]}"; do
+  echo "\nProcessing ZSH configuration file '\033[1m${ZSH_FILE_NAME}\033[0m'"
+  SOURCE_FILE="${0:A:h}/${ZSH_FILE_NAME}"
+  TARGET_FILE="${HOME}/${ZSH_FILE_NAME}"
+  if [[ "${SOURCE_FILE}" -ef "${TARGET_FILE}" ]]; then
+    echo "\e[32m»» Symlink already existing\e[0m"
+    # The symlink already exists and points to the correct file.
+    # Best case scenario, nothing we need to do.
+  else
+    if [[ -f "${TARGET_FILE}" ]]; then
+      echo "\e[33m»» ZSH configuration file already existing at '${TARGET_FILE}'.\e[0m"
+      echo "\e[33m»» Will move to '${TARGET_FILE}.old' and overwrite with new configuration.\e[0m"
+      mv "${TARGET_FILE}" "${TARGET_FILE}.old"
+    fi
+    ln -s -f "${SOURCE_FILE}" "${TARGET_FILE}"
+    echo "\e[32m»» Symlink succesfully created\e[0m"
+  fi
+  unset TARGET_FILE
+  unset SOURCE_FILE
+done
+echo "\nAll ZSH configuration files have been symlinked to their dotfiles versions"
+
+unset ZSH_FILE_NAME
+unset ZSH_FILE_NAMES

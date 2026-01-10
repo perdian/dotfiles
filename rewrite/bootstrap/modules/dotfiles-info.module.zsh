@@ -1,0 +1,5 @@
+dotfiles_info() {
+  echo "DOTFILES_HOME:                ${DOTFILES_HOME}"
+  echo "DOTFILES_PROFILES:            ${DOTFILES_PROFILES}"
+  echo "DOTFILES_PROFILE_DIRECTORIES: ${DOTFILES_PROFILE_DIRECTORIES}"
+}

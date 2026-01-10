@@ -1,0 +1,54 @@
+tap 'homebrew/bundle'
+
+brew 'age'
+brew 'antigen' # https://antigen.sharats.me
+brew 'bat' # https://github.com/sharkdp/bat
+brew 'coreutils'
+brew 'direnv'
+brew 'ffmpeg'
+brew 'fswatch' # https://github.com/emcrisostomo/fswatch
+brew 'git'
+brew 'htop' # https://htop.dev
+brew 'imagemagick'
+brew 'ipcalc'
+brew 'jq'
+brew 'k3d'
+brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
+brew 'libdvdcss'
+brew 'maven'
+brew 'nano'
+brew 'nginx'
+brew 'ocrmypdf'
+brew 'pandoc'
+brew 'passenger'
+brew 'pwgen'
+brew 'pstree'
+brew 'rbenv'
+brew 'rsync'
+brew 'ruby'
+brew 'telnet'
+brew 'tesseract-lang' # Allow German for OCRmyPDF
+brew 'tree'
+brew 'whisper-cpp'
+brew 'wifi-password'
+brew 'wget'
+brew 'zoxide'
+brew 'zsh'
+brew 'zsh-completions'
+
+cask 'font-arial'
+cask 'font-courier-new'
+cask 'ngrok'
+cask 'temurin'
+
+# https://github.com/ksdme/ut
+tap 'ksdme/tap'
+brew 'ut'
+
+# https://github.com/yt-dlp/yt-dlp
+tap 'yt-dlp/taps'
+brew 'yt-dlp'
+
+# https://github.com/colindean/homebrew-fonts-nonfree
+tap 'colindean/fonts-nonfree'
+cask 'font-microsoft-office'

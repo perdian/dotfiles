@@ -1,0 +1,35 @@
+#!/bin/zsh
+set -e
+
+# Cleanup script for macOS files
+# With a lot of inspiration from https://github.com/hkdobrev/cleanmac/blob/main/cleanmac.sh
+
+DAYS_TO_KEEP_EXISTING_FILES=7
+
+function clean_directory() {
+  printf "Cleaning directory: ${1}... "
+
+  if [[ ! -d "${1}" ]]; then
+      printf "directory doesn't exist"
+  else
+    local target_directory="$(realpath ${1})"
+    local number_of_files=$(sudo find "${target_directory}" -type f -mtime +${DAYS_TO_KEEP_EXISTING_FILES} | wc -l | tr -d '[:space:]')
+
+    if [[ ${number_of_files} -le 0 ]]; then
+      printf "no files found in directory"
+    else
+      printf "[${number_of_files} files]..."
+      sudo find "${target_directory}" -type f -mtime +${DAYS_TO_KEEP_EXISTING_FILES} -exec rm {} \;
+    fi
+  fi
+
+  printf " ✅\n"
+}
+
+clean_directory ~/Library/Logs "User Logs"
+
+clean_directory ~/Library/Safari/LocalStorage "Safari Cache"
+clean_directory ~/Library/Safari/WebKit/MediaCache "Safari Cache"
+
+clean_directory ~/Library/Application\ Support/Spotify/PersistentCache/Storage "Spotify Cache"
+clean_directory ~/Library/Caches/com.spotify.client "Spotify Cache"

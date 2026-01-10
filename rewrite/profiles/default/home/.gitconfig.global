@@ -1,0 +1,25 @@
+[core]
+  excludesfile = ~/.gitignore
+
+[init]
+  defaultBranch = main
+
+[push]
+  default = simple
+
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+
+[pull]
+  rebase = false
+
+[tag]
+  sort = version:refname
+
+[diff]
+  algorithm = histogram
+
+[pager]
+  branch = false

@@ -1,0 +1,69 @@
+#!/bin/zsh
+set -e
+
+[[ "${TRANSCRIPTION_LANGUAGE}" == "" ]] && TRANSCRIPTION_LANGUAGE=auto
+[[ "${TRANSCRIPTION_MODEL_NAME}" == "" ]] && TRANSCRIPTION_MODEL_NAME=ggml-large-v3-turbo
+[[ "${TRANSCRIPTION_MODEL_DIRECTORY}" == "" ]] && TRANSCRIPTION_MODEL_DIRECTORY=$(realpath ~/Development/Resources/whisper.cpp/models)
+
+i=1 && while (( i <= $# )); do
+  ARGUMENT_VALUE="${argv[$i]}"
+  if [[ "${ARGUMENT_VALUE}" == '-l' || "${ARGUMENT_VALUE}" == '--language' ]]; then
+    TRANSCRIPTION_LANGUAGE="${argv[$((i+1))]}"
+    (( i++ ))
+  elif [[ "${ARGUMENT_VALUE}" == '-m' || "${ARGUMENT_VALUE}" == '--model' ]]; then
+    TRANSCRIPTION_MODEL_NAME="${argv[$((i+1))]}"
+    (( i++ ))
+  elif [[ "${TRANSCRIPTION_SOURCE_FILE}" != "" ]]; then
+    echo "Transcription source file has already been set to: \e[1m${TRANSCRIPTION_SOURCE_FILE}\e[0m"
+    echo "Only one source file is supported!"
+    exit 1
+  else
+    TRANSCRIPTION_SOURCE_FILE="${ARGUMENT_VALUE}"
+  fi
+  (( i++ ))
+done
+
+[[ ! -d "${TRANSCRIPTION_MODEL_DIRECTORY}" ]] && echo "Model directory not existing at: ${TRANSCRIPTION_MODEL_DIRECTORY}" && exit 1
+
+TRANSCRIPTION_MODEL_FILE=$(realpath ${TRANSCRIPTION_MODEL_DIRECTORY}/${TRANSCRIPTION_MODEL_NAME}.bin)
+[[ ! -f "${TRANSCRIPTION_MODEL_FILE}" ]] && echo "Model file not existing at: ${TRANSCRIPTION_MODEL_FILE}" && exit 1
+
+[[ "${TRANSCRIPTION_SOURCE_FILE}" == "" ]] && echo "No source file given as argument" && exit 1
+[[ ! -f "${TRANSCRIPTION_SOURCE_FILE}" ]] && echo "Source file not existing at: ${TRANSCRIPTION_SOURCE_FILE}" && exit 1
+
+TRANSCRIPTION_SOURCE_FILE_NAME="$(basename "${TRANSCRIPTION_SOURCE_FILE}")"
+TRANSCRIPTION_TARGET_FILE_NAME="${TRANSCRIPTION_SOURCE_FILE_NAME:r}.txt"
+TRANSCRIPTION_TARGET_FILE="$(realpath .)/${TRANSCRIPTION_TARGET_FILE_NAME}"
+
+echo "Starting transcription"
+echo "- Source file: \e[1m$(basename "${TRANSCRIPTION_SOURCE_FILE}")\e[0m"
+echo "- Target file: \e[1m$(basename "${TRANSCRIPTION_TARGET_FILE}")\e[0m"
+echo "- Transcription model file: $(basename "${TRANSCRIPTION_MODEL_FILE}")"
+echo "- Transcription language: ${TRANSCRIPTION_LANGUAGE}"
+echo ""
+
+# If we don't have an audio file then we must convert the input file to audio first
+TRANSCRIPTION_INCOMING_FILE="${TRANSCRIPTION_SOURCE_FILE}"
+TRANSCRIPTION_SOURCE_FILE_EXTENSION="${TRANSCRIPTION_SOURCE_FILE:e:l}"
+if [[ "${TRANSCRIPTION_SOURCE_FILE_EXTENSION}" != "mp3" && "${TRANSCRIPTION_SOURCE_FILE_EXTENSION}" != "wav" ]]; then
+  echo "Need to convert source file \"\e[1m${TRANSCRIPTION_SOURCE_FILE_NAME}\e[0m\" to audio first ..."
+  TEMP_AUDIO_FILE_NAME="${TRANSCRIPTION_SOURCE_FILE_NAME:r}_TMP_AUDIO.mp3"
+  ffmpeg -y -i "${TRANSCRIPTION_SOURCE_FILE}" "${TEMP_AUDIO_FILE_NAME}"
+  echo "Converted source file into temporary audio file at: ${TEMP_AUDIO_FILE_NAME}"
+  TRANSCRIPTION_INCOMING_FILE="${TEMP_AUDIO_FILE_NAME}"
+fi
+
+# Create the transcription
+whisper-cli \
+  --model "${TRANSCRIPTION_MODEL_FILE}" \
+  --language "${TRANSCRIPTION_LANGUAGE}" \
+  "${TRANSCRIPTION_INCOMING_FILE}" | tee "${TRANSCRIPTION_TARGET_FILE}"
+
+# Cleanup
+if [[ "${TEMP_AUDIO_FILE_NAME}" != "" ]]; then
+  echo "Deleting temporary audio file at: ${TEMP_AUDIO_FILE_NAME}"
+  rm -f "${TEMP_AUDIO_FILE_NAME}"
+fi
+
+# Finish
+echo "\nTranscription file has been generated at: \e[1m${TRANSCRIPTION_TARGET_FILE}\e[0m"
