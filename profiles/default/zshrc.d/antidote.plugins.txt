@@ -6,3 +6,6 @@ zsh-users/zsh-syntax-highlighting
 Aloxaf/fzf-tab
 romkatv/powerlevel10k
 Tarrasch/zsh-bd
+
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/colored-man-pages

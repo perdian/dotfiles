@@ -1,4 +1,5 @@
 # http://linux.die.net/man/1/zshoptions
+setopt NO_NOMATCH
 
 # Completion
 setopt COMPLETE_IN_WORD

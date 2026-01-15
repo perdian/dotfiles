@@ -2,6 +2,7 @@
 HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
 
+
 # If we're on a with with Apple Silicon then Homebrew's `bin` directory isn't on path.
 # However we need a couple of commands (e.g. `realpath`) early in the script, so we
 # need to make sure early on that what Homebrew offers us is accessible.
@@ -114,3 +115,7 @@ export function dotfiles_upgrade() {
     done
   done
 }
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/perdian/.lmstudio/bin"
+# End of LM Studio CLI section
