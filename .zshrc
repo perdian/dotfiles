@@ -33,6 +33,7 @@ fi
 # profiles so that certain settings only apply to the systems they're relevant for
 DOTFILES_PROFILES=("default")
 if [[ $(uname) == "Darwin" ]]; then DOTFILES_PROFILES+=("macos"); else DOTFILES_PROFILES+=$(uname | tr '[:upper:]' '[:lower:]'); fi
+if [[ $(uname) == CYGWIN* ]]; then DOTFILES_PROFILES+=("cygwin"); fi
 
 # Make sure all relevant directories are added to the `PATH`
 [[ -d /usr/local/bin ]] && export PATH="$PATH:/usr/local/bin"
