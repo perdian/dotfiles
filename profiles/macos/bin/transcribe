@@ -4,6 +4,7 @@ set -e
 [[ "${TRANSCRIPTION_LANGUAGE}" == "" ]] && TRANSCRIPTION_LANGUAGE=auto
 [[ "${TRANSCRIPTION_MODEL_NAME}" == "" ]] && TRANSCRIPTION_MODEL_NAME=ggml-large-v3-turbo
 [[ "${TRANSCRIPTION_MODEL_DIRECTORY}" == "" ]] && TRANSCRIPTION_MODEL_DIRECTORY=$(realpath ~/Development/Resources/whisper.cpp/models)
+TRANSCRIPTION_ARGUMENTS=()
 
 i=1 && while (( i <= $# )); do
   ARGUMENT_VALUE="${argv[$i]}"
@@ -12,6 +13,9 @@ i=1 && while (( i <= $# )); do
     (( i++ ))
   elif [[ "${ARGUMENT_VALUE}" == '-m' || "${ARGUMENT_VALUE}" == '--model' ]]; then
     TRANSCRIPTION_MODEL_NAME="${argv[$((i+1))]}"
+    (( i++ ))
+  elif [[ "${ARGUMENT_VALUE}" == '--txt' ]]; then
+    TRANSCRIPTION_ARGUMENTS+=(--no-timestamps)
     (( i++ ))
   elif [[ "${TRANSCRIPTION_SOURCE_FILE}" != "" ]]; then
     echo "Transcription source file has already been set to: \e[1m${TRANSCRIPTION_SOURCE_FILE}\e[0m"
@@ -57,6 +61,7 @@ fi
 whisper-cli \
   --model "${TRANSCRIPTION_MODEL_FILE}" \
   --language "${TRANSCRIPTION_LANGUAGE}" \
+  ${TRANSCRIPTION_ARGUMENTS[@]} \
   "${TRANSCRIPTION_INCOMING_FILE}" | tee "${TRANSCRIPTION_TARGET_FILE}"
 
 # Cleanup
