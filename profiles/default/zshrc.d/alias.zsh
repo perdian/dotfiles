@@ -17,3 +17,5 @@ alias ytvs="yt-dlp -f 'bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/mp4' -
 alias yta="yt-dlp -x --audio-format mp3 --audio-quality 0 -o '%(title)s.%(ext)s'"
 
 alias ll="ls -l"
+
+alias hh="history 1 | fzf  | sed 's/^[ ]*[0-9]*[ ]*//' | tee /dev/tty | { read -r cmd; eval "$cmd"; }"
