@@ -11,6 +11,7 @@ brew 'git'
 brew 'htop' # https://htop.dev
 brew 'imagemagick'
 brew 'ipcalc'
+brew 'jbang'
 brew 'jq'
 brew 'k3d'
 brew 'lazydocker' # https://github.com/jesseduffield/lazydocker
