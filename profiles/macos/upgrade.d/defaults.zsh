@@ -16,6 +16,9 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool TRUE
 defaults write -globalDomain NSAutomaticQuoteSubstitutionEnabled -bool FALSE
 defaults write -globalDomain NSAutomaticDashSubstitutionEnabled -bool FALSE
 
+# Disable the icon inflation
+defaults write -globalDomain NSMenuEnableActionImages -bool FALSE
+
 # Disable auto-correct
 defaults write -globalDomain NSAutomaticSpellingCorrectionEnabled -bool FALSE
 
