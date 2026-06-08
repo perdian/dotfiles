@@ -7,3 +7,5 @@ if command -v gls >/dev/null 2>&1; then
 else
   alias ls="ls -hG"
 fi
+
+alias fclogi="killall -9 logioptionsplus_agent && echo 'Logitech driver killed'"
