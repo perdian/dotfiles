@@ -2,7 +2,7 @@
 set -e
 
 INPUT_FILE="$1"
-if [[ ! -f ${INPUT_FILE} ]]; then
+if [[ ! -f "${INPUT_FILE}" ]]; then
   echo "\e[91mCannot find input file at: ${INPUT_FILE}\e[0m"
   exit 1
 fi
