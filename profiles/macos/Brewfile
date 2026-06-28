@@ -53,3 +53,7 @@ brew 'yt-dlp'
 # https://github.com/colindean/homebrew-fonts-nonfree
 tap 'colindean/fonts-nonfree'
 cask 'font-microsoft-office'
+
+# https://github.com/oven-sh/homebrew-bun
+tap 'oven-sh/bun'
+brew 'bun'
