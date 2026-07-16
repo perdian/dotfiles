@@ -1,27 +1,49 @@
 #!/bin/zsh
 set -e
 
-ORIGINAL_FILE=$1
-if [[ ! -e "${ORIGINAL_FILE}" ]]; then
-  echo "Original file doesn't exist at: ${ORIGINAL_FILE}"
-  exit 1
-fi
-ORIGINAL_FILE_NAME="$(basename ${ORIGINAL_FILE})"
-ORIGINAL_FILE_NAME_WITHOUT_EXTENSION="${ORIGINAL_FILE_NAME%.*}"
-
-if [[ $# -le 1 ]]; then
-  echo "No files specified to add to the original file"
+declare target_file=$1
+if [[ ! -e "${target_file}" ]]; then
+  echo "No file found to which to append a PDF at: ${target_file}"
   exit 1
 fi
 
-echo "Original PDF file: ${ORIGINAL_FILE}"
-TARGET_DIRECTORY="$(dirname ${ORIGINAL_FILE})"
-TEMP_FILE_NAME="${ORIGINAL_FILE_NAME_WITHOUT_EXTENSION} _ original.pdf"
-TEMP_FILE="${TARGET_DIRECTORY}/${TEMP_FILE_NAME}"
+declare do_cleanup="true"
+declare source_files=()
+for parameter in "${@:2}"; do
+  case "${parameter}" in
+    (-nocleanup)
+      do_cleanup="false"
+      ;;
+    (*)
+      if [[ ! -e "${parameter}" ]]; then
+        echo "Given source PDF file doesn't exist at: ${parameter}"
+        exit 1
+      else
+        source_files+=(${parameter})
+      fi
+      ;;
+  esac
+done
 
-for APPEND_FILE in "${@:2}"; do
-  echo "- Appending file: ${APPEND_FILE}"
-  mv "${ORIGINAL_FILE}" "${TEMP_FILE}"
-  pdfunite "${TEMP_FILE}" "${APPEND_FILE}" "${ORIGINAL_FILE}"
-  rm -f "${TEMP_FILE}"
+echo "Appending ${#source_files} files to $(basename "${target_file}")"
+for source_file in ${source_files}; do
+
+  echo "Appending source PDF file from: ${source_file}"
+  local append_file="${source_file}"
+  if [[ "${do_cleanup}" == "true" ]]; then
+    append_file_name="$(basename ${source_file})"
+    clean_file="$(mktemp).pdf"
+    qpdf --decrypt --object-streams=generate --compress-streams=y --compression-level=9 --recompress-flate "${source_file}" "${clean_file}"
+    append_file=${clean_file}
+  fi
+
+  local target_directory="$(dirname "${target_file}")"
+  local target_file_name="$(basename "${target_file}")"
+  local target_file_name_without_extension="${target_file_name%.*}"
+  local original_file_name="${target_file_name_without_extension} _ original.pdf"
+  local original_file="${target_directory}/${original_file_name}"
+  mv "${target_file}" "${original_file}"
+  pdfunite "${original_file}" "${append_file}" "${target_file}"
+  rm -f "${original_file}"
+
 done
